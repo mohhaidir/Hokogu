@@ -7,14 +7,15 @@ class UserController {
     static loginUser(req, res) {
         let { email, password } = req.body
         User.findOne({
-            where: { email: email }
+            where: { email }
         })
             .then(data => {
                 if (!data) {
                     res.status(404).json({ message: `email not registered` })
                 } else {
                     if (bcrypt.compareSync(password, data.password)) {
-                        let token = jwt.sign({ id: data.id, email: data.email }, process.env.JWT_SECRET);
+                        console.log(`di sini brohhhhh`)
+                        let token = jwt.sign({ id: data.id, email: data.email }, process.env.SECRET);
                         res.status(200).json({ name: data.name, avatar: data.avatar, token })
                     } else {
                         res.status(400).json({ message: `wrong password` })
@@ -29,12 +30,14 @@ class UserController {
     static registerUser(req, res) {
         const { name, email, password, avatar } = req.body
         User.findOne({
-            where: { email: { email } }
+            where: { email }
         })
             .then(data => {
                 if (data) {
+                    console.log(`masuk sini oooi 2222`)
                     res.status(400).json({ message: `email already taken` })
                 } else {
+                    console.log(`masuk sini oooi`)
                     return User.create({
                         name, email, password, avatar
                     })
@@ -45,7 +48,9 @@ class UserController {
                 res.status(201).json({ name, avatar, token })
             })
             .catch(err => {
+                console.log(`masuk sini`)
                 res.status(500).json({
+                    
                     message: "Internal server error",
                 });
             })
