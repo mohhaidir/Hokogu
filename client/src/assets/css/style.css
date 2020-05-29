@@ -1,9 +1,48 @@
 .mainContent {
-    background-color: #fbf4f4;
+    /* background-color: #fbf4f4; */
+    background-color: #f8fffb;
     min-height: calc(100% - 130px);
     position: inherit;
     padding: 2% 5%;
 }
 .noMargin {
     margin: 0 !important;
+}
+.contentMostFav {
+    border-radius: 10px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+    padding: 1% 3%;
+}
+.contentMostFav h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5em;
+    color: #757575;
+    margin: 0;
+}
+.cardContent .MuiCard-root {
+    -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
+    border-radius: 20px;
+}
+.cardContent .MuiCardContent-root {
+    background-color: #fff5db;
+}
+.cardContent .MuiCard-root:hover {
+    -webkit-box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
+    -moz-box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
+    box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
+}
+.titleCard h2{
+    color: #de0000;
+    background-color: #fff5db;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+}
+.bottomCard {
+    background-color: #fff5db;
 }
