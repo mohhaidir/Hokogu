@@ -1,0 +1,9 @@
+.mainContent {
+    background-color: #fbf4f4;
+    min-height: calc(100% - 130px);
+    position: inherit;
+    padding: 2% 5%;
+}
+.noMargin {
+    margin: 0 !important;
+}

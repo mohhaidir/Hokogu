@@ -1,7 +1,10 @@
 import React from 'react';
+import { MostFavSec } from '../components/';
 
 export default function Home() {
     return (
-        <h1>Home</h1>
+        <div className='mainContent'>
+            <MostFavSec/>
+        </div>
     )
 }
