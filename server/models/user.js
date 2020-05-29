@@ -1,22 +1,57 @@
-'use strict';
-const bcrypt = require('bcrypt')
+"use strict";
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    avatar: DataTypes.STRING
-  }, {
-    hooks: {
-      beforeCreate: (instance, option) => {
-        let salt = bcrypt.genSaltSync(10);
-        let hash = bcrypt.hashSync(instance.password, salt);
-        instance.password = hash
+  const User = sequelize.define(
+    "User",
+    {
+      name: {
+        type: DataTypes.STRING,
+        validation: {
+          notEmpty: {
+            message: "Name is required and cannot be empty!"
+          }
+        }
+      },
+      email: {
+        type: DataTypes.STRING,
+        validation: {
+          notEmpty: {
+            message: "Email is required and cannot be empty!"
+          },
+          isEmail: {
+            message: "Invalid email format!"
+          }
+        }
+      },
+      password: {
+        type: DataTypes.STRING,
+        validation: {
+          notEmpty: {
+            message: "Password is required and cannot be empty!"
+          },
+          len: {
+            args: [6, 12],
+            message: "Password length required between 6 to 12!"
+          }
+        }
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        isUrl: true
+      }
+    },
+    {
+      hooks: {
+        beforeCreate: (instance, option) => {
+          let salt = bcrypt.genSaltSync(10);
+          let hash = bcrypt.hashSync(instance.password, salt);
+          instance.password = hash;
+        }
       }
     }
-  });
-  User.associate = function (models) {
+  );
+  User.associate = function(models) {
     // associations can be defined here
     User.hasMany(models.Favorite, { foreignKey: "UserId" });
   };

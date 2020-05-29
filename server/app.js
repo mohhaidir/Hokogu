@@ -11,8 +11,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/users", userRouter);
-app.use("/favorites", favoriteRouter);
+const router = require("./routes");
+app.use(router);
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
 
