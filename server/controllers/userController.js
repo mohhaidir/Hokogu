@@ -11,10 +11,9 @@ class UserController {
     })
       .then(data => {
         if (!data) {
-          res.status(404).json({ message: `email not registered` });
+          res.status(404).json({ message: "Email not registered" });
         } else {
           if (bcrypt.compareSync(password, data.password)) {
-            // console.log(`di sini brohhhhh`);
             let token = jwt.sign(
               { id: data.id, email: data.email },
               process.env.SECRET
@@ -23,12 +22,12 @@ class UserController {
               .status(200)
               .json({ name: data.name, avatar: data.avatar, token });
           } else {
-            res.status(400).json({ message: `wrong password` });
+            res.status(400).json({ message: "Wrong password" });
           }
         }
       })
       .catch(err => {
-        res.status(500).json({ message: `internal server error` });
+        res.status(500).json({ message: "Internal server error" });
       });
   }
 
@@ -39,10 +38,8 @@ class UserController {
     })
       .then(data => {
         if (data) {
-          // console.log(`masuk sini oooi 2222`);
-          res.status(400).json({ message: `email already taken` });
+          throw new Error({ message: "Email already taken" });
         } else {
-          console.log(`masuk sini oooi`);
           return User.create({
             name,
             email,
@@ -56,13 +53,14 @@ class UserController {
           { id: data2.id, email: data2.email },
           process.env.SECRET
         );
-        res.status(201).json({ name, avatar, token });
+        res.status(201).json({ name, avatar, token, id: data2.id });
       })
       .catch(err => {
-        // console.log(`masuk sini`);
-        res.status(500).json({
-          message: "Internal server error"
-        });
+        if (err.message) {
+          res.status(400).json({ message: "Email already taken" });
+        } else {
+          res.status(500).json({ message: "Internal server error" });
+        }
       });
   }
 

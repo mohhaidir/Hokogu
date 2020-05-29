@@ -11,7 +11,7 @@ const authorization = function(req, res, next) {
         });
       } else {
         if (data.UserId !== req.userdata.id) {
-          res.status(400).json({
+          res.status(403).json({
             message: "Forbiden access"
           });
         }
