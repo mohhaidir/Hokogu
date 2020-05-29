@@ -63,6 +63,7 @@ class FavoriteController {
           }
           if (flag == false) {
             hasil.push([data[i].dataValues, { total: 1 }]);
+            // console.log(data[i].dataValues);
           }
         }
         hasil.sort((a, b) => b[1].total - a[1].total);
@@ -75,7 +76,7 @@ class FavoriteController {
   }
 
   static deleteFavorite(req, res) {
-    let id = Number(req.params.id);
+    let { id } = Number(req.params);
     Favorite.findOne({ where: { id } })
       .then(data => {
         if (!data) {

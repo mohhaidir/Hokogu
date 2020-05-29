@@ -14,7 +14,7 @@ class UserController {
           res.status(404).json({ message: `email not registered` });
         } else {
           if (bcrypt.compareSync(password, data.password)) {
-            console.log(`di sini brohhhhh`);
+            // console.log(`di sini brohhhhh`);
             let token = jwt.sign(
               { id: data.id, email: data.email },
               process.env.SECRET
@@ -39,7 +39,7 @@ class UserController {
     })
       .then(data => {
         if (data) {
-          console.log(`masuk sini oooi 2222`);
+          // console.log(`masuk sini oooi 2222`);
           res.status(400).json({ message: `email already taken` });
         } else {
           console.log(`masuk sini oooi`);
@@ -59,7 +59,7 @@ class UserController {
         res.status(201).json({ name, avatar, token });
       })
       .catch(err => {
-        console.log(`masuk sini`);
+        // console.log(`masuk sini`);
         res.status(500).json({
           message: "Internal server error"
         });

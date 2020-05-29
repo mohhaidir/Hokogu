@@ -2,8 +2,9 @@
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
+  const { Model } = sequelize.Sequelize;
+  class User extends Model {}
+  User.init(
     {
       name: {
         type: DataTypes.STRING,
@@ -48,7 +49,8 @@ module.exports = (sequelize, DataTypes) => {
           let hash = bcrypt.hashSync(instance.password, salt);
           instance.password = hash;
         }
-      }
+      },
+      sequelize
     }
   );
   User.associate = function(models) {
