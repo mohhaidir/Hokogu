@@ -5,7 +5,7 @@ import { CardRecipe } from '../components/';
 export default function MostFavSec() {
 
     return (
-        <Grid container spacing={3} className='contentMostFav'>
+        <Grid container spacing={3} className='content'>
             <Grid item xs={12} >
                 <h1>Most Favorite</h1>
                 <hr></hr>

@@ -5,7 +5,7 @@ import { CardRecipe } from '../components/';
 export default function MyFav() {
     return (
         <div className='mainContent'>
-            <Grid container spacing={3} className='contentMostFav'>
+            <Grid container spacing={3} className='content'>
                 <Grid item xs={12} >
                     <h1>My Favorite</h1>
                     <hr></hr>
@@ -14,8 +14,16 @@ export default function MyFav() {
                         direction='row' 
                         spacing={3} 
                         alignItems='center' 
-                        className='noMargin'
+                        className='noMargin limitScroll'
                     >
+                        <CardRecipe/>
+                        <CardRecipe/>
+                        <CardRecipe/>
+                        <CardRecipe/>
+                        <CardRecipe/>
+                        <CardRecipe/>
+                        <CardRecipe/>
+                        <CardRecipe/>
                         <CardRecipe/>
                         <CardRecipe/>
                         <CardRecipe/>
