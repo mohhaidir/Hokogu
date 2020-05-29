@@ -1,13 +1,16 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Button, Box, Divider } from '@material-ui/core';
 import { CardIngredient } from '../components';
-import { LocalDining, AccessTime } from '@material-ui/icons';
+import { LocalDining, AccessTime, DoubleArrow } from '@material-ui/icons';
+import { useStyles } from '../assets/css';
 
 export default function Detail() {
+    const classes = useStyles();
+
     return (
-        <div className='mainContent'>
+        <Box className='mainContent'>
             <Grid container spacing={3} className='content'>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                     <h1>Nasi Goreng</h1>
                     <hr></hr>
                     <Grid item xs={12} 
@@ -27,8 +30,9 @@ export default function Detail() {
                             </div>
                         </Grid>
                         <Grid item lg={9} sm={12}>
-                                <h1>Ingredients</h1>
-                            <Grid item container spacing={2} direction={'row'}>
+                            <h1>Ingredients</h1>
+                            <Divider/>
+                            <Grid item container spacing={2} direction={'row'} style={{marginTop:'20px'}}>
                                 <CardIngredient/>
                                 <CardIngredient/>
                                 <CardIngredient/>
@@ -39,9 +43,19 @@ export default function Detail() {
                                 <CardIngredient/>
                             </Grid>
                         </Grid>
+                        <Grid item xs={12} className='buttonCooking'>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                startIcon={<DoubleArrow />}
+                            >
+                                Let's Cooking
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
+        </Box>
     )
 }

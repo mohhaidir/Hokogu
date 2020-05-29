@@ -87,3 +87,11 @@
 .iconColor {
     color: #d84545;
 }
+.buttonCooking {
+    text-align: right;
+}
+@media only screen and (max-width: 600px) {
+    .buttonCooking {
+        text-align: center;
+    }
+}
