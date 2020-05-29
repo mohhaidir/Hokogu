@@ -18,7 +18,7 @@ class FavoriteController {
     })
       .then(data => {
         if (data) {
-          res.status(400).json({ message: "this is already in your favorite" });
+          throw new Error({ message: "This is already in your favorite" });
         } else {
           return Favorite.create(newFavorite);
         }
@@ -26,11 +26,17 @@ class FavoriteController {
       .then(result => {
         res.status(201).json({
           message: "Success added a new favorite",
-          favorite: newFavorite
+          favorite: result
         });
       })
       .catch(err => {
-        res.status(500).json({ message: `internal server error`, error: err });
+        if (err.message) {
+          res.status(400).json({ message: "This is already in your favorite" });
+        } else {
+          res
+            .status(500)
+            .json({ message: "Internal server error", error: err });
+        }
       });
   }
 
@@ -39,12 +45,12 @@ class FavoriteController {
     Favorite.findAll({ where: { UserId: id } })
       .then(result => {
         res.status(200).json({
-          message: "success retrieved your favorites",
+          message: "Success retrieved your favorites",
           favorites: result
         });
       })
       .catch(err => {
-        res.status(500).json({ message: `internal server error`, error: err });
+        res.status(500).json({ message: "Internal server error", error: err });
       });
   }
 
@@ -53,7 +59,6 @@ class FavoriteController {
       .then(data => {
         let hasil = [];
         for (let i = 0; i < data.length; i++) {
-          // console.log(data[i]);
           let flag = false;
           for (let j = 0; j < hasil.length; j++) {
             if (data[i].recipeId == hasil[j][0].recipeId) {
@@ -63,33 +68,31 @@ class FavoriteController {
           }
           if (flag == false) {
             hasil.push([data[i].dataValues, { total: 1 }]);
-            // console.log(data[i].dataValues);
           }
         }
         hasil.sort((a, b) => b[1].total - a[1].total);
-        console.log(hasil);
         res.status(200).json({ mostFavorite: hasil[0] });
       })
       .catch(err => {
-        res.status(500).json({ message: `internal server error`, error: err });
+        res.status(500).json({ message: "Internal server error", error: err });
       });
   }
 
   static deleteFavorite(req, res) {
-    let { id } = Number(req.params);
+    let id = Number(req.params.id);
     Favorite.findOne({ where: { id } })
       .then(data => {
         if (!data) {
-          res.status(404).json({ status: 404, message: `favorite not found` });
+          res.status(404).json({ message: "Favorite not found" });
         } else {
           return Favorite.destroy({ where: { id } });
         }
       })
       .then(result => {
-        res.status(200).json({ message: "success deleted a favorite" });
+        res.status(200).json({ message: "Success deleted a favorite" });
       })
       .catch(err => {
-        res.status(500).json({ message: `internal server error`, error: err });
+        res.status(500).json({ message: "Internal server error", error: err });
       });
   }
 }

@@ -11,6 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 const router = require("./routes");
 app.use(router);
 
-// app.listen(port, () => console.log(`Listening on port ${port}!`));
+app.listen(port, () => console.log(`Listening on port ${port}!`));
 
 module.exports = app;
