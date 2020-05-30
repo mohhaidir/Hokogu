@@ -20,8 +20,14 @@
   background-color: transparent;
   text-align: center;
   font-size: x-large;
+  color: transparent;
+  text-shadow: 0 0 0 black;
   border-color: transparent;
 
+}
+
+.searchInput:focus {
+  outline: none;
 }
 
 .App-header {
