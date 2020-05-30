@@ -102,6 +102,10 @@
 .buttonCooking {
     text-align: right;
 }
+.buttonCooking a {
+    text-decoration: none;
+    color: #fff;
+}
 @media only screen and (max-width: 600px) {
     .buttonCooking {
         text-align: center;

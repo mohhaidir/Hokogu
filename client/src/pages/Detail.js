@@ -3,6 +3,7 @@ import { Grid, Button, Box, Divider } from '@material-ui/core';
 import { CardIngredient } from '../components';
 import { LocalDining, AccessTime, DoubleArrow } from '@material-ui/icons';
 import { useStyles } from '../assets/css';
+import { Link } from 'react-router-dom';
 
 export default function Detail() {
     const classes = useStyles();
@@ -50,7 +51,9 @@ export default function Detail() {
                                 className={classes.button}
                                 startIcon={<DoubleArrow />}
                             >
-                                Let's Cooking
+                                <Link to='/step'>
+                                    Let's Cooking
+                                </Link>
                             </Button>
                         </Grid>
                     </Grid>

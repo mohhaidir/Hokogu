@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { Home, Login, Register, MyFav, Detail } from './pages';
+import { Home, Login, Register, MyFav, Detail, Step } from './pages';
 import { Navbar } from './components';
 import './assets/css/style.css';
 
@@ -25,6 +25,10 @@ const routes = [
   {
     path: '/detail',
     children: <Detail/>
+  },
+  {
+    path: '/step',
+    children: <Step/>
   },
 ];
 
