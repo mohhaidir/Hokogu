@@ -26,7 +26,7 @@ const routes = [
     children: <MyFav/>
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     children: <Detail/>
   },
   {
@@ -51,7 +51,7 @@ function App() {
   return (
     <Router>
         <Navbar />
-        <div>
+        <div className='underNav'>
           <AppRouter />
         </div>
     </Router>

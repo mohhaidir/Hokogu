@@ -113,7 +113,7 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <Toolbar  style={{ width:'100vw'}}>
-        <div style={{display: 'flex', padding: '5px', width:'100vw'}}>
+        <div style={{display: 'flex', padding: '5px', width:'100vw', justifyContent: 'space-between', alignItems: 'center'}}>
             <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -123,8 +123,8 @@ export default function PersistentDrawerLeft() {
             >
                 <MenuIcon style={{fontSize: "50px"}} />
             </IconButton>
-            <div style={{ marginTop: '15px', marginRight: '37vw', marginLeft: '37vw'}}>
-                <Link  to='/' style={{ textDecoration: 'none', marginTop: '10px' }}>
+            <div>
+                <Link  to='/' style={{ textDecoration: 'none' }}>
                 <img  src="./logo.png" height="50px"></img>
                 </Link>
             </div>
@@ -132,7 +132,6 @@ export default function PersistentDrawerLeft() {
             <div 
             style={{ 
                 textDecoration: 'none', 
-                marginTop: '10px',
                 // justifyContent: 'flex-end'
             }} 
             edge="end" 
