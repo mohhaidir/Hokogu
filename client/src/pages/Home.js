@@ -7,13 +7,14 @@ import LargeGradientButton from '../components/LargeGardientButton'
 import Drawer from '@material-ui/core/Drawer';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
-
+import StaffPicks from '../components/StaffPicks'
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
     appBar: {
       // marginLeft: '30px',
+      textAlign: 'center',
       boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
       backgroundColor: '#fdfff5',
       transition: theme.transitions.create(['margin', 'width'], {
@@ -26,16 +27,24 @@ const useStyles = makeStyles((theme) => ({
       // marginRight: theme.spacing(2),
     },
     drawer: {
+        textAlign: 'center',
       width: '100vw',
       flexShrink: 0,
       display: 'flex'
     },
     drawerPaper: {
+        textAlign: 'center',
+        margin: 'auto',
+        marginTop: '30px',
         display: 'flex',
         backgroundColor: '#fdfff5',
-        width: '100vw',
-        height: '150px',
-        display: 'flex'
+        width: '90vw',
+        height: '75px',
+        display: 'flex',
+        borderRadius: '50px'
+        // borderBottomLeftRadius: '20px',
+        // borderBottomRightRadius: '20px'
+
     },
     drawerHeader: {
       display: 'flex',
@@ -71,14 +80,14 @@ export default function Home() {
           paper: classes.drawerPaper,
         }}
         >
-            <div style={{display: 'flex', padding: '7px'}}>
+            <div style={{display: 'inline-block', padding: '7px', textAlign: 'center'}}>
+                <input placeholder='what are you craving...' className='searchInput' type="text"/>
                 <IconButton onClick={handleDrawerClose}>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
-                <h2>search</h2>
+
 
             </div>
-
         </Drawer>
 
 
@@ -110,8 +119,18 @@ export default function Home() {
             <LargeGradientButton  words='Find Recipes'/>
             </MuiThemeProvider>
             </div>
-
         </div>
+
+
+        <div style={{padding: "40px 100px", backgroundColor: "#fdfff5"}}>
+            <h1 style={{color: '#fd515c', fontSize: '40px', textAlign: 'center'}}>Staff Picks</h1>
+            <StaffPicks/>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+
+
         </>
     )
 }

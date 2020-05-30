@@ -13,6 +13,17 @@
   }
 }
 
+.searchInput {
+  width: 95%;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  font-size: x-large;
+  border-color: transparent;
+
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
