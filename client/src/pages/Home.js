@@ -91,17 +91,8 @@ export default function Home() {
         </Drawer>
 
 
-        <div style={{
-        backgroundImage: `url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg')`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '70vh',
-        padding: '400px',
-        paddingTop: '100px',
-        textAlign: 'center'
-        }}>
-            <h1 className='homeSlogan' style={{textAlign: 'center'}}>
+        <div className='bannerHome'>
+            <h1 className='homeSlogan'>
                     Nothing brings people together like good food
             </h1>
             <div
@@ -114,8 +105,6 @@ export default function Home() {
             overrides: LargeGradientButton.getTheme(muiBaseTheme)
             })}
             >
-            <br/>
-
             <LargeGradientButton  words='Find Recipes'/>
             </MuiThemeProvider>
             </div>

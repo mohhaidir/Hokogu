@@ -40,12 +40,11 @@ export const getTheme = muiBaseTheme => ({
 });
 
 const LargeGardientButton = (props) => (
-  <React.Fragment>
-    <Button style={{width: '500px', height: '70px', fontSize: '50px'}} className={"MuiButton--gradient MuiButton--chubby"}>
+  <>
+    <Button className={"btnFind MuiButton--gradient MuiButton--chubby"}>
         {props.words}
     </Button>
-
-  </React.Fragment>
+  </>
 );
 
 LargeGardientButton.getTheme = getTheme;
