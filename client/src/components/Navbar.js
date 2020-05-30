@@ -25,7 +25,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
 
 
-const drawerWidth = 360;
+const drawerWidth = 200;
 
   
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     // marginLeft: '30px',
-    boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+    boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
     backgroundColor: '#fdfff5',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 //   },
   menuButton: {
     color: '#ff9687',
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
   },
 //   hide: {
 //     display: 'none',
@@ -109,11 +109,13 @@ export default function PersistentDrawerLeft() {
       <CssBaseline />
       <AppBar
         position="fixed"
+        // style={{width: 'auto'}}
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar  style={{padding:"10px", width:'100%'}}>
+        <Toolbar  style={{ width:'100vw'}}>
+        <div style={{display: 'flex', padding: '5px', width:'100vw'}}>
             <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -123,25 +125,34 @@ export default function PersistentDrawerLeft() {
             >
                 <MenuIcon style={{fontSize: "50px"}} />
             </IconButton>
-            <Link  to='/' style={{ textDecoration: 'none', marginLeft: "35%" }}>
-
-            <img  src="./logo.png" height="60px"></img>
-            </Link>
-
-            <div style={{marginLeft: "35%"}} justifyContent="flex-end" >
-            <Link  to='/login' style={{ textDecoration: 'none' }}>
-                <MuiThemeProvider
-                theme={createMuiTheme({
-                    typography: {
-                    useNextVariants: true
-                    },
-                    overrides: GradientButton.getTheme(muiBaseTheme)
-                })}
-                >
-                    <GradientButton words='Login'/>
-                </MuiThemeProvider>
-            </Link>
+            <div style={{ marginTop: '15px', marginRight: '37vw', marginLeft: '37vw'}}>
+                <Link  to='/' style={{ textDecoration: 'none', marginTop: '10px' }}>
+                <img  src="./logo.png" height="50px"></img>
+                </Link>
             </div>
+
+            <div 
+            style={{ 
+                textDecoration: 'none', 
+                marginTop: '10px',
+                // justifyContent: 'flex-end'
+            }} 
+            edge="end" 
+            justifyContent="flex-end" >
+                <Link  to='/login' style={{ textDecoration: 'none' }}>
+                    <MuiThemeProvider
+                    theme={createMuiTheme({
+                        typography: {
+                        useNextVariants: true
+                        },
+                        overrides: GradientButton.getTheme(muiBaseTheme)
+                    })}
+                    >
+                        <GradientButton words='Login'/>
+                    </MuiThemeProvider>
+                </Link>
+            </div>
+        </div>
         </Toolbar>
 
       </AppBar>
@@ -157,6 +168,7 @@ export default function PersistentDrawerLeft() {
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
+          
         </div>
         <List>
             <Link onClick={handleDrawerClose} to='/' style={{ textDecoration: 'none' }}>
@@ -164,7 +176,7 @@ export default function PersistentDrawerLeft() {
                     <ListItemIcon> <HomeIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
                     <ListItemText primary={'Home'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
-            </Link >
+            </Link>
             <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
                 <ListItem button>
                     <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
