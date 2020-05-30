@@ -8,7 +8,7 @@ export const getTheme = muiBaseTheme => ({
         borderRadius: 50
       },
       "&.MuiButton--gradient": {
-        minWidth: 200,
+        minWidth: 150,
         transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
         background:
           "linear-gradient(to right, #ffcbcb, #FF5F6D)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
@@ -20,7 +20,7 @@ export const getTheme = muiBaseTheme => ({
     label: {
       color: muiBaseTheme.palette.common.white,
       textTransform: "none",
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 700
     },
     contained: {
@@ -39,17 +39,20 @@ export const getTheme = muiBaseTheme => ({
   }
 });
 
-const GradientButton = () => (
+const LargeGardientButton = (props) => (
   <React.Fragment>
-    <Button className={"MuiButton--gradient MuiButton--chubby"}>Login</Button>
+    <Button style={{width: '500px', height: '70px', fontSize: '50px'}} className={"MuiButton--gradient MuiButton--chubby"}>
+        {props.words}
+    </Button>
+
   </React.Fragment>
 );
 
-GradientButton.getTheme = getTheme;
-GradientButton.displayName = "Button";
-GradientButton.metadata = {
+LargeGardientButton.getTheme = getTheme;
+LargeGardientButton.displayName = "Button";
+LargeGardientButton.metadata = {
   name: "Gradient",
   description: "Welcome to the new trend"
 };
 
-export default GradientButton;
+export default LargeGardientButton;

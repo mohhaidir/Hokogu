@@ -22,10 +22,10 @@ import StarIcon from '@material-ui/icons/Star';
 import JssProvider from "react-jss/lib/JssProvider";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import LoginButton from './loginButton'
+import GradientButton from './GradientButton'
 
 
-const drawerWidth = 240;
+const drawerWidth = 360;
 
   
 const useStyles = makeStyles((theme) => ({
@@ -96,7 +96,6 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
 
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -124,18 +123,22 @@ export default function PersistentDrawerLeft() {
             >
                 <MenuIcon style={{fontSize: "50px"}} />
             </IconButton>
-            <img style={{marginLeft: "35%"}} src="./logo.png" height="60px"></img>
+            <Link  to='/' style={{ textDecoration: 'none', marginLeft: "35%" }}>
+
+            <img  src="./logo.png" height="60px"></img>
+            </Link>
+
             <div style={{marginLeft: "35%"}} justifyContent="flex-end" >
-            <Link to='/login' style={{ textDecoration: 'none' }}>
+            <Link  to='/login' style={{ textDecoration: 'none' }}>
                 <MuiThemeProvider
                 theme={createMuiTheme({
                     typography: {
                     useNextVariants: true
                     },
-                    overrides: LoginButton.getTheme(muiBaseTheme)
+                    overrides: GradientButton.getTheme(muiBaseTheme)
                 })}
                 >
-                    <LoginButton/>
+                    <GradientButton words='Login'/>
                 </MuiThemeProvider>
             </Link>
             </div>
@@ -155,18 +158,17 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-        {/* <Divider /> */}
         <List>
-            <Link to='/' style={{ textDecoration: 'none' }}>
+            <Link onClick={handleDrawerClose} to='/' style={{ textDecoration: 'none' }}>
                 <ListItem button>
-                    <ListItemIcon> <HomeIcon style={{color:"#ff9687"}}/> </ListItemIcon>
-                    <ListItemText primary={'Home'} style={{color:"#ff9687"}}/>
+                    <ListItemIcon> <HomeIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
+                    <ListItemText primary={'Home'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link >
-            <Link to='/favorites' style={{ textDecoration: 'none' }}>
+            <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
                 <ListItem button>
-                    <ListItemIcon> <StarIcon style={{color:"#ff9687"}}/> </ListItemIcon>
-                    <ListItemText primary={'Favourites'} style={{color:"#ff9687"}}/>
+                    <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
+                    <ListItemText primary={'Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link>
         </List>

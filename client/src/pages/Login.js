@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#FF5F6D',
+    backgroundColor: '#ff959c',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -77,9 +77,11 @@ export default function Login() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
+          {/* <Typography component="h1" variant="h5" color="#ff959c">
+            LOGIN
+          </Typography> */}
+          {/* <h2 style={{color: '#ff959c'}}>LOGIN</h2> */}
+
           <form className={classes.form} noValidate>
             <TextField
             color="secondary"

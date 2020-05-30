@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import LoginButton from '../components/loginButton'
+import LargeGradientButton from '../components/LargeGardientButton'
 
 
 
@@ -11,17 +11,37 @@ export default function Home() {
 
     return (
         <>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <h1>Home</h1>
 
+        <div style={{
+        backgroundImage: `url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg')`,
+        // backgroundColor: 'wheat',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '70vh',
+        padding: '400px',
+        paddingTop: '100px',
+        textAlign: 'center'
+        }}>
+            <h1 className='homeSlogan' style={{textAlign: 'center'}}>
+                    Nothing brings people together like good food
+            </h1>
+            <MuiThemeProvider
+            theme={createMuiTheme({
+            typography: {
+            useNextVariants: true
+            },
+            overrides: LargeGradientButton.getTheme(muiBaseTheme)
+            })}
+            >
+            <br/>
+
+            
+            <LargeGradientButton words='Find Recipes'/>
+            </MuiThemeProvider>
+
+
+        </div>
         </>
     )
 }

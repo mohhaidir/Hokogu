@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.homeSlogan{
+  color: #FF5F6D;
+  /* opacity: 100%; */
+  /* border: 3px solid #FF5F6D; */
+  font-size: 90px;
+  font-family: 'Dancing Script', cursive;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+.sloganBox{
+  position: absolute;
+  top: 400;
+  /* left: 500; */
+
+  border-radius: 20px;
+  background: rgba(139, 59, 59, 0.5);
+  opacity: 50%;
+  border: 5px solid #FF5F6D;
+  height: 300px;
+  /* width: 80%; */
+}
