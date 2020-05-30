@@ -9,6 +9,12 @@ export default function Detail() {
 
     return (
         <Box className='mainContent'>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
             <Grid container spacing={3} className='content'>
                 <Grid item xs={12}>
                     <h1>Nasi Goreng</h1>
