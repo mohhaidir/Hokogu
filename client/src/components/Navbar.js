@@ -69,7 +69,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
   },
 //   content: {
 //     flexGrow: 1,
@@ -136,7 +135,7 @@ export default function PersistentDrawerLeft() {
                 // justifyContent: 'flex-end'
             }} 
             edge="end" 
-            justifyContent="flex-end" >
+            >
                 <Link  to='/login' style={{ textDecoration: 'none' }}>
                     <MuiThemeProvider
                     theme={createMuiTheme({

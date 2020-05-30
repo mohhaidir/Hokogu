@@ -40,6 +40,12 @@ export default function MyFav() {
 
     return (
         <div className='mainContent'>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
             <Grid container spacing={3} className='content'>
                 <Grid item xs={12} >
                     <h1>My Favorite</h1>

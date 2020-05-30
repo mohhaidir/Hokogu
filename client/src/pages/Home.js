@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from "react-dom";
+import React, {useState} from 'react';
+import {Link, useHistory} from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import Drawer from '@material-ui/core/Drawer';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
 import StaffPicks from '../components/StaffPicks'
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,19 +61,30 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home() {
-    console.log('aa')
+    const history = useHistory()
     const muiBaseTheme = createMuiTheme();
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [query, setQuery] = useState('');
     const handleDrawerOpen = () => {
         setOpen(true);
-      };
+    };
     
-      const handleDrawerClose = () => {
-        setOpen(false);
-            
-      };
-    
+    const handleDrawerClose = () => {
+        setOpen(false);    
+    };
+
+    const handleQuery = (value) => {
+        setQuery(value);
+    }
+
+    const search = (e) => {
+        e.preventDefault();
+        if(query !== ''){
+            history.push(`/search?query=${query}`)
+        }
+    }
+
     return (
         <>
         <Drawer
@@ -83,13 +95,18 @@ export default function Home() {
           paper: classes.drawerPaper,
         }}
         >
-            <div style={{display: 'inline-block', padding: '7px', textAlign: 'center'}}>
-                <input autoFocus placeholder='what are you craving...' className='searchInput' type="text"/>
+            <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
+                <form className='searchForm' onSubmit={search}>
+                    <input 
+                    autoFocus 
+                    onChange={(e)=>handleQuery(e.target.value)}
+                    placeholder='what are you craving...' 
+                    className='searchInput' 
+                    type="text"/>
+                </form>
                 <IconButton onClick={handleDrawerClose}>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
-
-
             </div>
         </Drawer>
 
