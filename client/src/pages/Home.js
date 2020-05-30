@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home() {
+    console.log('aa')
     const muiBaseTheme = createMuiTheme();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
