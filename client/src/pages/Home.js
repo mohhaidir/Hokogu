@@ -8,6 +8,7 @@ import Drawer from '@material-ui/core/Drawer';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
 import StaffPicks from '../components/StaffPicks'
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -68,6 +69,7 @@ export default function Home() {
     
       const handleDrawerClose = () => {
         setOpen(false);
+            
       };
     
     return (
@@ -81,7 +83,7 @@ export default function Home() {
         }}
         >
             <div style={{display: 'inline-block', padding: '7px', textAlign: 'center'}}>
-                <input placeholder='what are you craving...' className='searchInput' type="text"/>
+                <input autoFocus placeholder='what are you craving...' className='searchInput' type="text"/>
                 <IconButton onClick={handleDrawerClose}>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
