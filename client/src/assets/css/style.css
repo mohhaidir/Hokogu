@@ -10,6 +10,18 @@
         padding: 5%;
     }
 }
+.bannerHome {
+    background-image: url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    padding: 5% 22%;
+    text-align: center;
+}
+.underNav {
+    margin-top: 84px;
+}
 .noMargin {
     margin: 0 !important;
 }
@@ -93,5 +105,24 @@
 @media only screen and (max-width: 600px) {
     .buttonCooking {
         text-align: center;
+    }
+}
+.btnFind {
+    width: 50%;
+    height: 70px;
+    font-size: 2.9em;
+}
+@media only screen and (max-width: 600px) {
+    .btnFind {
+        width: 100%;
+        height: 50px;
+        font-size: 2.5em;
+    }
+}
+@media only screen and (max-width: 1250px) {
+    .btnFind {
+        width: 70%;
+        height: 50px;
+        font-size: 2.5em;
     }
 }
