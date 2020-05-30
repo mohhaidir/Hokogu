@@ -23,7 +23,7 @@ const routes = [
     children: <MyFav/>
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     children: <Detail/>
   },
   {
