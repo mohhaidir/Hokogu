@@ -24,7 +24,6 @@ import { createGenerateClassName } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
 
-
 const drawerWidth = 200;
 
   

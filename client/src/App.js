@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { Home, Login, Register, MyFav, Detail } from './pages';
 import { Navbar } from './components';
+import './assets/css/style.css';
 
 const routes = [
   {
