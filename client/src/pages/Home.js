@@ -11,6 +11,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
 import StaffPicks from '../components/StaffPicks'
 import SearchIcon from '@material-ui/icons/Search';
+import { Mic as MicIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,6 +71,8 @@ export default function Home() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
+    const [isOnListening, setIsOnListening] = useState(false);
+
     useEffect(()=> {
       if(localStorage.getItem('hokugo_token')){
           dispatch(setIsLoggedIn(true));
@@ -80,6 +83,7 @@ export default function Home() {
     }, [isLoggedIn])
   
     const handleDrawerOpen = () => {
+        console.log('disiniiii')
         setOpen(true);
     };
     
@@ -96,6 +100,32 @@ export default function Home() {
         if(query !== ''){
             history.push(`/search?query=${query}`)
         }
+    }
+
+    function speechToText() {
+      // speech recognition API supported
+      var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+      var recognition = new SpeechRecognition(); 
+      // This will run when the speech recognition service returns a result
+      recognition.onstart = function() {
+          console.log("Voice recognition started. Try speaking into the microphone.");
+          setIsOnListening(true);
+      };
+      
+      recognition.onresult = function(event) {
+          setIsOnListening(false);
+          var transcript = event.results[0][0].transcript;
+          if (query !== '' || query !== undefined || query !== null) {
+            setQuery(transcript);
+            console.log('querrry', query)
+            if(transcript !== ''){
+              history.push(`/search?query=${transcript}`)
+            }
+          }
+      };
+      
+      // start recognition
+      recognition.start();
     }
 
     useEffect(()=> {
@@ -118,6 +148,7 @@ export default function Home() {
           paper: classes.drawerPaper,
         }}
         >
+          {query && JSON.stringify(query)}
             <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
                 <form className='searchForm' onSubmit={search}>
                     <input 
@@ -127,6 +158,13 @@ export default function Home() {
                     className='searchInput' 
                     type="text"/>
                 </form>
+                <IconButton onClick={speechToText}>
+                    {isOnListening ? 
+                    <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
+                    :
+                    <MicIcon style={{fontSize: "40px"}} />  
+                    }
+                </IconButton>
                 <IconButton onClick={handleDrawerClose}>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
