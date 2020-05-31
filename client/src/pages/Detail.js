@@ -7,6 +7,7 @@ import { useStyles } from '../assets/css';
 import { useParams, Link, useHistory } from 'react-router-dom'
 
 export default function Detail(props) {
+    const history = useHistory()
     const { id } = useParams()
     const classes = useStyles();
     const [ingredients, setIngredients] = useState([])
@@ -32,7 +33,11 @@ export default function Detail(props) {
                 console.log(err)
             })
     }, [])
-    console.log(props)
+    
+    function goToStep(){
+        history.push(`/step/${id}`)
+    }
+
     return (
         <Box className='mainContent'>
             <br />
@@ -80,6 +85,7 @@ export default function Detail(props) {
                                 color="secondary"
                                 className={classes.button}
                                 startIcon={<DoubleArrow />}
+                                onClick={goToStep}
                             >
                                 Let's Cooking
                             </Button>
