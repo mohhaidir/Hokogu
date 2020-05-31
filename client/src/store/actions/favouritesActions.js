@@ -2,11 +2,12 @@ import { SET_FAVOURITES, SET_FAVOURITESLOADING} from "./types";
 import axios from "axios";
 
 const url = 'http://localhost:3000'
-const token = localStorage.getItem('hokogu_token')
+ 
 
 export const getFavourites = () => {
   console.log('aaaaaa')
-  console.log(token)
+  // console.log(token)
+  let token = localStorage.getItem('hokogu_token')
   console.log('masuk')
   return (dispatch) => {
     dispatch(setFavouritesLoading(true))
@@ -35,6 +36,7 @@ export const getFavourites = () => {
 }
 
 export const addToFavourite = (data) => {
+  let token = localStorage.getItem('hokogu_token')
   return (dispatch) => {
     axios ({
       method: "post",
@@ -54,6 +56,7 @@ export const addToFavourite = (data) => {
 }
 
 export const removeFromFavourite = (id) =>{
+  let token = localStorage.getItem('hokogu_token')
   return (dispatch) => {
     axios ({
       method: "delete",
