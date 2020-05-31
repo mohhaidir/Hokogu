@@ -112,11 +112,10 @@ export default function StepCooking(props) {
         ])
         textToSpeech("Let's Cook");
         const intervalSpeechToText = setInterval(speechToText, 5000);
-        window.addEventListener('mousemove', () => {});
 
         // returned function will be called on component unmount 
         return () => {
-                clearInterval(intervalSpeechToText);
+            clearInterval(intervalSpeechToText);
         }
      
     }, [])
