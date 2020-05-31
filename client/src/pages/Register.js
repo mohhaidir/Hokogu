@@ -17,6 +17,7 @@ import LargeGradientButton from "../components/LargeGardientButton";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../store/actions/userActions";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { storage } from "../firebase/firebase";
 
 const ColorButton = withStyles(theme => ({
   root: {
@@ -75,7 +76,6 @@ export default function Register() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState(""); // <-- avatar
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -96,8 +96,14 @@ export default function Register() {
     setConfirmPassword(e.target.value);
   };
 
-  const avatarHandle = e => {
-    setAvatar(e.target.value); // <-- avatar
+  const allInputs = { imgUrl: "" };
+  const [imageAsFile, setImageAsFile] = useState("");
+  const [imageAsUrl, setImageAsUrl] = useState(allInputs);
+  console.log(imageAsUrl);
+  const handleImageAsFile = e => {
+    console.log(e.target.files);
+    const image = e.target.files[0];
+    setImageAsFile(imageFile => image);
   };
 
   const signUp = () => {
@@ -108,8 +114,51 @@ export default function Register() {
         password: password,
         avatar: "none"
       };
-      dispatch(register(data));
+      if (imageAsFile === "") {
+        console.error(
+          `not an image, the image file is a ${typeof imageAsFile}`
+        );
+      }
+      const uploadTask = storage
+        .ref(`/images/${imageAsFile.name}`)
+        .put(imageAsFile);
+      //initiates the firebase side uploading
+      uploadTask.on(
+        "state_changed",
+        snapShot => {
+          //takes a snap shot of the process as it is happening
+          console.log(snapShot);
+        },
+        err => {
+          //catches the errors
+          console.log(err);
+        },
+        () => {
+          // gets the functions from storage refences the image storage in firebase by the children
+          // gets the download url then sets the image from firebase as the value for the imgUrl key:
+          storage
+            .ref("images")
+            .child(imageAsFile.name)
+            .getDownloadURL()
+            .then(fireBaseUrl => {
+              setImageAsUrl(prevObject => ({
+                ...prevObject,
+                imgUrl: fireBaseUrl
+              }));
+              // console.log(fireBaseUrl, "<---- IMAGE AS URL");
+              data.avatar = fireBaseUrl;
+              dispatch(register(data));
+              console.log(imageAsFile);
+            });
+        }
+      );
     }
+  };
+
+  const handleFireBaseUpload = e => {
+    e.preventDefault();
+    console.log("start of upload");
+    // async magic goes here...
   };
 
   useEffect(() => {
@@ -190,33 +239,23 @@ export default function Register() {
               onChange={confirmPasswordHandle}
             />
 
-            <TextField
-              color="secondary"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Avatar"
-              type="url"
-            />
-
             <input
               accept="image/*"
               className={classes.input}
               id="contained-button-file"
               multiple
               type="file"
+              onChange={handleImageAsFile} // <-- dari firebase
             />
 
-            <label htmlFor="contained-button-file">
+            <label htmlFor="contained-button-file" className={"buttonUpload"}>
               <Button
                 variant="contained"
                 color="secondary"
                 size="small"
                 component="span"
-                className={classes.button}
+                // className={classes.button}
                 startIcon={<CloudUploadIcon />}
-                onChange={avatarHandle}
               >
                 Upload
               </Button>
