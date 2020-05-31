@@ -110,12 +110,13 @@ export default function Home() {
             </div>
         </Drawer>
 
-
+        
         <div className='bannerHome'>
             <h1 className='homeSlogan'>
                     Nothing brings people together like good food
             </h1>
             <div
+            style={{marginTop: '100px'}}
             onClick={handleDrawerOpen} >
             <MuiThemeProvider
             theme={createMuiTheme({

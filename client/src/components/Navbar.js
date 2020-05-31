@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react'
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom'
+import {logout, setIsLoggedIn, setToken, setName, setAvatar} from '../store/actions/userActions'
 import {Button} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,16 +24,15 @@ import JssProvider from "react-jss/lib/JssProvider";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
+import {useSelector,useDispatch} from 'react-redux'
 
-const drawerWidth = 200;
-
+const drawerWidth = 300;
   
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   appBar: {
-    // marginLeft: '30px',
     boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
     backgroundColor: '#fdfff5',
     transition: theme.transitions.create(['margin', 'width'], {
@@ -40,21 +40,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-//   appBarShift: {
-//     width: `calc(100%)`,
-//     marginLeft: '0',
-//     transition: theme.transitions.create(['margin', 'width'], {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   },
   menuButton: {
     color: '#ff9687',
-    // marginRight: theme.spacing(2),
   },
-//   hide: {
-//     display: 'none',
-//   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -70,29 +58,20 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-//   content: {
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: -drawerWidth,
-//   },
-//   contentShift: {
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//     marginLeft: 0,
-//   },
 }));
 
 export default function PersistentDrawerLeft() {
+  const dispatch = useDispatch()
   const classes = useStyles();
+  const { isLoggedIn} = useSelector(state => state.userReducer);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
+
+  const doLogout = () => {
+    dispatch(logout())
+  }
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,6 +80,16 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(()=> {
+    if(localStorage.getItem('reddit_token')){
+        dispatch(setIsLoggedIn(true));
+        dispatch(setToken(localStorage.getItem('hokugo_token')));
+        dispatch(setName(localStorage.getItem('hokugo_name')));
+        dispatch(setAvatar(localStorage.getItem('hokugo_avatar')));
+    }
+}, [isLoggedIn])
+
 
   return (
     <div className={classes.root}>
@@ -128,27 +117,50 @@ export default function PersistentDrawerLeft() {
                 <img  src="./logo.png" height="50px"></img>
                 </Link>
             </div>
-
-            <div 
-            style={{ 
-                textDecoration: 'none', 
-                // justifyContent: 'flex-end'
-            }} 
-            edge="end" 
-            >
-                <Link  to='/login' style={{ textDecoration: 'none' }}>
-                    <MuiThemeProvider
-                    theme={createMuiTheme({
-                        typography: {
-                        useNextVariants: true
-                        },
-                        overrides: GradientButton.getTheme(muiBaseTheme)
-                    })}
-                    >
-                        <GradientButton words='Login'/>
-                    </MuiThemeProvider>
-                </Link>
-            </div>
+            { isLoggedIn &&
+              <div 
+              style={{ 
+                  textDecoration: 'none', 
+                  // justifyContent: 'flex-end'
+              }} 
+              onClick={doLogout}
+              edge="end" 
+              >
+                <MuiThemeProvider
+                theme={createMuiTheme({
+                    typography: {
+                    useNextVariants: true
+                    },
+                    overrides: GradientButton.getTheme(muiBaseTheme)
+                })}
+                >
+                  <GradientButton words='Logout'/>
+                </MuiThemeProvider>
+              </div>
+            
+            }
+            { !isLoggedIn &&
+              <div 
+              style={{ 
+                  textDecoration: 'none', 
+                  // justifyContent: 'flex-end'
+              }} 
+              edge="end" 
+              >
+                  <Link  to='/login' style={{ textDecoration: 'none' }}>
+                      <MuiThemeProvider
+                      theme={createMuiTheme({
+                          typography: {
+                          useNextVariants: true
+                          },
+                          overrides: GradientButton.getTheme(muiBaseTheme)
+                      })}
+                      >
+                          <GradientButton words='Login'/>
+                      </MuiThemeProvider>
+                  </Link>
+              </div>
+            }
         </div>
         </Toolbar>
 

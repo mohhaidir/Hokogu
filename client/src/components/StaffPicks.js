@@ -105,7 +105,7 @@ const items = [
         Items: [
             {
                 Name: "Nasi Goreng",
-                Image: "https://cdns.klimg.com/merdeka.com/i/w/news/2017/09/06/883756/content_images/670x335/20191201201534-1-ilustrasi-nasi-goreng-004-tantri-setyorini.jpg"
+                Image: "https://i0.wp.com/tastynesia.com/wp-content/uploads/2020/01/Resep-Nasi-Goreng-Kampung.jpg"
             },
             {
                 Name: "Sop Buntut",
