@@ -6,25 +6,33 @@ import { LocalDining, AccessTime, DoubleArrow } from '@material-ui/icons';
 import { useStyles } from '../assets/css';
 import { useParams, Link, useHistory } from 'react-router-dom'
 
-export default function Detail() {
+export default function Detail(props) {
     const { id } = useParams()
     const classes = useStyles();
     const [ingredients, setIngredients] = useState([])
+    const [detailImage, setDetailImage] = useState('')
+    const [detailServing, setDetailServing] = useState('')
+    const [detailReady, setDetailReady] = useState('')
+    const [detailName, setDetailName] = useState('')
 
     useEffect(() => {
         axios({
             method: "get",
-            url: `https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=fd9f4d3bdf944da4add45901325004fe`
+            url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=fd9f4d3bdf944da4add45901325004fe`
         })
             .then(response => {
-                console.log(response.data.ingredients)
-                setIngredients(response.data.ingredients)
+                setIngredients(response.data.extendedIngredients)
+                setDetailImage(response.data.image)
+                setDetailServing(response.data.servings)
+                setDetailReady(response.data.readyInMinutes)
+                setDetailName(response.data.title)
+
             })
             .catch(err => {
                 console.log(err)
             })
     }, [])
-
+    console.log(props)
     return (
         <Box className='mainContent'>
             <br />
@@ -35,7 +43,7 @@ export default function Detail() {
 
             <Grid container spacing={3} className='content'>
                 <Grid item xs={12}>
-                    <h1>Nasi Goreng</h1>
+                    <h1>{detailName}</h1>
                     <hr></hr>
                     <Grid item xs={12}
                         container
@@ -45,12 +53,12 @@ export default function Detail() {
                         className='noMargin'
                     >
                         <Grid item lg={3} sm={12} className='imageFood'>
-                            <img src='https://spoonacular.com/recipeImages/579247-556x370.jpg' className='responsive' />
+                            <img src={detailImage} className='responsive' />
                             <div className='detailImage'>
                                 <LocalDining className='iconColor' />
-                                2
+                                {detailServing}
                                 <AccessTime className='iconColor' style={{ marginLeft: '8px' }} />
-                                25 mins
+                                {detailReady}
                             </div>
                         </Grid>
                         <Grid item lg={9} sm={12}>

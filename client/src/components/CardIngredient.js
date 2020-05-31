@@ -16,7 +16,7 @@ export default function CardIngredient(props) {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props.ingredient.amount.metric.value} {props.ingredient.amount.metric.unit}
+                        {props.ingredient.amount} {props.ingredient.unit}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="h2">
                         {props.ingredient.name}
