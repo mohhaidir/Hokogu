@@ -60,7 +60,7 @@ export default function CardStep(props) {
                     <TableBody>
                         {rows.map(row => (
                         <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
+                            <TableCell component="th" scope="row" className='textDetail'>
                             {row.name}
                             </TableCell>
                             {/* <TableCell align="right">{row.fat}</TableCell>
