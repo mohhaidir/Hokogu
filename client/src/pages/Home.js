@@ -148,7 +148,6 @@ export default function Home() {
           paper: classes.drawerPaper,
         }}
         >
-          {query && JSON.stringify(query)}
             <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
                 <form className='searchForm' onSubmit={search}>
                     <input 
