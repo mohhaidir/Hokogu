@@ -116,10 +116,9 @@ export default function StepCooking(props) {
 
         // returned function will be called on component unmount 
         return () => {
-            window.removeEventListener('mousemove', () => {
                 clearInterval(intervalSpeechToText);
-            })
         }
+     
     }, [])
 
     useEffect(() => {
@@ -136,6 +135,7 @@ export default function StepCooking(props) {
                 setShowEquipment(true);
             }
         }
+        
     }, [activeStep])
 
     function speechToText() {
