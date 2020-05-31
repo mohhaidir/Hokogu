@@ -67,6 +67,14 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
+  useEffect(()=> {
+    if(localStorage.getItem('hokogu_token')){
+        dispatch(setIsLoggedIn(true));
+        dispatch(setToken(localStorage.getItem('hokogu_token')));
+        dispatch(setName(localStorage.getItem('hokogu_token')));
+        dispatch(setAvatar(localStorage.getItem('hokogu_token')));
+    }
+  }, [isLoggedIn])
 
   const doLogout = () => {
     dispatch(logout())
@@ -81,14 +89,6 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  useEffect(()=> {
-    if(localStorage.getItem('reddit_token')){
-        dispatch(setIsLoggedIn(true));
-        dispatch(setToken(localStorage.getItem('hokugo_token')));
-        dispatch(setName(localStorage.getItem('hokugo_name')));
-        dispatch(setAvatar(localStorage.getItem('hokugo_avatar')));
-    }
-}, [isLoggedIn])
 
 
   return (

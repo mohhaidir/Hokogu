@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React,{useState, useEffect} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {useSelector,useDispatch} from 'react-redux'
+import {setIsLoggedIn, setToken, setName, setAvatar} from '../store/actions/userActions'
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import LargeGradientButton from '../components/LargeGardientButton'
@@ -61,11 +63,22 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home() {
+    const dispatch = useDispatch()
+    const { isLoggedIn} = useSelector(state => state.userReducer);
     const history = useHistory()
     const muiBaseTheme = createMuiTheme();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
+    useEffect(()=> {
+      if(localStorage.getItem('hokugo_token')){
+          dispatch(setIsLoggedIn(true));
+          dispatch(setToken(localStorage.getItem('hokugo_token')));
+          dispatch(setName(localStorage.getItem('hokugo_name')));
+          dispatch(setAvatar(localStorage.getItem('hokugo_avatar')));
+      }
+    }, [isLoggedIn])
+  
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -84,6 +97,16 @@ export default function Home() {
             history.push(`/search?query=${query}`)
         }
     }
+
+    useEffect(()=> {
+      if(localStorage.getItem('hokugo_token')){
+          dispatch(setIsLoggedIn(true));
+          dispatch(setToken(localStorage.getItem('hokugo_token')));
+          dispatch(setName(localStorage.getItem('hokugo_name')));
+          dispatch(setAvatar(localStorage.getItem('hokugo_avatar')));
+      }
+    }, [isLoggedIn])
+  
 
     return (
         <>
