@@ -137,7 +137,6 @@ export default function PersistentDrawerLeft() {
                   <GradientButton words='Logout'/>
                 </MuiThemeProvider>
               </div>
-            
             }
             { !isLoggedIn &&
               <div 
