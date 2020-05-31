@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react'
 import clsx from 'clsx';
 import {Link, useHistory} from 'react-router-dom'
 import {logout, setIsLoggedIn, setToken, setName, setAvatar} from '../store/actions/userActions'
@@ -24,8 +24,9 @@ import JssProvider from "react-jss/lib/JssProvider";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
+import {useSelector,useDispatch} from 'react-redux'
 
-const drawerWidth = 200;
+const drawerWidth = 300;
   
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,10 +61,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+  const dispatch = useDispatch()
   const classes = useStyles();
+  const { isLoggedIn} = useSelector(state => state.userReducer);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
+
+  const doLogout = () => {
+    dispatch(logout())
+  }
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -72,6 +80,16 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(()=> {
+    if(localStorage.getItem('reddit_token')){
+        dispatch(setIsLoggedIn(true));
+        dispatch(setToken(localStorage.getItem('hokugo_token')));
+        dispatch(setName(localStorage.getItem('hokugo_name')));
+        dispatch(setAvatar(localStorage.getItem('hokugo_avatar')));
+    }
+}, [isLoggedIn])
+
 
   return (
     <div className={classes.root}>
@@ -99,27 +117,50 @@ export default function PersistentDrawerLeft() {
                 <img  src="./logo.png" height="50px"></img>
                 </Link>
             </div>
-
-            <div 
-            style={{ 
-                textDecoration: 'none', 
-                // justifyContent: 'flex-end'
-            }} 
-            edge="end" 
-            >
-                <Link  to='/login' style={{ textDecoration: 'none' }}>
-                    <MuiThemeProvider
-                    theme={createMuiTheme({
-                        typography: {
-                        useNextVariants: true
-                        },
-                        overrides: GradientButton.getTheme(muiBaseTheme)
-                    })}
-                    >
-                        <GradientButton words='Login'/>
-                    </MuiThemeProvider>
-                </Link>
-            </div>
+            { isLoggedIn &&
+              <div 
+              style={{ 
+                  textDecoration: 'none', 
+                  // justifyContent: 'flex-end'
+              }} 
+              onClick={doLogout}
+              edge="end" 
+              >
+                <MuiThemeProvider
+                theme={createMuiTheme({
+                    typography: {
+                    useNextVariants: true
+                    },
+                    overrides: GradientButton.getTheme(muiBaseTheme)
+                })}
+                >
+                  <GradientButton words='Logout'/>
+                </MuiThemeProvider>
+              </div>
+            
+            }
+            { !isLoggedIn &&
+              <div 
+              style={{ 
+                  textDecoration: 'none', 
+                  // justifyContent: 'flex-end'
+              }} 
+              edge="end" 
+              >
+                  <Link  to='/login' style={{ textDecoration: 'none' }}>
+                      <MuiThemeProvider
+                      theme={createMuiTheme({
+                          typography: {
+                          useNextVariants: true
+                          },
+                          overrides: GradientButton.getTheme(muiBaseTheme)
+                      })}
+                      >
+                          <GradientButton words='Login'/>
+                      </MuiThemeProvider>
+                  </Link>
+              </div>
+            }
         </div>
         </Toolbar>
 

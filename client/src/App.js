@@ -38,23 +38,24 @@ const routes = [
 ];
 
 const AppRouter = () => (
-  <Provider store={store}>
 
   <Switch>
     {routes.map((route) => <Route key={route} {...route} />)}
   </Switch>
-  </Provider>
 
 );
 
 function App() {
   return (
-    <Router>
-        <Navbar />
-        <div className='underNav'>
-          <AppRouter />
-        </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+          <Navbar />
+          <div className='underNav'>
+            <AppRouter />
+          </div>
+      </Router>
+    </Provider>
+
   );
 }
 
