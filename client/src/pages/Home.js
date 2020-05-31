@@ -60,18 +60,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home() {
-    console.log('aa')
     const muiBaseTheme = createMuiTheme();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
-        setOpen(true);
-      };
-    
-      const handleDrawerClose = () => {
-        setOpen(false);
-            
-      };
+      setOpen(true);
+    };
+  
+    const handleDrawerClose = () => {
+      setOpen(false);
+          
+    };
     
     return (
         <>

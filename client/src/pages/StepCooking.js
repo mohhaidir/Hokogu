@@ -112,6 +112,14 @@ export default function StepCooking(props) {
         ])
         textToSpeech("Let's Cook");
         const intervalSpeechToText = setInterval(speechToText, 5000);
+        window.addEventListener('mousemove', () => {});
+
+        // returned function will be called on component unmount 
+        return () => {
+            window.removeEventListener('mousemove', () => {
+                clearInterval(intervalSpeechToText);
+            })
+        }
     }, [])
 
     useEffect(() => {
@@ -143,7 +151,7 @@ export default function StepCooking(props) {
             var transcript = event.results[0][0].transcript;
             if(transcript === 'next'){
                 handleNext();
-            } else if (transcript === 'back') {
+            } else if (transcript === 'back' || (transcript[0] === 'b' && transcript[1] === 'a' ) ) {
                 handleBack();
             }
             console.log('text hasil mic', transcript);
