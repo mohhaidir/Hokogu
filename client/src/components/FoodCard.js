@@ -12,7 +12,7 @@ import GradientButton from '../components/GradientButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector} from 'react-redux'
-
+import { addToFavourite, setFavourites, removeFromFavourite } from "../store/actions/favouritesActions";
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -72,6 +72,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 }));
 
 const FoodCard = (props) => {
+    const dispatch = useDispatch();
     if(props.recipe.title.length > 23){
         props.recipe.title = props.recipe.title.substring(0, 20) + '...';
     }
@@ -81,9 +82,36 @@ const FoodCard = (props) => {
     const muiBaseTheme = createMuiTheme();
     const addToFav = () => {
         setFav(true);
+        let data = {
+          recipeId: props.recipe.id,
+          title: props.recipe.title,
+          ready: props.recipe.readyInMinutes,
+          serving: props.recipe.servings,
+          image: props.recipe.image
+        }
+        let temp = favourites;
+        temp.push(data)
+        dispatch(setFavourites(temp));
+        dispatch(addToFavourite(data));
     }
     const removeFromFav = () => {
         setFav(false);
+        let temp = []
+        let id;
+        let found = false
+        for(let i=0; i<favourites.length; i++){
+          if(favourites[i].recipeId !== props.recipe.id){
+            temp.push(favourites[i]);
+          }else{
+            found = true;
+            id = favourites[i].recipeId;
+          }
+        }
+        if(found){
+          dispatch(setFavourites(temp));
+          dispatch(removeFromFavourite(id));
+        }
+        
     }
     const styles = useStyles();
     const {
@@ -93,16 +121,16 @@ const FoodCard = (props) => {
     const shadowStyles = useOverShadowStyles();
     return (
         <Card className={cx(styles.root, shadowStyles.root)}>
-            {
+            {/* {
                 fav == true &&
                 <StarIcon onClick={removeFromFav} className='topFav' style={{
                     zIndex: 99,
                     position: "absolute", top: "12px", right:"12px", left:"auto",
                     lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
                 />
-            }
-            {   favourites.find(x=> x.id === props.recipe.id || fav === true) ?
-                <StarIcon className='topFav' style={{
+            } */}
+            {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
+                <StarIcon onClick={removeFromFav} className='topFav' style={{
                     position: "absolute", top: "12px", right:"12px", left:"auto",
                     lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
                 />
@@ -125,9 +153,9 @@ const FoodCard = (props) => {
             <h2 style={{top: '30px'}}>{props.recipe.title}</h2>
             <CardActions disableSpacing className='iconDetailsCard'>
                         <LocalDining/>
-                        2
+                        {props.recipe.servings}
                         <AccessTime style={{marginLeft:'8px'}}/>
-                        25 mins
+                        {props.recipe.readyInMinutes} mins
             </CardActions>
             <p className='insibleText'> ................................................................</p>
             <div >

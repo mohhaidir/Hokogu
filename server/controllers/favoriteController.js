@@ -1,4 +1,5 @@
 const { Favorite } = require("../models");
+const { Op } = require('sequelize');
 
 class FavoriteController {
   static addFavorite(req, res) {
@@ -80,20 +81,35 @@ class FavoriteController {
 
   static deleteFavorite(req, res) {
     let id = Number(req.params.id);
-    Favorite.findOne({ where: { id } })
-      .then(data => {
-        if (!data) {
-          res.status(404).json({ message: "Favorite not found" });
-        } else {
-          return Favorite.destroy({ where: { id } });
-        }
-      })
-      .then(result => {
-        res.status(200).json({ message: "Success deleted a favorite" });
-      })
-      .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err });
-      });
+    console.log('------------------')
+    console.log(req.userdata.id)
+    console.log(id)
+    console.log('------------------')
+
+    Favorite.findOne({ 
+      where: {
+        [Op.and]: [
+          {recipeId: id},
+          { UserId : req.userdata.id }
+        ]
+      }
+    })
+    .then(data => {
+      console.log(data)
+      if (!data) {
+        res.status(404).json({ message: "Favorite not found" });
+      } else {
+        console.log(data)
+        return Favorite.destroy({ where: { id: data.id } });
+      }
+    })
+    .then(result => {
+      res.status(200).json({ message: "Success deleted a favorite" });
+    })
+    .catch(err => {
+      console.log('lose')
+      res.status(500).json({ message: "Internal server error", error: err });
+    });
   }
 }
 
