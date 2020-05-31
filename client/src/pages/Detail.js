@@ -51,7 +51,7 @@ export default function Detail() {
                                 className={classes.button}
                                 startIcon={<DoubleArrow />}
                             >
-                                <Link to='/step'>
+                                <Link to='/step/123' type='inigambar'>
                                     Let's Cooking
                                 </Link>
                             </Button>

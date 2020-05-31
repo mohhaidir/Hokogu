@@ -27,7 +27,7 @@ const routes = [
     children: <Detail/>
   },
   {
-    path: '/step',
+    path: '/step/:id',
     children: <StepCooking/>
   },
 ];

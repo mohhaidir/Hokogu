@@ -12,7 +12,7 @@ import { useStyles } from '../assets/css';
 import axios from 'axios';
 import { CardStep } from '../components';
 
-export default function StepCooking() {
+export default function StepCooking(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [showIngredient, setShowIngredient] = React.useState(false);
@@ -21,6 +21,7 @@ export default function StepCooking() {
     const [dataEquipment, setDataEquipment] = React.useState([]);
     const [allStep, setAllStep] = React.useState([]); // step, ingredient, equipment
     const [steps, setSteps] = React.useState([]); // array step
+    const [resultText, setResultText] = React.useState('');
 
     useEffect(() => {
         // axios({
@@ -110,6 +111,7 @@ export default function StepCooking() {
             "Let's Eat"
         ])
         textToSpeech("Let's Cook");
+        const intervalSpeechToText = setInterval(speechToText, 5000);
     }, [])
 
     useEffect(() => {
@@ -127,6 +129,29 @@ export default function StepCooking() {
             }
         }
     }, [activeStep])
+
+    function speechToText() {
+        // speech recognition API supported
+        var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+        var recognition = new SpeechRecognition(); 
+        // This will run when the speech recognition service returns a result
+        recognition.onstart = function() {
+            console.log("Voice recognition started. Try speaking into the microphone.");
+        };
+        
+        recognition.onresult = function(event) {
+            var transcript = event.results[0][0].transcript;
+            if(transcript === 'next'){
+                handleNext();
+            } else if (transcript === 'back') {
+                handleBack();
+            }
+            console.log('text hasil mic', transcript);
+        };
+        
+        // start recognition
+        recognition.start();
+    }
 
     function textToSpeech(text) {
         var synthesis = window.speechSynthesis;
@@ -163,6 +188,7 @@ export default function StepCooking() {
 
     return (
         <Box className='mainContent'>
+            {props && JSON.stringify(props.type)}
             <Grid container spacing={3} className='content'>
                 <Grid lg={12} container spacing={3}>
                     {showIngredient && <CardStep data={dataIngredient} type='Ingredients'/>}
