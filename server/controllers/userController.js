@@ -6,6 +6,7 @@ const { OAuth2Client } = require("google-auth-library");
 class UserController {
   static loginUser(req, res) {
     let { email, password } = req.body;
+
     User.findOne({
       where: { email }
     })
@@ -33,6 +34,8 @@ class UserController {
 
   static registerUser(req, res) {
     const { name, email, password, avatar } = req.body;
+    console.log(email);
+    console.log(password);
     User.findOne({
       where: { email }
     })
@@ -57,6 +60,7 @@ class UserController {
       })
       .catch(err => {
         if (err.message) {
+          console.log(err);
           res.status(400).json({ message: "Email already taken" });
         } else {
           res.status(500).json({ message: "Internal server error" });
