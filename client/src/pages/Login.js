@@ -89,10 +89,10 @@ export default function Login() {
   }
 
   useEffect(()=>{
-    if(localStorage.getItem('hokogu_token')){
+    if(isLoggedIn){
         history.push(`/`)
     }
-  }, [localStorage.getItem('hokogu_token')])
+  }, [isLoggedIn])
 
 
 
