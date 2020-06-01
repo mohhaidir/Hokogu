@@ -1,11 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux'
 import store from './store/index';
-
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
 import { Home, Login, Register, MyFav, Detail, SearchResults, Popular, StepCooking } from './pages';
-
 import { Navbar } from './components';
 import './assets/css/style.css';
 
@@ -28,7 +25,6 @@ const routes = [
     children: <Popular/>
     // children: <SearchResults/>
   },
-
   {
     path: '/favorites',
     children: <MyFav/>
@@ -38,15 +34,14 @@ const routes = [
     children: <Detail/>
   },
   {
-
     path: '/step/:id',
     children: <StepCooking/>
   },
-
+  {
     path: '/search',
     component: SearchResults
     // children: <SearchResults/>
-  },
+  }
 
 ];
 
