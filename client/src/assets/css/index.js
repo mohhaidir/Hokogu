@@ -20,4 +20,23 @@ export const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    backButton: {
+      marginRight: theme.spacing(1),
+    },
+    instructions: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+    card: {
+      marginTop: 40,
+      borderRadius: theme.spacing(0.5),
+      transition: '0.3s',
+      width: '90%',
+      overflow: 'initial',
+      background: '#ffffff',
+    },
+    content: {
+      textAlign: 'left',
+      overflowX: 'auto',
+    },
 }));

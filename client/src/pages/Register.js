@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Register() {
+
     const history = useHistory()
     const isLoggedIn = useSelector((state)=>state.userReducer.isLoggedIn)
     const dispatch = useDispatch()
