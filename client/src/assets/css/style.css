@@ -102,14 +102,12 @@
 .buttonCooking {
   text-align: right;
 }
-
 .buttonUpload {
-  background-color: #ff959c;
+  background-color: #ff959c !important;
 }
-.buttonUpload :hover {
-  background-color: #ff5f6d;
+.buttonUpload:hover {
+  background-color: #FF5F6D !important;
 }
-
 @media only screen and (max-width: 600px) {
   .buttonCooking {
     text-align: center;

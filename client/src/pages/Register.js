@@ -155,12 +155,6 @@ export default function Register() {
     }
   };
 
-  const handleFireBaseUpload = e => {
-    e.preventDefault();
-    console.log("start of upload");
-    // async magic goes here...
-  };
-
   useEffect(() => {
     if (isLoggedIn) {
       history.push(`/`);
@@ -248,13 +242,14 @@ export default function Register() {
               onChange={handleImageAsFile} // <-- dari firebase
             />
 
-            <label htmlFor="contained-button-file" className={"buttonUpload"}>
+            <label htmlFor="contained-button-file" >
               <Button
                 variant="contained"
-                color="secondary"
+                // color="secondary"
                 size="small"
                 component="span"
                 // className={classes.button}
+                className='buttonUpload'
                 startIcon={<CloudUploadIcon />}
               >
                 Upload
