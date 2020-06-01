@@ -80,6 +80,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [preview, setPreview] = useState("");
+
   const nameHandle = e => {
     setName(e.target.value);
   };
@@ -104,6 +106,7 @@ export default function Register() {
     console.log(e.target.files, "----- files");
     const image = e.target.files[0];
     setImageAsFile(imageFile => image);
+    setPreview(image.name);
   };
 
   const signUp = () => {
@@ -118,42 +121,47 @@ export default function Register() {
         console.error(
           `not an image, the image file is a ${typeof imageAsFile}`
         );
+        data.avatar =
+          "https://firebasestorage.googleapis.com/v0/b/hokugu…=media&token=a882876a-6e0b-4561-aa3a-81846b2c8b49";
+        console.log(data, "data avatar");
+        dispatch(register(data));
+      } else {
+        const uploadTask = storage
+          .ref(`/images/${imageAsFile.name}`)
+          .put(imageAsFile);
+        //initiates the firebase side uploading
+        uploadTask.on(
+          "state_changed",
+          snapShot => {
+            //takes a snap shot of the process as it is happening
+            console.log(snapShot);
+          },
+          err => {
+            //catches the errors
+            console.log(err);
+          },
+          () => {
+            // gets the functions from storage refences the image storage in firebase by the children
+            // gets the download url then sets the image from firebase as the value for the imgUrl key:
+            storage
+              .ref("images")
+              .child(imageAsFile.name)
+              .getDownloadURL()
+              .then(fireBaseUrl => {
+                setImageAsUrl(prevObject => ({
+                  ...prevObject,
+                  imgUrl: fireBaseUrl
+                }));
+                // console.log(fireBaseUrl, "<---- IMAGE AS URL");
+                data.avatar = fireBaseUrl;
+                // console.log(data.avatar, "----- ini avatar");
+                dispatch(register(data));
+                console.log(data, "---- data");
+                console.log(imageAsFile);
+              });
+          }
+        );
       }
-      const uploadTask = storage
-        .ref(`/images/${imageAsFile.name}`)
-        .put(imageAsFile);
-      //initiates the firebase side uploading
-      uploadTask.on(
-        "state_changed",
-        snapShot => {
-          //takes a snap shot of the process as it is happening
-          console.log(snapShot);
-        },
-        err => {
-          //catches the errors
-          console.log(err);
-        },
-        () => {
-          // gets the functions from storage refences the image storage in firebase by the children
-          // gets the download url then sets the image from firebase as the value for the imgUrl key:
-          storage
-            .ref("images")
-            .child(imageAsFile.name)
-            .getDownloadURL()
-            .then(fireBaseUrl => {
-              setImageAsUrl(prevObject => ({
-                ...prevObject,
-                imgUrl: fireBaseUrl
-              }));
-              // console.log(fireBaseUrl, "<---- IMAGE AS URL");
-              data.avatar = fireBaseUrl;
-              console.log(data.avatar, "----- ini avatar");
-              dispatch(register(data));
-              console.log(data, "---- data");
-              console.log(imageAsFile);
-            });
-        }
-      );
     }
   };
 
@@ -243,7 +251,6 @@ export default function Register() {
               type="file"
               onChange={handleImageAsFile} // <-- dari firebase
             />
-
             <label htmlFor="contained-button-file">
               <Button
                 variant="contained"
@@ -257,6 +264,10 @@ export default function Register() {
                 Upload
               </Button>
             </label>
+
+            {preview && preview !== "" && (
+              <label style={{ marginLeft: "20px" }}>{preview}</label>
+            )}
 
             <ColorButton
               onClick={signUp}
