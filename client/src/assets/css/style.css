@@ -1,154 +1,160 @@
 .mainContent {
-    /* background-color: #fbf4f4; */
-    background-color: #f8fffb;
-    min-height: calc(100% - 130px);
-    position: inherit;
-    padding: 2% 5%;
+  /* background-color: #fbf4f4; */
+  background-color: #f8fffb;
+  min-height: calc(100% - 130px);
+  position: inherit;
+  padding: 2% 5%;
 }
 @media only screen and (max-width: 600px) {
-    .mainContent {
-        padding: 5%;
-    }
+  .mainContent {
+    padding: 5%;
+  }
 }
 .bannerHome {
-    background-image: url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 70vh;
-    padding: 5% 22%;
-    text-align: center;
+  background-image: url("https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  padding: 5% 22%;
+  text-align: center;
 }
 .underNav {
-    margin-top: 84px;
+  margin-top: 84px;
 }
 .noMargin {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 .content {
-    border-radius: 10px;
-    background-color: #fff;
-    -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
-    padding: 1% 3%;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.75);
+  padding: 1% 3%;
 }
 .content h1 {
-    font-family: 'Caveat', cursive;
-    font-size: 2.5em;
-    color: #757575;
-    margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 2.5em;
+  color: #757575;
+  margin: 0;
 }
 
 .cardContent .MuiCard-root {
-    -webkit-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.75);
-    border-radius: 20px;
+  -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
 }
 .cardContent .MuiCardContent-root {
-    background-color: #fff5db;
+  background-color: #fff5db;
 }
 .cardContent .MuiCard-root:hover {
-    -webkit-box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
-    -moz-box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
-    box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
+  -webkit-box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
+  -moz-box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
+  box-shadow: -1px 1px 8px 2px rgb(224, 102, 17);
 }
-.titleCard h2{
-    color: #de0000;
-    background-color: #fff5db;
-    margin: 0;
-    text-align: center;
-    text-decoration: none;
+.titleCard h2 {
+  color: #de0000;
+  background-color: #fff5db;
+  margin: 0;
+  text-align: center;
+  text-decoration: none;
 }
 .bottomCard {
-    background-color: #fff5db;
+  background-color: #fff5db;
 }
 .limitScroll {
-    height: 800px;
-    overflow-y: scroll;
+  height: 800px;
+  overflow-y: scroll;
 }
 .responsive {
-    width: 100%;
+  width: 100%;
 }
-.imageFood img{
-    border-radius: 10px;
+.imageFood img {
+  border-radius: 10px;
 }
 .cardIngredient {
-    border-radius: 20px !important;
-    background-color: #bbd8d8 !important;
-    -webkit-box-shadow: 0px 0px 5px 3px rgba(179,179,179,1) !important;
-    -moz-box-shadow: 0px 0px 5px 3px rgba(179,179,179,1) !important;
-    box-shadow: 0px 0px 5px 3px rgba(179,179,179,1) !important;
+  border-radius: 20px !important;
+  background-color: #bbd8d8 !important;
+  -webkit-box-shadow: 0px 0px 5px 3px rgba(179, 179, 179, 1) !important;
+  -moz-box-shadow: 0px 0px 5px 3px rgba(179, 179, 179, 1) !important;
+  box-shadow: 0px 0px 5px 3px rgba(179, 179, 179, 1) !important;
 }
 .cardIngredient img {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 .cardIngredient h2 {
-    color: #3a3a3a;
-    font-size: 1.25em;
-    margin: 0;
-    text-align: center;
+  color: #3a3a3a;
+  font-size: 1.25em;
+  margin: 0;
+  text-align: center;
 }
 .detailImage {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: #757575;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #757575;
 }
 .iconColor {
-    color: #d84545;
+  color: #d84545;
 }
 .buttonCooking {
-    text-align: right;
+  text-align: right;
+}
+.buttonUpload {
+  background-color: #ff959c !important;
+}
+.buttonUpload:hover {
+  background-color: #ff5f6d !important;
 }
 .buttonCooking a {
-    text-decoration: none;
-    color: #fff;
+  text-decoration: none;
+  color: #fff;
 }
 @media only screen and (max-width: 600px) {
-    .buttonCooking {
-        text-align: center;
-    }
+  .buttonCooking {
+    text-align: center;
+  }
 }
 .btnFind {
-    width: 50%;
-    height: 70px;
-    font-size: 2.9em;
+  width: 50%;
+  height: 70px;
+  font-size: 2.9em;
 }
 @media only screen and (max-width: 600px) {
-    .btnFind {
-        width: 100%;
-        height: 50px;
-        font-size: 2.5em;
-    }
+  .btnFind {
+    width: 100%;
+    height: 50px;
+    font-size: 2.5em;
+  }
 }
 @media only screen and (max-width: 1250px) {
-    .btnFind {
-        width: 70%;
-        height: 50px;
-        font-size: 2.5em;
-    }
+  .btnFind {
+    width: 70%;
+    height: 50px;
+    font-size: 2.5em;
+  }
 }
 .textDetail {
-    color: #bb5252 !important;
-    font-size: 2em !important;
+  color: #bb5252 !important;
+  font-size: 2em !important;
 }
 .labelStep {
-    text-align: center;
-    font-size: 3em;
+  text-align: center;
+  font-size: 3em;
 }
 .labelStep h1 {
-    color: #e85e5e !important;
+  color: #e85e5e !important;
 }
 @media only screen and (max-width: 600px) {
-    .labelStep {
-        font-size: 1em;
-    }
+  .labelStep {
+    font-size: 1em;
+  }
 }
 @media only screen and (max-width: 1250px) {
-    .labelStep {
-        font-size: 1.5em;
-    }
+  .labelStep {
+    font-size: 1.5em;
+  }
 }

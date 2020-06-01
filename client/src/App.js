@@ -1,68 +1,76 @@
-import React from 'react';
-import { Provider } from 'react-redux'
-import store from './store/index';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { Home, Login, Register, MyFav, Detail, SearchResults, Popular, StepCooking } from './pages';
-import { Navbar } from './components';
-import './assets/css/style.css';
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./store/index";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  Home,
+  Login,
+  Register,
+  MyFav,
+  Detail,
+  SearchResults,
+  Popular,
+  StepCooking
+} from "./pages";
+import { Navbar } from "./components";
+import "./assets/css/style.css";
 
 const routes = [
   {
     exact: true,
-    path: '/',
-    children: <Home/>
+    path: "/",
+    children: <Home />
   },
   {
-    path: '/login',
-    children: <Login/>
+    path: "/login",
+    children: <Login />
   },
   {
-    path: '/register',
-    children: <Register/>
+    path: "/register",
+    children: <Register />
   },
   {
-    path: '/popular',
-    children: <Popular/>
+    path: "/popular",
+    children: <Popular />
     // children: <SearchResults/>
   },
   {
-    path: '/favorites',
-    children: <MyFav/>
+    path: "/favorites",
+    children: <MyFav />
   },
   {
-    path: '/recipe/:id',
+    path: "/recipe/:id",
     component: Detail
-  }
-  {
-    path: '/step/:id',
-    children: <StepCooking/>
   },
   {
-    path: '/search',
+    path: "/step/:id",
+    children: <StepCooking />
+  },
+  {
+    path: "/search",
     component: SearchResults
     // children: <SearchResults/>
   }
 ];
 
 const AppRouter = () => (
-
   <Switch>
-    {routes.map((route) => <Route key={route} {...route} />)}
+    {routes.map(route => (
+      <Route key={route} {...route} />
+    ))}
   </Switch>
-
 );
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
-          <Navbar />
-          <div className='underNav'>
-            <AppRouter />
-          </div>
+        <Navbar />
+        <div className="underNav">
+          <AppRouter />
+        </div>
       </Router>
     </Provider>
-
   );
 }
 
