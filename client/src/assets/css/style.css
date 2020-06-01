@@ -106,7 +106,11 @@
   background-color: #ff959c !important;
 }
 .buttonUpload:hover {
-  background-color: #FF5F6D !important;
+  background-color: #ff5f6d !important;
+}
+.buttonCooking a {
+  text-decoration: none;
+  color: #fff;
 }
 @media only screen and (max-width: 600px) {
   .buttonCooking {
@@ -130,5 +134,26 @@
     width: 70%;
     height: 50px;
     font-size: 2.5em;
+  }
+}
+.textDetail {
+  color: #bb5252 !important;
+  font-size: 2em !important;
+}
+.labelStep {
+  text-align: center;
+  font-size: 3em;
+}
+.labelStep h1 {
+  color: #e85e5e !important;
+}
+@media only screen and (max-width: 600px) {
+  .labelStep {
+    font-size: 1em;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  .labelStep {
+    font-size: 1.5em;
   }
 }

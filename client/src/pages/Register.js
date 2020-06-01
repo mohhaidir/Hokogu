@@ -118,8 +118,6 @@ export default function Register() {
         console.error(
           `not an image, the image file is a ${typeof imageAsFile}`
         );
-        data.avatar =
-          "https://firebasestorage.googleapis.com/v0/b/hokugu…=media&token=a882876a-6e0b-4561-aa3a-81846b2c8b49";
       }
       const uploadTask = storage
         .ref(`/images/${imageAsFile.name}`)
@@ -149,7 +147,9 @@ export default function Register() {
               }));
               // console.log(fireBaseUrl, "<---- IMAGE AS URL");
               data.avatar = fireBaseUrl;
+              console.log(data.avatar, "----- ini avatar");
               dispatch(register(data));
+              console.log(data, "---- data");
               console.log(imageAsFile);
             });
         }

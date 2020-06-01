@@ -1,32 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import FoodCard from '../components/FoodCard'
 import { useSelector, useDispatch} from "react-redux";
-import { getFavourites } from "../store/actions/favouritesActions";
+import { getPopularRecipies } from "../store/actions/favouritesActions";
 import { Grid } from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom'
 
 
-const MyFav = () => {
+const Popular = () => {
     const dispatch = useDispatch();
-    let isLoggedIn = useSelector((state)=> state.userReducer.isLoggedIn);
 
-    let favourites = useSelector((state)=> state.favouritesReducer.favourites);
-    let favouritesLoading = useSelector((state)=> state.favouritesReducer.favouritesLoading);
+    let favourites = useSelector((state)=> state.favouritesReducer.popular);
+    let favouritesLoading = useSelector((state)=> state.favouritesReducer.popularLoading);
     const history = useHistory()
 
     useEffect(()=>{
-        if(!localStorage.getItem('hokogu_token')){
-            history.push('/')
-        }
-        dispatch(getFavourites());
+        dispatch(getPopularRecipies());
     }, [])
 
-    useEffect(()=>{
-        if(!localStorage.getItem('hokogu_token')){
-            history.push('/')
-        }
-
-    }, [isLoggedIn])
 
 
     return (
@@ -41,7 +31,7 @@ const MyFav = () => {
         textAlign: 'center'
         }}>
             <h1 className='accountText'>
-                My Favourites
+                Popular Recipies
             </h1>
         </div>
 
@@ -83,4 +73,4 @@ const MyFav = () => {
         </div>
     )
 }
-export default MyFav;
+export default Popular;

@@ -11,6 +11,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
 import StaffPicks from '../components/StaffPicks'
 import SearchIcon from '@material-ui/icons/Search';
+import { Mic as MicIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home() {
+
     const dispatch = useDispatch()
     const { isLoggedIn} = useSelector(state => state.userReducer);
     const history = useHistory()
@@ -70,6 +72,8 @@ export default function Home() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
+    const [isOnListening, setIsOnListening] = useState(false);
+
     useEffect(()=> {
       if(localStorage.getItem('hokugo_token')){
           dispatch(setIsLoggedIn(true));
@@ -80,6 +84,8 @@ export default function Home() {
     }, [isLoggedIn])
   
     const handleDrawerOpen = () => {
+
+        speechToText();
         setOpen(true);
     };
     
@@ -98,6 +104,32 @@ export default function Home() {
         }
     }
 
+    function speechToText() {
+      // speech recognition API supported
+      var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+      var recognition = new SpeechRecognition(); 
+      // This will run when the speech recognition service returns a result
+      recognition.onstart = function() {
+          console.log("Voice recognition started. Try speaking into the microphone.");
+          setIsOnListening(true);
+      };
+      
+      recognition.onresult = function(event) {
+          setIsOnListening(false);
+          var transcript = event.results[0][0].transcript;
+          if (query !== '' || query !== undefined || query !== null) {
+            setQuery(transcript);
+            console.log('querrry', query)
+            if(transcript !== ''){
+              history.push(`/search?query=${transcript}`)
+            }
+          }
+      };
+      
+      // start recognition
+      recognition.start();
+    }
+
     useEffect(()=> {
       if(localStorage.getItem('hokugo_token')){
           dispatch(setIsLoggedIn(true));
@@ -107,7 +139,6 @@ export default function Home() {
       }
     }, [isLoggedIn])
   
-
     return (
         <>
         <Drawer
@@ -119,14 +150,24 @@ export default function Home() {
         }}
         >
             <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
+            <IconButton>
+            {isOnListening ? 
+            <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
+            :
+            <MicIcon style={{fontSize: "40px"}} />  
+            }
+            </IconButton>
+
                 <form className='searchForm' onSubmit={search}>
                     <input 
                     autoFocus 
+                    value={query}
                     onChange={(e)=>handleQuery(e.target.value)}
                     placeholder='what are you craving...' 
                     className='searchInput' 
                     type="text"/>
                 </form>
+                {/* <IconButton onClick={speechToText}> */}
                 <IconButton onClick={handleDrawerClose}>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
