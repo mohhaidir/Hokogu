@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Home() {
+
     const dispatch = useDispatch()
     const { isLoggedIn} = useSelector(state => state.userReducer);
     const history = useHistory()
@@ -83,6 +84,7 @@ export default function Home() {
     }, [isLoggedIn])
   
     const handleDrawerOpen = () => {
+
         speechToText();
         setOpen(true);
     };
@@ -137,7 +139,6 @@ export default function Home() {
       }
     }, [isLoggedIn])
   
-
     return (
         <>
         <Drawer

@@ -87,7 +87,9 @@ export default function Detail(props) {
                                 startIcon={<DoubleArrow />}
                                 onClick={goToStep}
                             >
-                                Let's Cooking
+                                <Link to='/step/123' type='inigambar'>
+                                    Let's Cooking
+                                </Link>
                             </Button>
                         </Grid>
                     </Grid>
