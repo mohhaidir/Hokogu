@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import cx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardContent, CardActions, IconButton } from '@material-ui/core/';
@@ -12,7 +12,7 @@ import GradientButton from '../components/GradientButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector} from 'react-redux'
-import { addToFavourite, setFavourites, removeFromFavourite } from "../store/actions/favouritesActions";
+import { addToFavourite, setFavourites, removeFromFavourite, getFavourites } from "../store/actions/favouritesActions";
 import {Link, useHistory} from 'react-router-dom'
 import Ingredients from '../components/Ingredients'
 
@@ -67,10 +67,6 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   content: {
     padding: 24,
   },
-//   cta: {
-//     // marginTop: 24,
-//     textTransform: 'initial',
-//   },
 }));
 
 const ColorButton = withStyles((theme) => ({
@@ -89,6 +85,11 @@ const FoodCard = (props) => {
     const dispatch = useDispatch();
     let favourites = useSelector((state)=> state.favouritesReducer.favourites);
     const [fav, setFav] = useState(false)
+
+    useEffect(()=> {
+        dispatch(getFavourites());
+    }, [])
+
 
     const muiBaseTheme = createMuiTheme();
     const addToFav = () => {
@@ -124,9 +125,6 @@ const FoodCard = (props) => {
         }
         
     }
-    const getDetails = (id) => {
-      history.push(`/recipe/${id}`)
-    }
     const styles = useStyles();
     const {
         button: buttonStyles,
@@ -135,14 +133,6 @@ const FoodCard = (props) => {
     const shadowStyles = useOverShadowStyles();
     return (
         <Card className={cx(styles.root, shadowStyles.root)}>
-            {/* {
-                fav == true &&
-                <StarIcon onClick={removeFromFav} className='topFav' style={{
-                    zIndex: 99,
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
-                    lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
-                />
-            } */}
             {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
                 <StarIcon onClick={removeFromFav} className='topFav' style={{
                     position: "absolute", top: "12px", left:"12px", right:"auto",
@@ -171,27 +161,13 @@ const FoodCard = (props) => {
             <div className="Container" dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
             <br/>
             <br/>
-            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
-                <Link to='/step/123' style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
-                    Start Cooking
-                </Link>
-            </ColorButton>
-            </div>
-            {/* <p> {props.recipe.summary} </p> */}
-            <div>
+            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
 
-                {/* <MuiThemeProvider
-                style={{marginLeft: '100px'}}
-                theme={createMuiTheme({
-                typography: {
-                useNextVariants: true
-                },
-                overrides: GradientButton.getTheme(muiBaseTheme)
-                })}
-                >
-                <br/>
-                <GradientButton  words='Start Cooking'/>
-                </MuiThemeProvider> */}
+            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                    Start Cooking
+            </ColorButton>
+            </Link>
+
             </div>
 
         </CardContent>

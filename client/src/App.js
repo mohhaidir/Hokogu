@@ -39,17 +39,17 @@ const routes = [
     children: <MyFav />
   },
   {
-    path: "/recipe/:id",
-    component: Detail
-  },
-  {
-    path: "/step/:id",
-    children: <StepCooking />
+    path: '/step/:id',
+    children: <StepCooking/>
   },
   {
     path: "/search",
     component: SearchResults
     // children: <SearchResults/>
+  },
+  {
+    path: '/recipe/:id',
+    component: Detail
   }
 ];
 

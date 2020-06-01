@@ -1,14 +1,20 @@
 .mainContent {
-  /* background-color: #fbf4f4; */
-  background-color: #f8fffb;
-  min-height: calc(100% - 130px);
-  position: inherit;
-  padding: 2% 5%;
+    /* background-color: #fbf4f4; */
+    background-color: 'white';
+    /* min-height: calc(100% - 130px); */
+    /* position: inherit; */
+    /* padding: 2% 5%; */
+    position: absolute;
+    bottom: 5vh;
+    left: 5vh;
+    right: 5vh;
+    margin: auto;
 }
 @media only screen and (max-width: 600px) {
-  .mainContent {
-    padding: 5%;
-  }
+    .mainContent {
+        padding: 0;
+        bottom: 0vh;
+    }
 }
 .bannerHome {
   background-image: url("https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg");
@@ -19,6 +25,31 @@
   padding: 5% 22%;
   text-align: center;
 }
+
+.bannerStep {
+    background-image: url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 91vh;
+    padding-top: 3%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+}
+
+.stepText {
+    color: #FF5F6D;
+    font-size: 5.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.StepCard {
+    bottom: '5vh';
+}
+
 .underNav {
   margin-top: 84px;
 }
@@ -142,11 +173,12 @@
   font-size: 2em !important;
 }
 .labelStep {
-  text-align: center;
-  font-size: 3em;
+    text-align: center;
+    font-size: 2.24em;
 }
 .labelStep h1 {
-  color: #e85e5e !important;
+    color: #000000 !important;
+    font-family: Arial, Helvetica, sans-serif;
 }
 @media only screen and (max-width: 600px) {
   .labelStep {
