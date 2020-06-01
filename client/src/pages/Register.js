@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     display: "none"
   }
 }));
- 
+
 export default function Register() {
   const history = useHistory();
   const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
@@ -101,7 +101,7 @@ export default function Register() {
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
   console.log(imageAsUrl);
   const handleImageAsFile = e => {
-    console.log(e.target.files);
+    console.log(e.target.files, "----- files");
     const image = e.target.files[0];
     setImageAsFile(imageFile => image);
   };
@@ -118,6 +118,8 @@ export default function Register() {
         console.error(
           `not an image, the image file is a ${typeof imageAsFile}`
         );
+        data.avatar =
+          "https://firebasestorage.googleapis.com/v0/b/hokugu…=media&token=a882876a-6e0b-4561-aa3a-81846b2c8b49";
       }
       const uploadTask = storage
         .ref(`/images/${imageAsFile.name}`)
@@ -242,14 +244,14 @@ export default function Register() {
               onChange={handleImageAsFile} // <-- dari firebase
             />
 
-            <label htmlFor="contained-button-file" >
+            <label htmlFor="contained-button-file">
               <Button
                 variant="contained"
                 // color="secondary"
                 size="small"
                 component="span"
                 // className={classes.button}
-                className='buttonUpload'
+                className="buttonUpload"
                 startIcon={<CloudUploadIcon />}
               >
                 Upload
