@@ -30,9 +30,9 @@ const routes = [
     children: <MyFav/>
   },
   {
-    path: '/detail/:id',
-    children: <Detail/>
-  },
+    path: '/recipe/:id',
+    component: Detail
+  }
   {
     path: '/step/:id',
     children: <StepCooking/>
@@ -42,7 +42,6 @@ const routes = [
     component: SearchResults
     // children: <SearchResults/>
   }
-
 ];
 
 const AppRouter = () => (

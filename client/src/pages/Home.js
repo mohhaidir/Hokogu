@@ -167,8 +167,11 @@ export default function Home() {
                     className='searchInput' 
                     type="text"/>
                 </form>
-                {/* <IconButton onClick={speechToText}> */}
-                <IconButton onClick={handleDrawerClose}>
+                <IconButton onClick={()=>{
+                    handleDrawerClose()
+                    setIsOnListening(false)
+                  }
+                }>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
             </div>
