@@ -26,21 +26,19 @@ const routes = [
     children: <Popular/>
     // children: <SearchResults/>
   },
-
   {
     path: '/favorites',
     children: <MyFav/>
-  },
-  {
-    path: '/detail/:id',
-    children: <Detail/>
   },
   {
     path: '/search',
     component: SearchResults
     // children: <SearchResults/>
   },
-
+  {
+    path: '/recipe/:id',
+    component: Detail
+  }
 ];
 
 const AppRouter = () => (

@@ -17,8 +17,7 @@ const Popular = () => {
         dispatch(getPopularRecipies());
     }, [])
 
-
-
+    
     return (
         <div style={{backgroundColor: 'white', minHeight: '100vh'}}> 
         <div style={{
@@ -38,7 +37,7 @@ const Popular = () => {
         <br/>
         {   favouritesLoading  && 
             <div style={{textAlign:"center"}}>
-            <img height="300" width="300" src="loading.gif" alt="loading" />
+                <img height="300" width="300" src="/loading.gif" alt="loading" />
             </div>
         }
 
