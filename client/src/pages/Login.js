@@ -13,9 +13,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/actions/userActions";
-import { GoogleLogin } from "react-google-login";
-
+import { GoogleLogin, useGoogleLogin } from "react-google-login";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Axios from "axios";
 
 const ColorButton = withStyles(theme => ({
   root: {
@@ -93,9 +93,23 @@ export default function Login() {
       history.push(`/`);
     }
   }, [isLoggedIn]);
+
   const responseGoogle = response => {
-    console.log(response);
+    Axios({
+      url: `http://localhost:3000/users/googlelogin`,
+      method: "post",
+      data: {
+        idToken: response.tokenId
+      }
+    })
+      .then(() => {
+        console.log("BERHASIL LOGIN GOOGLE BOSS");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -157,7 +171,7 @@ export default function Login() {
             </ColorButton>
             <Button>
               <GoogleLogin
-                clientId="274083291449-5eo3ufo9gn8vonbk1e1usgijbt73o03e.apps.googleusercontent.com"
+                clientId="396029969326-n2csm7fkamv9hb4q6e7fg0qub7dq9719.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
