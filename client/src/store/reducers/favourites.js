@@ -2,7 +2,7 @@ import { SET_FAVOURITES, SET_FAVOURITESLOADING} from '../actions/types'
 
 const initialState = {
   favourites : [],
-  favouritesLoading: true
+  favouritesLoading: true,
 }
 
 export default (state = initialState, action) => {

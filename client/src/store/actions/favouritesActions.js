@@ -4,6 +4,28 @@ import axios from "axios";
 const url = 'http://localhost:3000'
  
 
+export const getPopularRecipies = () => {
+  return (dispatch) => {
+    dispatch(setFavouritesLoading(true))
+    console.log('lagi')
+    axios ({
+      method: "get",
+      url: url + '/favorites/most',
+    })
+    .then(response => {
+      console.log(response)
+      dispatch({
+        type: SET_FAVOURITES,
+        payload:  response.data.mostFavorite
+      });
+    })
+    .catch(err => {
+        console.log(err)
+    })
+  }
+}
+
+
 export const getFavourites = () => {
   console.log('aaaaaa')
   // console.log(token)
