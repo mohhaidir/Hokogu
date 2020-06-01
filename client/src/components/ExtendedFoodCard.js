@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import cx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardContent, CardActions, IconButton } from '@material-ui/core/';
-import { LocalDining, Favorite, AccessTime } from '@material-ui/icons';
+import { LocalDining, Favorite, AccessTime, DoubleArrow } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
@@ -14,6 +14,7 @@ import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector} from 'react-redux'
 import { addToFavourite, setFavourites, removeFromFavourite } from "../store/actions/favouritesActions";
 import {Link, useHistory} from 'react-router-dom'
+import Ingredients from '../components/Ingredients'
 
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
@@ -23,8 +24,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     transition: '0.3s',
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     position: 'relative',
-    maxWidth: 500,
-    marginLeft: 'auto',
+    width: "100%",
     overflow: 'initial',
     background: '#ffffff',
     display: 'flex',
@@ -37,10 +37,10 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     },
   },
   media: {
-    width: '88%',
+    width: '100%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: spacing(-3),
+    marginTop: spacing(3),
     height: 0,
     paddingBottom: '48%',
     borderRadius: spacing(2),
@@ -50,7 +50,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       width: '100%',
       marginLeft: spacing(-3),
       marginTop: 0,
-      transform: 'translateX(-8px)',
+    //   transform: 'translateX(-8px)',
     },
     '&:after': {
       content: '" "',
@@ -67,18 +67,26 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   content: {
     padding: 24,
   },
-  cta: {
-    marginTop: 24,
-    textTransform: 'initial',
-  },
+//   cta: {
+//     // marginTop: 24,
+//     textTransform: 'initial',
+//   },
 }));
+
+const ColorButton = withStyles((theme) => ({
+    root: {
+      color: theme.palette.getContrastText('#FF5F6D'),
+      backgroundColor: '#ff959c',
+      '&:hover': {
+        backgroundColor: '#FF5F6D',
+      },
+    },
+  }))(Button);
+
 
 const FoodCard = (props) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    if(props.recipe.title.length > 23){
-        props.recipe.title = props.recipe.title.substring(0, 20) + '...';
-    }
     let favourites = useSelector((state)=> state.favouritesReducer.favourites);
     const [fav, setFav] = useState(false)
 
@@ -137,36 +145,42 @@ const FoodCard = (props) => {
             } */}
             {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
                 <StarIcon onClick={removeFromFav} className='topFav' style={{
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
+                    position: "absolute", top: "12px", left:"12px", right:"auto",
                     lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
                 />
                 :
                 <>
                 <StarBorderIcon onClick={addToFav} className='topFav' style={{
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
+                    position: "absolute", top: "12px", left:"12px", right:"auto",
                     lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
                 />
                 </>
             }
+        <div style={{display: 'flex'}}> 
+        <CardContent >
+            {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
+            <div style={{paddingLeft: '25px', paddingRight: '25px'}}>
+            <img src={props.recipe.image} height='317px' style={{borderRadius: '20px'}}/>
 
-        <CardMedia
-            className={styles.media}
-            image={
-                `https://spoonacular.com/recipeImages/${props.recipe.image}`
-            }
-            />
-        <CardContent>
-            <h2 style={{top: '30px'}}>{props.recipe.title}</h2>
             <CardActions disableSpacing className='iconDetailsCard'>
                         <LocalDining/>
                         {props.recipe.servings}
                         <AccessTime style={{marginLeft:'8px'}}/>
                         {props.recipe.readyInMinutes} mins
             </CardActions>
-            <p className='insibleText'> ................................................................</p>
-            <div onClick={()=>getDetails(props.recipe.id)}>
+            <div className="Container" dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+            <br/>
+            <br/>
+            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                <Link to='/step/123' style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+                    Start Cooking
+                </Link>
+            </ColorButton>
+            </div>
+            {/* <p> {props.recipe.summary} </p> */}
+            <div>
 
-                <MuiThemeProvider
+                {/* <MuiThemeProvider
                 style={{marginLeft: '100px'}}
                 theme={createMuiTheme({
                 typography: {
@@ -176,11 +190,15 @@ const FoodCard = (props) => {
                 })}
                 >
                 <br/>
-                <GradientButton  words='Details'/>
-                </MuiThemeProvider>
+                <GradientButton  words='Start Cooking'/>
+                </MuiThemeProvider> */}
             </div>
 
         </CardContent>
+        <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients} />
+
+        </div> 
+
         </Card>
     );
 };

@@ -5,29 +5,23 @@ import { CardIngredient } from '../components';
 import { LocalDining, AccessTime, DoubleArrow } from '@material-ui/icons';
 import { useStyles } from '../assets/css';
 import { useParams, Link, useHistory } from 'react-router-dom'
-
-export default function Detail(props) {
+import Ingredients from '../components/Ingredients'
+import ExtendedFoodCard from '../components/ExtendedFoodCard'
+export default function Detail() {
     const history = useHistory()
     const { id } = useParams()
-    const classes = useStyles();
-    const [ingredients, setIngredients] = useState([])
-    const [detailImage, setDetailImage] = useState('')
-    const [detailServing, setDetailServing] = useState('')
-    const [detailReady, setDetailReady] = useState('')
-    const [detailName, setDetailName] = useState('')
-
+    const [recipe, setRecipe] = useState(null)
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
+        setLoading(true)
         axios({
             method: "get",
-            url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=fd9f4d3bdf944da4add45901325004fe`
+            url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=5cd43e21289d449988abacef7d29dd14`
         })
             .then(response => {
-                setIngredients(response.data.extendedIngredients)
-                setDetailImage(response.data.image)
-                setDetailServing(response.data.servings)
-                setDetailReady(response.data.readyInMinutes)
-                setDetailName(response.data.title)
-
+                console.log(response)
+                setRecipe(response.data)
+                setLoading(false)
             })
             .catch(err => {
                 console.log(err)
@@ -39,62 +33,40 @@ export default function Detail(props) {
     }
 
     return (
-        <Box className='mainContent'>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+        <div style={{ textAlign:'center', backgroundColor: 'white', minHeight: '90vh'}}>
+            <>
+            {   loading &&
+                    <div style={{textAlign:"center"}}>
+                        <img height="300" width="300" src="/loading.gif" alt="loading" />
+                    </div>
+            }
+            
+            {   (!loading && recipe !== null) &&
+                <div>
+                <div style={{
+                backgroundImage: `url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg')`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                height: '100px',
+                paddingTop: '8px',
+                paddingLeft: '10vw',
+                paddingRight: '10vw',
+                textAlign: 'center'
+                }}>
+                    <h1 className='accountText'>
+                        {recipe.title}
+                    </h1>
+                </div>
+                <br/>
+                <div style={{paddingLeft: '10vw', paddingRight: '10vw'}}>
+                    <ExtendedFoodCard recipe={recipe} />
+                    <br/>
 
-            <Grid container spacing={3} className='content'>
-                <Grid item xs={12}>
-                    <h1>{detailName}</h1>
-                    <hr></hr>
-                    <Grid item xs={12}
-                        container
-                        direction='row'
-                        spacing={3}
-                        alignItems='center'
-                        className='noMargin'
-                    >
-                        <Grid item lg={3} sm={12} className='imageFood'>
-                            <img src={detailImage} className='responsive' />
-                            <div className='detailImage'>
-                                <LocalDining className='iconColor' />
-                                {detailServing}
-                                <AccessTime className='iconColor' style={{ marginLeft: '8px' }} />
-                                {detailReady}
-                            </div>
-                        </Grid>
-                        <Grid item lg={9} sm={12}>
-                            <h1>Ingredients</h1>
-                            <Divider />
-                            <Grid item container spacing={2} direction={'row'} style={{ marginTop: '20px' }}>
-                                {ingredients.map((ingredient, idx) => {
-                                    return (
-                                        <CardIngredient key={idx} ingredient={ingredient} />
-                                    )
-                                })
-
-                                }
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} className='buttonCooking'>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                className={classes.button}
-                                startIcon={<DoubleArrow />}
-                                onClick={goToStep}
-                            >
-                                <Link to='/step/123' type='inigambar'>
-                                    Let's Cooking
-                                </Link>
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Box>
+                </div>
+                </div>
+            }
+            </>
+        </div>
     )
 }

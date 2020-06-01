@@ -115,7 +115,7 @@ export default function PersistentDrawerLeft() {
             </IconButton>
             <div>
                 <Link  to='/' style={{ textDecoration: 'none' }}>
-                <img  src="./logo.png" height="50px"></img>
+                <img  src="/logo.png" height="50px"></img>
                 </Link>
             </div>
             { isLoggedIn &&
