@@ -13,6 +13,8 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector} from 'react-redux'
 import { addToFavourite, setFavourites, removeFromFavourite } from "../store/actions/favouritesActions";
+import {Link, useHistory} from 'react-router-dom'
+
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -72,6 +74,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 }));
 
 const FoodCard = (props) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     if(props.recipe.title.length > 23){
         props.recipe.title = props.recipe.title.substring(0, 20) + '...';
@@ -112,6 +115,9 @@ const FoodCard = (props) => {
           dispatch(removeFromFavourite(id));
         }
         
+    }
+    const getDetails = (id) => {
+      history.push(`/detail/${id}`)
     }
     const styles = useStyles();
     const {
@@ -158,7 +164,7 @@ const FoodCard = (props) => {
                         {props.recipe.readyInMinutes} mins
             </CardActions>
             <p className='insibleText'> ................................................................</p>
-            <div >
+            <div onClick={()=>getDetails(props.recipe.id)}>
 
                 <MuiThemeProvider
                 style={{marginLeft: '100px'}}
