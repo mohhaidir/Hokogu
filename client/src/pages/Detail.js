@@ -62,7 +62,6 @@ export default function Detail() {
                 <div style={{paddingLeft: '10vw', paddingRight: '10vw'}}>
                     <ExtendedFoodCard recipe={recipe} />
                     <br/>
-
                 </div>
                 </div>
             }
