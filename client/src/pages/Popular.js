@@ -9,8 +9,8 @@ import {Link, useHistory} from 'react-router-dom'
 const Popular = () => {
     const dispatch = useDispatch();
 
-    let favourites = useSelector((state)=> state.favouritesReducer.favourites);
-    let favouritesLoading = useSelector((state)=> state.favouritesReducer.favouritesLoading);
+    let favourites = useSelector((state)=> state.favouritesReducer.popular);
+    let favouritesLoading = useSelector((state)=> state.favouritesReducer.popularLoading);
     const history = useHistory()
 
     useEffect(()=>{

@@ -1,4 +1,4 @@
-import { SET_FAVOURITES, SET_FAVOURITESLOADING} from "./types";
+import { SET_FAVOURITES, SET_FAVOURITESLOADING, SET_POPULAR, SET_POPULARLOADING} from "./types";
 import axios from "axios";
 
 const url = 'http://localhost:3000'
@@ -6,7 +6,7 @@ const url = 'http://localhost:3000'
 
 export const getPopularRecipies = () => {
   return (dispatch) => {
-    dispatch(setFavouritesLoading(true))
+    dispatch(setPopularLoading(true))
     console.log('lagi')
     axios ({
       method: "get",
@@ -15,7 +15,7 @@ export const getPopularRecipies = () => {
     .then(response => {
       console.log(response)
       dispatch({
-        type: SET_FAVOURITES,
+        type: SET_POPULAR,
         payload:  response.data.mostFavorite
       });
     })
@@ -107,6 +107,20 @@ export const setFavouritesLoading = (value)=> {
 export const setFavourites = (value) => {
   return {
     type : SET_FAVOURITES,
+    payload : value
+  }
+}
+
+export const setPopularLoading = (value)=> {
+  return {
+    type : SET_POPULARLOADING,
+    payload : value
+  }
+}
+
+export const setPopular = (value) => {
+  return {
+    type : SET_POPULAR,
     payload : value
   }
 }
