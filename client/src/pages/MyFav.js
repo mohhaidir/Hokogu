@@ -1,65 +1,86 @@
-import React, { useState, useEffect } from 'react'
-import axios from "axios";
+import React, {useEffect, useState} from 'react'
+import FoodCard from '../components/FoodCard'
+import { useSelector, useDispatch} from "react-redux";
+import { getFavourites } from "../store/actions/favouritesActions";
 import { Grid } from '@material-ui/core';
-import { CardRecipe } from '../components/';
+import {Link, useHistory} from 'react-router-dom'
 
-export default function MyFav() {
 
-    const host = 'http://localhost:3000'
-    const [myFavorites, setMyFavorites] = useState([])
-    const [myFavoritesLoading, setMyFavoritesLoading] = useState(true)
+const MyFav = () => {
+    const dispatch = useDispatch();
+    let isLoggedIn = useSelector((state)=> state.userReducer.isLoggedIn);
 
-    useEffect(() => {
-        axios ({
-            method: "get",
-            url: `${host}/favorites`,
-            headers: { token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJicmFtQGdtYWlsLmNvbSIsImlhdCI6MTU5MDc0NzE3Nn0.TIg04-PeRdcsbysDHBXD_oyHFQJkLuOueWtD1vK_ydo" }
-        })
-        .then(response => {
-            console.log(response.data)
-            setMyFavorites(response.data.favorites)
-            setMyFavoritesLoading(false)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }, [myFavorites])
+    let favourites = useSelector((state)=> state.favouritesReducer.favourites);
+    let favouritesLoading = useSelector((state)=> state.favouritesReducer.favouritesLoading);
+    const history = useHistory()
 
-    if (myFavoritesLoading){
-        return (
-            <>
-            <h1>loading...</h1>
-            <h1>loading...</h1>
-            <h1>loading...</h1>
-            <h1>loading...</h1>
-            <h1>loading...</h1>
-            <h1>loading...</h1> 
-            </>
-        )
-    }
+    useEffect(()=>{
+        if(!localStorage.getItem('hokogu_token')){
+            history.push('/')
+        }
+        dispatch(getFavourites());
+    }, [])
+
+    useEffect(()=>{
+        if(!localStorage.getItem('hokogu_token')){
+            history.push('/')
+        }
+
+    }, [isLoggedIn])
+
 
     return (
-        <div className='mainContent'>
-            <Grid container spacing={3} className='content'>
-                <Grid item xs={12} >
-                    <h1>My Favorite</h1>
-                    <hr></hr>
-                    <Grid item xs={12} 
-                        container 
-                        direction='row' 
-                        spacing={3} 
-                        alignItems='center' 
-                        className='noMargin limitScroll'
-                    >
-                        {myFavorites.map((myFavorite) => {
-                            return (
-                                <CardRecipe key={myFavorite.id} myFavorite={myFavorite} isFav={true} />
-                            )
-                        })}
+        <div style={{backgroundColor: 'white', minHeight: '100vh'}}> 
+        <div style={{
+        backgroundImage: `url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '200px',
+        paddingTop: '60px',
+        textAlign: 'center'
+        }}>
+            <h1 className='accountText'>
+                My Favourites
+            </h1>
+        </div>
 
-                    </Grid>
-                </Grid>
-            </Grid>
+        <br/>
+        {   favouritesLoading  && 
+            <div style={{textAlign:"center"}}>
+            <img height="300" width="300" src="loading.gif" alt="loading" />
+            </div>
+        }
+
+        {   (favouritesLoading === false && favourites.length > 0 )  &&
+            <div className="wrapper">
+            {   
+                favourites.map((recipe, idx) => {
+                    let modified = {
+                        id: recipe.recipeId,
+                        title: recipe.title,
+                        readyInMinutes: recipe.ready,
+                        servings: recipe.serving,
+                        image: recipe.image
+                    }
+                    return(
+                        <div key={idx}>
+                        <FoodCard recipe={modified}/>
+                        </div>
+                    )
+                })
+            }
+            </div>
+        }
+        {   (!favouritesLoading && favourites.length < 1) &&
+            <h1>Your Favourites Are Empty</h1>
+        }
+
+        <br/>
+        <br/>
+        <br/>
+
         </div>
     )
 }
+export default MyFav;

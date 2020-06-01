@@ -13,8 +13,60 @@
   }
 }
 
-.searchInput {
+.insibleText{
+  color: white
+}
+
+.wrapper{
+  display: grid;
+  padding-right: 140px;
+  padding-left: 140px;
+  grid-gap: 25px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.searchBar2{
+  width: 80%;
+  background-color: rgba(214, 214, 214, 0.144);
+  border-radius: 40px;
+  border: 3px solid #FF5F6D;
+  margin: auto;
+  transition: all .2s ease-in-out;
+  display: flex;
+  height: 60px;
+}
+
+
+.iconDetailsCard {
+  background-color: white;
+}
+
+.topFav:hover {
+  transform: scale(1.05)
+}
+
+.searchBar2:hover {
+  transform: scale(1.05)
+}
+
+.searchIcon{
+  height: 50px;
+}
+
+.searchForm {
   width: 95%;
+  
+} 
+
+.searchForm2 {
+  width: 90%;
+  background-color: transparent;
+} 
+
+
+
+.searchInput {
+  /* width: 70%; */
   height: 50px;
   border: none;
   background-color: transparent;
@@ -23,12 +75,29 @@
   color: transparent;
   text-shadow: 0 0 0 black;
   border-color: transparent;
-
 }
+
+.searchInput2 {
+  /* width: 70%; */
+  height: 50px;
+  border: none;
+  width: 800px;
+  background-color: transparent;
+  text-align: center;
+  font-size: x-large;
+  border-color: transparent;
+}
+
+
 
 .searchInput:focus {
   outline: none;
 }
+
+.searchInput2:focus {
+  outline: none;
+}
+
 
 .App-header {
   background-color: #282c34;
@@ -56,14 +125,19 @@
 
 .homeSlogan{
   color: #FF5F6D;
-  /* opacity: 100%; */
-  /* border: 3px solid #FF5F6D; */
   font-size: 6.2em;
   font-family: 'Dancing Script', cursive;
   margin: 0;
-  /* background-color: rgba(255, 255, 255, 0.5); */
-  /* font-family: Arial, Helvetica, sans-serif; */
 }
+
+
+.accountText{
+  color: #FF5F6D;
+  font-size: 4.2em;
+  font-family: 'Dancing Script', cursive;
+  margin: 0;
+}
+
 
 @media only screen and (max-width: 1250px) {
   .homeSlogan {

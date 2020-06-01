@@ -1,6 +1,11 @@
 import React from 'react';
+import { Provider } from 'react-redux'
+import store from './store/index';
+
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { Home, Login, Register, MyFav, Detail, StepCooking } from './pages';
+
+import { Home, Login, Register, MyFav, Detail, SearchResults, Popular, StepCooking } from './pages';
+
 import { Navbar } from './components';
 import './assets/css/style.css';
 
@@ -19,6 +24,12 @@ const routes = [
     children: <Register/>
   },
   {
+    path: '/popular',
+    children: <Popular/>
+    // children: <SearchResults/>
+  },
+
+  {
     path: '/favorites',
     children: <MyFav/>
   },
@@ -27,25 +38,37 @@ const routes = [
     children: <Detail/>
   },
   {
+
     path: '/step/:id',
     children: <StepCooking/>
   },
+
+    path: '/search',
+    component: SearchResults
+    // children: <SearchResults/>
+  },
+
 ];
 
 const AppRouter = () => (
+
   <Switch>
     {routes.map((route) => <Route key={route} {...route} />)}
   </Switch>
+
 );
 
 function App() {
   return (
-    <Router>
-        <Navbar />
-        <div className='underNav'>
-          <AppRouter />
-        </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+          <Navbar />
+          <div className='underNav'>
+            <AppRouter />
+          </div>
+      </Router>
+    </Provider>
+
   );
 }
 

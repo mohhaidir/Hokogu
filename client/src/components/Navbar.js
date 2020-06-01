@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react'
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom'
+import {logout, setIsLoggedIn, setToken, setName, setAvatar} from '../store/actions/userActions'
 import {Button} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,16 +24,16 @@ import JssProvider from "react-jss/lib/JssProvider";
 import { createGenerateClassName } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
+import {useSelector,useDispatch} from 'react-redux'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 
-const drawerWidth = 200;
-
+const drawerWidth = 250;
   
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   appBar: {
-    // marginLeft: '30px',
     boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
     backgroundColor: '#fdfff5',
     transition: theme.transitions.create(['margin', 'width'], {
@@ -40,21 +41,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-//   appBarShift: {
-//     width: `calc(100%)`,
-//     marginLeft: '0',
-//     transition: theme.transitions.create(['margin', 'width'], {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   },
   menuButton: {
     color: '#ff9687',
-    // marginRight: theme.spacing(2),
   },
-//   hide: {
-//     display: 'none',
-//   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -69,31 +58,29 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
   },
-//   content: {
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: -drawerWidth,
-//   },
-//   contentShift: {
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//     marginLeft: 0,
-//   },
 }));
 
 export default function PersistentDrawerLeft() {
+  const dispatch = useDispatch()
   const classes = useStyles();
+  const { isLoggedIn} = useSelector(state => state.userReducer);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
+  useEffect(()=> {
+    if(localStorage.getItem('hokogu_token')){
+        dispatch(setIsLoggedIn(true));
+        dispatch(setToken(localStorage.getItem('hokogu_token')));
+        dispatch(setName(localStorage.getItem('hokogu_token')));
+        dispatch(setAvatar(localStorage.getItem('hokogu_token')));
+    }
+  }, [isLoggedIn])
+
+  const doLogout = () => {
+    dispatch(logout())
+  }
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -102,6 +89,8 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
 
   return (
     <div className={classes.root}>
@@ -129,27 +118,49 @@ export default function PersistentDrawerLeft() {
                 <img  src="./logo.png" height="50px"></img>
                 </Link>
             </div>
-
-            <div 
-            style={{ 
-                textDecoration: 'none', 
-                // justifyContent: 'flex-end'
-            }} 
-            edge="end" 
-            justifyContent="flex-end" >
-                <Link  to='/login' style={{ textDecoration: 'none' }}>
-                    <MuiThemeProvider
-                    theme={createMuiTheme({
-                        typography: {
-                        useNextVariants: true
-                        },
-                        overrides: GradientButton.getTheme(muiBaseTheme)
-                    })}
-                    >
-                        <GradientButton words='Login'/>
-                    </MuiThemeProvider>
-                </Link>
-            </div>
+            { isLoggedIn &&
+              <div 
+              style={{ 
+                  textDecoration: 'none', 
+                  // justifyContent: 'flex-end'
+              }} 
+              onClick={doLogout}
+              edge="end" 
+              >
+                <MuiThemeProvider
+                theme={createMuiTheme({
+                    typography: {
+                    useNextVariants: true
+                    },
+                    overrides: GradientButton.getTheme(muiBaseTheme)
+                })}
+                >
+                  <GradientButton words='Logout'/>
+                </MuiThemeProvider>
+              </div>
+            }
+            { !isLoggedIn &&
+              <div 
+              style={{ 
+                  textDecoration: 'none', 
+                  // justifyContent: 'flex-end'
+              }} 
+              edge="end" 
+              >
+                  <Link  to='/login' style={{ textDecoration: 'none' }}>
+                      <MuiThemeProvider
+                      theme={createMuiTheme({
+                          typography: {
+                          useNextVariants: true
+                          },
+                          overrides: GradientButton.getTheme(muiBaseTheme)
+                      })}
+                      >
+                          <GradientButton words='Login'/>
+                      </MuiThemeProvider>
+                  </Link>
+              </div>
+            }
         </div>
         </Toolbar>
 
@@ -175,12 +186,20 @@ export default function PersistentDrawerLeft() {
                     <ListItemText primary={'Home'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link>
+            <Link onClick={handleDrawerClose} to='/popular' style={{ textDecoration: 'none' }}>
+                <ListItem button>
+                    <ListItemIcon> <FavoriteIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
+                    <ListItemText primary={'Popular'} style={{color:"#ff9687", fontSize: "60px"}}/>
+                </ListItem>
+            </Link>
+
             <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
                 <ListItem button>
                     <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
-                    <ListItemText primary={'Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
+                    <ListItemText primary={'My Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link>
+
         </List>
       </Drawer>
       <main

@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import { Link, useHistory } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import {useDispatch, useSelector} from 'react-redux'
+import {login} from '../store/actions/userActions'
+
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const ColorButton = withStyles((theme) => ({
@@ -27,10 +31,10 @@ const ColorButton = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
     margin: {
-        marginTop: '20px'
+        marginTop: '10px'
       },
   root: {
-    height: '100vh',
+    height: '92vh',
   },
   image: {
     backgroundImage: 'url(https://c0.wallpaperflare.com/preview/199/800/968/macarons-pink-aqua-pastels.jpg)',
@@ -61,7 +65,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const isLoggedIn = useSelector((state)=>state.userReducer.isLoggedIn)
+  const history = useHistory();
+  const dispatch = useDispatch()
   const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const emailHandle = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const passwordHandle = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const clientLogin = () => {
+    let data = {
+      email: email,
+      password: password,
+    }
+    dispatch(login(data))
+  }
+
+  useEffect(()=>{
+    if(isLoggedIn){
+        history.push(`/`)
+    }
+  }, [isLoggedIn])
+
+
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline/>
@@ -70,18 +104,12 @@ export default function Login() {
         <br/>
         <br/>
         <br/>
-        
         <br/>
 
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          {/* <Typography component="h1" variant="h5" color="#ff959c">
-            LOGIN
-          </Typography> */}
-          {/* <h2 style={{color: '#ff959c'}}>LOGIN</h2> */}
-
+          <h1 className='accountText'>
+                Welcome!
+          </h1>
           <form className={classes.form} noValidate>
             <TextField
             color="secondary"
@@ -94,7 +122,9 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange= {emailHandle}
             />
+
             <TextField
             color="secondary"
             variant="outlined"
@@ -106,11 +136,11 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange= {passwordHandle}
             />
-            <br/>
 
 
-            <ColorButton fullWidth variant="contained" color="primary" className={classes.margin}>
+            <ColorButton onClick={clientLogin} fullWidth variant="contained" color="primary" className={classes.margin}>
             Login
             </ColorButton>
 
@@ -129,9 +159,14 @@ export default function Login() {
               <Grid item xs>
               </Grid>
               <Grid item>
-              <Link style={{color: '#FF5F6D', fontSize: '17px'}} href="#" variant="body2">
+
+              <Link  to='/register'>
+                <p style={{ color: '#FF5F6D', fontSize: '17px'}} >Don't have an account? Sign Up</p>
+              </Link>
+
+              {/* <Link to='/register' style={{color: '#FF5F6D', fontSize: '17px'}} href="" variant="body2">
                   {"Don't have an account? Sign Up"}
-            </Link>
+              </Link> */}
               </Grid>
             </Grid>
           </form>

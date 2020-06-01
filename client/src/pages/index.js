@@ -4,3 +4,6 @@ export { default as Login } from './Login';
 export { default as Register } from './Register';
 export { default as MyFav } from './MyFav';
 export { default as StepCooking } from './StepCooking';
+export { default as SearchResults } from './SearchResults';
+export { default as Popular } from './Popular';
+
