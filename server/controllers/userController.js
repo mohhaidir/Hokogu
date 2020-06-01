@@ -60,7 +60,6 @@ class UserController {
       })
       .catch(err => {
         if (err.message) {
-          console.log(err);
           res.status(400).json({ message: "Email already taken" });
         } else {
           res.status(500).json({ message: "Internal server error" });

@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/actions/userActions";
+import { login, googleLogin } from "../store/actions/userActions";
 import { GoogleLogin, useGoogleLogin } from "react-google-login";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Axios from "axios";
@@ -86,6 +86,7 @@ export default function Login() {
       password: password
     };
     dispatch(login(data));
+    history.push("/");
   };
 
   useEffect(() => {
@@ -95,6 +96,7 @@ export default function Login() {
   }, [isLoggedIn]);
 
   const responseGoogle = response => {
+    console.log(response, "ini response ID");
     Axios({
       url: `http://localhost:3000/users/googlelogin`,
       method: "post",
@@ -102,8 +104,11 @@ export default function Login() {
         idToken: response.tokenId
       }
     })
-      .then(() => {
-        console.log("BERHASIL LOGIN GOOGLE BOSS");
+      .then(result => {
+        // console.log("BERHASIL LOGIN GOOGLE BOSS");
+        console.log(result.data, "balikan axios------->>>>");
+        dispatch(googleLogin(result.data));
+        history.push("/");
       })
       .catch(err => {
         console.log(err);

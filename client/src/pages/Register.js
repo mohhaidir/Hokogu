@@ -101,9 +101,7 @@ export default function Register() {
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
-  // console.log(imageAsUrl);
   const handleImageAsFile = e => {
-    // console.log(e.target.files, "----- files");
     const image = e.target.files[0];
     setImageAsFile(imageFile => image);
     setPreview(image.name);
@@ -118,13 +116,13 @@ export default function Register() {
         avatar: "none"
       };
       if (imageAsFile === "") {
-        // console.error(
-        //   `not an image, the image file is a ${typeof imageAsFile}`
-        // );
+        console.error(
+          `not an image, the image file is a ${typeof imageAsFile}`
+        );
         data.avatar =
           "https://firebasestorage.googleapis.com/v0/b/hokugu…=media&token=a882876a-6e0b-4561-aa3a-81846b2c8b49";
-        // console.log(data, "data avatar");
         dispatch(register(data));
+        history.push("/");
       } else {
         const uploadTask = storage
           .ref(`/images/${imageAsFile.name}`)
@@ -152,12 +150,9 @@ export default function Register() {
                   ...prevObject,
                   imgUrl: fireBaseUrl
                 }));
-                // console.log(fireBaseUrl, "<---- IMAGE AS URL");
                 data.avatar = fireBaseUrl;
-                // console.log(data.avatar, "----- ini avatar");
                 dispatch(register(data));
-                // console.log(data, "---- data");
-                // console.log(imageAsFile);
+                history.push("/");
               });
           }
         );
