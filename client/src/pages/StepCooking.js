@@ -11,9 +11,122 @@ import {
 import { useStyles } from '../assets/css';
 import axios from 'axios';
 import { CardStep } from '../components';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
+import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import { Card, CardContent } from '@material-ui/core/';
+import cx from 'clsx';
+import clsx from 'clsx';
+
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import { useArrowDarkButtonStyles } from '@mui-treasury/styles/button/arrowDark';
+import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
+
+
+import StepConnector from '@material-ui/core/StepConnector';
+
+
+
+const ColorlibConnector = withStyles({
+    alternativeLabel: {
+      top: 22,
+    },
+    active: {
+      '& $line': {
+        backgroundImage:
+            "linear-gradient(to right, #ffcbcb, #FF5F6D)" ,
+      },
+    },
+    completed: {
+      '& $line': {
+        backgroundImage:
+        "linear-gradient(to right, #ffcbcb, #FF5F6D)" ,
+      },
+    },
+    line: {
+      height: 3,
+      border: 0,
+      backgroundColor: '#eaeaf0',
+      borderRadius: 1,
+    },
+  })(StepConnector);
+  
+  const useColorlibStepIconStyles = makeStyles({
+    root: {
+      backgroundColor: '#ccc',
+      zIndex: 1,
+      color: '#fff',
+      width: 50,
+      height: 50,
+      display: 'flex',
+      borderRadius: '50%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    active: {
+      backgroundImage:
+      "linear-gradient(to right, #ffcbcb, #FF5F6D)" ,
+      boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+    },
+    completed: {
+      backgroundImage:
+      "linear-gradient(to right, #ffcbcb, #FF5F6D)" ,
+    },
+  });
+  
+  function ColorlibStepIcon(props) {
+    console.log(props)
+    const classes = useColorlibStepIconStyles();
+    const { active, completed, icon } = props;
+    
+    return (
+      <div
+        className={clsx(classes.root, {
+          [classes.active]: active,
+          [classes.completed]: completed,
+        })}
+      >
+          <h1>{icon}</h1>
+      </div>
+    );
+  }
+  
+
+
+const useStyle = makeStyles(({ breakpoints, spacing }) => ({
+    root: {
+      margin: 'auto',
+      borderRadius: spacing(2), // 16px
+      transition: '0.3s',
+      boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
+      position: 'relative',
+      width: "100%",
+      overflow: 'initial',
+      background: '#ffffff',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  }));
+  
 
 export default function StepCooking(props) {
     const classes = useStyles();
+    const styles = useStyle();
+    const {
+        button: buttonStyles,
+        ...contentStyles
+    } = useBlogTextInfoContentStyles();
+    const shadowStyles = useOverShadowStyles();
+
+    const classes2 = useArrowDarkButtonStyles();
+    const gutterStyles = usePushingGutterStyles({
+      firstExcluded: true,
+      space: 2,
+    });
+  
+
     const [activeStep, setActiveStep] = React.useState(0);
     const [showIngredient, setShowIngredient] = React.useState(false);
     const [showEquipment, setShowEquipment] = React.useState(false);
@@ -194,25 +307,69 @@ export default function StepCooking(props) {
     };
 
     return (
-        <Box className='mainContent'>
+        <div style={{backgroundColor: 'white', minHeight: '90vh'}}>
+        <div className='bannerStep'>
+            <div>
+                <h1 className='stepText'>
+                    {steps && steps.length !== 0 && steps[activeStep]}
+                </h1>
+                { (activeStep === steps.length) &&
+                    <div>
+                        <Button onClick={handleReset} style={{backgroundColor:'rgba(220, 109, 109, 0.86)'}}>Reset</Button>
+                    </div>
+                }
+                {/* { activeStep === steps.length &&
+                    <div>
+                        <Button onClick={handleReset} style={{backgroundColor:'rgba(220, 109, 109, 0.86)'}}>Reset</Button>
+                    </div>
+                } */}
+
+                { (activeStep >= 1 && activeStep < steps.length) &&
+                    <Button onClick={handleBack} classes={classes2} style={
+                        {
+                            color: '#FF5F6D',
+                            fontWeight: 'bold',
+                            border: '5px solid #FF5F6D',
+                            position: "absolute",
+                            top: '30vh',
+                            left: "7vh",
+                        }
+                    }>
+                        <KeyboardArrowLeft style={{color: '#FF5F6D'}} />
+                    </Button>
+                }
+                {   (activeStep < steps.length-1) &&
+                    <Button onClick={handleNext} classes={classes2} style={
+                        {
+                            color: '#FF5F6D',
+                            fontWeight: 'bold',
+                            border: '5px solid #FF5F6D',
+                            position: "absolute",
+                            top: '30vh',
+                            right: "7vh",
+                        }
+                    }>
+                        <KeyboardArrowRight style={{color: '#FF5F6D'}} />
+                    </Button>
+                }
+
+
+            </div>
+            <Box className='mainContent'>
             {props && JSON.stringify(props.type)}
-            <Grid container spacing={3} className='content'>
-                <Grid lg={12} container spacing={3}>
-                    {showIngredient && <CardStep data={dataIngredient} type='Ingredients'/>}
-                    {showEquipment && <CardStep data={dataEquipment} type='Equipment'/>}
-                </Grid>
-                <Grid item lg={12} className='labelStep'>
-                    <h1>{steps && steps.length !== 0 && steps[activeStep]}</h1>
-                </Grid>
-                <Grid item xs={12}>
-                    <Stepper activeStep={activeStep} alternativeLabel style={{overflowX: 'scroll'}}>
+
+            <Card className={cx(styles.root, shadowStyles.root)}>
+            <CardContent>
+
+            {/* <div className='StepCard'> */}
+                    <Stepper activeStep={activeStep} connector={<ColorlibConnector />} alternativeLabel style={{overflowX: 'scroll'}}>
                         {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
+                        <Step color="secondary" key={label}>
+                            <StepLabel StepIconComponent={ColorlibStepIcon} color="secondary" >{label}</StepLabel>
                         </Step>
                         ))}
                     </Stepper>
-                    <div>
+                    {/* <div>
                         {activeStep === steps.length ? (
                         <div>
                             <Typography className={classes.instructions}>All steps completed</Typography>
@@ -220,7 +377,7 @@ export default function StepCooking(props) {
                         </div>
                         ) : (
                         <div>
-                            {/* <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography> */}
+                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
                             <div  style={{display:'flex', justifyContent:'space-between'}}>
                             <Button
                                 disabled={activeStep === 0}
@@ -236,9 +393,21 @@ export default function StepCooking(props) {
                             </div>
                         </div>
                         )}
-                    </div>
-                </Grid>
-            </Grid>
+                    </div> */}
+                {/* </div> */}
+
+
+            </CardContent>
+
+
+            </Card>
+
+            {/* <Grid container  className='content'>
+            </Grid> */}
         </Box>
+
+        </div>
+
+        </div>
     )
 }
