@@ -7,17 +7,22 @@ import { getFavourites } from "../store/actions/favouritesActions";
 
 import { Grid } from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom'
+import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import { Mic as MicIcon } from '@material-ui/icons';
 
 
 const SearchResults = ({ location }) => {
     const dispatch = useDispatch();
+
     let recipies = useSelector((state)=> state.recipeReducer.recipies);
     let recipiesLoading = useSelector((state)=> state.recipeReducer.recipiesLoading);
     let favourites = useSelector((state)=> state.favouritesReducer.favourites);
     let favouritesLoading = useSelector((state)=> state.favouritesReducer.favouritesLoading);
 
     const [query, setQuery] = useState('');
+    const [isOnListening, setIsOnListening] = useState(false);
+
     const history = useHistory()
 
     const handleQuery = (value) => {
@@ -29,6 +34,31 @@ const SearchResults = ({ location }) => {
         if(query !== ''){
             history.push(`/search?query=${query}`)
         }
+    }
+
+    function speechToText() {
+        // speech recognition API supported
+        var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+        var recognition = new SpeechRecognition(); 
+        // This will run when the speech recognition service returns a result
+        recognition.onstart = function() {
+            console.log("Voice recognition started. Try speaking into the microphone.");
+            setIsOnListening(true);
+        };
+        
+        recognition.onresult = function(event) {
+            setIsOnListening(false);
+            var transcript = event.results[0][0].transcript;
+            if (query !== '' || query !== undefined || query !== null) {
+                setQuery(transcript);
+                console.log('querrry', query)
+                if(transcript !== ''){
+                    history.push(`/search?query=${transcript}`)
+                }
+            }
+        };
+        // start recognition
+        recognition.start();
     }
 
     useEffect(()=>{
@@ -61,6 +91,14 @@ const SearchResults = ({ location }) => {
                 value={query}
                 type="text"/>
             </form>
+            <IconButton onClick={speechToText}>
+            {isOnListening ? 
+            <MicIcon style={{fontSize: "30px"}} className='iconColor'/>
+            :
+            <MicIcon style={{fontSize: "30px"}} />  
+            }
+            </IconButton>
+
             </div>
         </div>
 

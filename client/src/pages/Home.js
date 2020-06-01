@@ -83,7 +83,7 @@ export default function Home() {
     }, [isLoggedIn])
   
     const handleDrawerOpen = () => {
-        console.log('disiniiii')
+        speechToText();
         setOpen(true);
     };
     
@@ -149,21 +149,24 @@ export default function Home() {
         }}
         >
             <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
+            <IconButton>
+            {isOnListening ? 
+            <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
+            :
+            <MicIcon style={{fontSize: "40px"}} />  
+            }
+            </IconButton>
+
                 <form className='searchForm' onSubmit={search}>
                     <input 
                     autoFocus 
+                    value={query}
                     onChange={(e)=>handleQuery(e.target.value)}
                     placeholder='what are you craving...' 
                     className='searchInput' 
                     type="text"/>
                 </form>
-                <IconButton onClick={speechToText}>
-                    {isOnListening ? 
-                    <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
-                    :
-                    <MicIcon style={{fontSize: "40px"}} />  
-                    }
-                </IconButton>
+                {/* <IconButton onClick={speechToText}> */}
                 <IconButton onClick={handleDrawerClose}>
                     <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
