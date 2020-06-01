@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import store from './store/index';
 
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { Home, Login, Register, MyFav, Detail, SearchResults } from './pages';
+import { Home, Login, Register, MyFav, Detail, SearchResults, Popular } from './pages';
 import { Navbar } from './components';
 import './assets/css/style.css';
 
@@ -21,6 +21,12 @@ const routes = [
     path: '/register',
     children: <Register/>
   },
+  {
+    path: '/popular',
+    children: <Popular/>
+    // children: <SearchResults/>
+  },
+
   {
     path: '/favorites',
     children: <MyFav/>

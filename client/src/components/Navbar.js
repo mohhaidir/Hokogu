@@ -25,8 +25,9 @@ import { createGenerateClassName } from "@material-ui/core/styles";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
 import {useSelector,useDispatch} from 'react-redux'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 
-const drawerWidth = 300;
+const drawerWidth = 250;
   
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -185,12 +186,20 @@ export default function PersistentDrawerLeft() {
                     <ListItemText primary={'Home'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link>
+            <Link onClick={handleDrawerClose} to='/popular' style={{ textDecoration: 'none' }}>
+                <ListItem button>
+                    <ListItemIcon> <FavoriteIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
+                    <ListItemText primary={'Popular'} style={{color:"#ff9687", fontSize: "60px"}}/>
+                </ListItem>
+            </Link>
+
             <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
                 <ListItem button>
                     <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
-                    <ListItemText primary={'Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
+                    <ListItemText primary={'My Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link>
+
         </List>
       </Drawer>
       <main
