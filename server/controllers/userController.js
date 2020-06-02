@@ -28,7 +28,7 @@ class UserController {
         }
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error" }); // uncovered
       });
   }
 
@@ -60,7 +60,7 @@ class UserController {
         if (err.message) {
           res.status(400).json({ message: "Email already taken" });
         } else {
-          res.status(500).json({ message: "Internal server error" });
+          res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }
@@ -140,7 +140,7 @@ class UserController {
         }
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ message: "Internal Server Error" }); // uncovered
       });
   }
 
@@ -173,7 +173,7 @@ class UserController {
         if (err.message) {
           res.status(404).json({ message: "User not found" });
         } else {
-          res.status(500).json({ message: "Internal server error" });
+          res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }

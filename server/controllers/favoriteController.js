@@ -1,5 +1,5 @@
 const { Favorite } = require("../models");
-const { Op } = require('sequelize');
+const { Op } = require("sequelize");
 
 class FavoriteController {
   static addFavorite(req, res) {
@@ -36,7 +36,7 @@ class FavoriteController {
         } else {
           res
             .status(500)
-            .json({ message: "Internal server error", error: err });
+            .json({ message: "Internal server error", error: err }); // uncovered
         }
       });
   }
@@ -51,7 +51,7 @@ class FavoriteController {
         });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err });
+        res.status(500).json({ message: "Internal server error", error: err }); // uncovered
       });
   }
 
@@ -64,7 +64,7 @@ class FavoriteController {
           for (let j = 0; j < hasil.length; j++) {
             if (data[i].recipeId == hasil[j][0].recipeId) {
               hasil[j][1].total++;
-              flag = true;
+              flag = true; // uncovered
             }
           }
           if (flag == false) {
@@ -72,17 +72,17 @@ class FavoriteController {
           }
         }
         hasil.sort((a, b) => b[1].total - a[1].total);
-        let result = []
+        let result = [];
         for (let i = 0; i < 10; i++) {
           if (i === hasil.length) {
             break;
           }
-          result.push(hasil[i][0])
+          result.push(hasil[i][0]);
         }
         res.status(200).json({ mostFavorite: result });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err });
+        res.status(500).json({ message: "Internal server error", error: err }); // uncovered
       });
   }
 
@@ -91,18 +91,13 @@ class FavoriteController {
 
     Favorite.findOne({
       where: {
-        [Op.and]: [
-          { recipeId: id },
-          { UserId: req.userdata.id }
-        ]
+        [Op.and]: [{ recipeId: id }, { UserId: req.userdata.id }]
       }
     })
       .then(data => {
-
         if (!data) {
           res.status(404).json({ message: "Favorite not found" });
         } else {
-
           return Favorite.destroy({ where: { id: data.id } });
         }
       })
@@ -110,7 +105,7 @@ class FavoriteController {
         res.status(200).json({ message: "Success deleted a favorite" });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err });
+        res.status(500).json({ message: "Internal server error", error: err }); // uncovered
       });
   }
 }

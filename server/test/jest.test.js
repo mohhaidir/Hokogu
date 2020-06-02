@@ -240,52 +240,6 @@ describe("EDIT USER DETAIL BY USERID", function() {
   });
 });
 
-describe("USER LOGIN WITH GOOGLE", function() {
-  describe("~> SUCCESSFULLY Login as if account doesn't registered yet", function() {
-    it("Should return 201 and object (name, avatar, token)", done => {
-      request(app)
-        .post("/users/googlelogin")
-        .send({
-          idToken:
-            "eyJhbGciOiJSUzI1NiIsImtpZCI6ImZiOGNhNWI3ZDhkOWE1YzZjNjc4ODA3MWU4NjZjNmM0MGYzZmMxZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA2NDQwMjgwNjE3MzYzNDMxNjgwIiwiZW1haWwiOiJraG9pcnVsam1ickBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IjRXcVVLZ0FxcmV6QlFlbEczV0VNZFEiLCJuYW1lIjoiTW9oYW1tYWQgSGFpZGlyIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoN0ROcFZGRVFvR2pCVnFyWjlfWnlzMnpxNnZ0OUtJWDZyTGJkaD1zOTYtYyIsImdpdmVuX25hbWUiOiJNb2hhbW1hZCIsImZhbWlseV9uYW1lIjoiSGFpZGlyIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTExMTEyMTMsImV4cCI6MTU5MTExNDgxMywianRpIjoiNTg5N2E4MGM1ZjE1NGI3NzZiNTcwMGI1MTI4OWQwNzZmZGNiZDhkYyJ9.C002Ny9Qf3ZFnk1-KuPrWkZnRukU0AVTT5otk8zVgExwv5YJvCC9CfhYPCJK2-SgJhfu8RK788_0hLIJpsWM8eqlwUTEe09kxWJcE0W-IcfRiA16S1L1Qfi4qiEoGlUJ8mj3VTOZqwsyM6_l4wb48_QU6JifriaDi6rdhhtV5jvGY9A_DMiyWxcC4SziY6AtyNNLTxAZcl0z8QRQOip8kCBg8zw3RZKhgFpfCmK8_D2jFD3oiqm0SotN5wwsQDs-M9CMyCygUZ122gQ5j-m-kLJOv1Qo9Dwf3sy9j9XWZFx4RtB8y73nFwpY8WgN8NdSMPv0Nxc7lZZcK7LDacozRw"
-        })
-        .then(response => {
-          let { status, body } = response;
-          expect(status).toBe(201);
-          expect(body).toHaveProperty("name");
-          expect(body).toHaveProperty("avatar");
-          expect(body).toHaveProperty("token");
-          done();
-        })
-        .catch(err => {
-          done(err);
-        });
-    });
-  });
-
-  describe("~> SUCCESSFULLY Login as if account already exist in database yet", function() {
-    it("Should return 200 and object (name, avatar, token)", done => {
-      request(app)
-        .post("/users/googlelogin")
-        .send({
-          idToken:
-            "eyJhbGciOiJSUzI1NiIsImtpZCI6ImZiOGNhNWI3ZDhkOWE1YzZjNjc4ODA3MWU4NjZjNmM0MGYzZmMxZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA2NDQwMjgwNjE3MzYzNDMxNjgwIiwiZW1haWwiOiJraG9pcnVsam1ickBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImduNEhKNzF4ejBTS0xhZ3B6UkUyZkEiLCJuYW1lIjoiTW9oYW1tYWQgSGFpZGlyIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoN0ROcFZGRVFvR2pCVnFyWjlfWnlzMnpxNnZ0OUtJWDZyTGJkaD1zOTYtYyIsImdpdmVuX25hbWUiOiJNb2hhbW1hZCIsImZhbWlseV9uYW1lIjoiSGFpZGlyIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTExMDcwNjMsImV4cCI6MTU5MTExMDY2MywianRpIjoiNmQ2NTg4OGUwY2Q4NGMxNmMyOGUxNzMyNDExOGIwNDQ1YTNkNWRkMiJ9.QRB96T2zd2df-96R5vQNxFp2y3rM1ARoy9koK8EG36hINJAkDXw1gNU6YaBKvYzodLZkjfF1TCjJUbEpGbIZBSOnTYO2MeBrSEl2usy0fZCEBwCqnGZpdO-NNwhlHitp2I4UVNBRNz2NEx1jyzzod-4MY-B1KkgSsTpcUGIgQCYXa8qLas45yylBwnOJPB8z4JsEeVZncG-wcQuEy_ZKcBAimuPK0fo04rc6QOWGc-LMbYNqnObq-qYr0PjbZrhrmtER_GB5f1EJEt35PIukUkS8K5Cgjk_0cfE-RVH--9exHsu5MGUTYeNXiNI2iKbKp7fbCkEE-bM29_3Fnxvxyg"
-        })
-        .then(response => {
-          let { status, body } = response;
-          expect(status).toBe(200);
-          expect(body).toHaveProperty("name");
-          expect(body).toHaveProperty("avatar");
-          expect(body).toHaveProperty("token");
-          done();
-        })
-        .catch(err => {
-          done(err);
-        });
-    });
-  });
-});
-
 // =================================== FAVORITES ===================================
 
 let favID = null;
@@ -447,6 +401,194 @@ describe("DELETE FAVORITES BY ID", function() {
           let { status, body } = response;
           expect(status).toBe(404);
           expect(body).toHaveProperty("message", "Favorite not found");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
+
+// =================================== INGREDIENTS ===================================
+
+let ingID = null;
+
+afterAll(done => {
+  queryInterface
+    .bulkDelete("Ingredients", {})
+    .then(() => done())
+    .catch(err => done(err));
+});
+
+describe("ADD INGREDIENT BY USER", function() {
+  describe("~> SUCCESSFULLY Add ingredient by user", function() {
+    it("Should return 201 and object (message, ingredient)", done => {
+      request(app)
+        .post("/ingredients")
+        .set({
+          token: token
+        })
+        .send({
+          title: "blueberry",
+          type: "fruit",
+          status: true
+        })
+        .then(response => {
+          let { body, status } = response;
+          expect(status).toBe(201);
+          expect(body).toHaveProperty(
+            "message",
+            "Success added a new ingredient"
+          );
+          expect(body).toHaveProperty("ingredient");
+          expect(body.ingredient).toHaveProperty("title", "blueberry");
+          expect(body.ingredient).toHaveProperty("type", "fruit");
+          expect(body.ingredient).toHaveProperty("status", true);
+          ingID = body.ingredient.id;
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESSFULLY Add ingredient by user", function() {
+    it("Should return 400 and object (message)", done => {
+      request(app)
+        .post("/ingredients")
+        .set({
+          token: token
+        })
+        .send({
+          title: "blueberry",
+          type: "fruit",
+          status: true
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(400);
+          expect(body).toHaveProperty(
+            "message",
+            "This is already in your ingredient"
+          );
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
+
+describe("GET INGREDIENTS BY USERID", function() {
+  describe("~> SUCCESFULLY Get Ingredient by UserId", function() {
+    it("Should return 200 and object (message, ingredients)", done => {
+      request(app)
+        .get("/ingredients")
+        .set({
+          token: token
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty(
+            "message",
+            "Success retrieved your ingredients"
+          );
+          expect(body).toHaveProperty("ingredients");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
+
+describe("EDIT INGREDIENT BY ID", function() {
+  describe("~> SUCCESFULLY Edit Ingredient by Id", function() {
+    it("Should return 200 and object (message, editedData)", done => {
+      request(app)
+        .put(`/ingredients/${ingID}`)
+        .set({
+          token: token
+        })
+        .send({
+          title: "blueberry",
+          type: "fruit",
+          status: false
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty("message", "Success edited ingredient");
+          expect(body).toHaveProperty("editedData");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESFULLY Edit ingredient due to ingredient not found", function() {
+    it("Should return 404 and object (message)", done => {
+      request(app)
+        .put(`/ingredients/999999999`)
+        .set({
+          token: token
+        })
+        .send({
+          title: "blueberry",
+          type: "fruit",
+          status: false
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(404);
+          expect(body).toHaveProperty("message", "Ingredient not found");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
+
+describe("DELETE INGREDIENT BY ID", function() {
+  describe("~> SUCCESSFULLY Delete ingredient by ID", function() {
+    it("Should return 200 and object (message)", done => {
+      request(app)
+        .delete(`/ingredients/${ingID}`)
+        .set({
+          token: token
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty("message", "Success deleted ingredient");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESSFULLY Delete ingredient by ID", function() {
+    it("Should return 404 and object (message)", done => {
+      request(app)
+        .delete(`/ingredients/${ingID}`)
+        .set({
+          token: token
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(404);
+          expect(body).toHaveProperty("message", "Ingredient not found");
           done();
         })
         .catch(err => {

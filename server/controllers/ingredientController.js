@@ -1,22 +1,19 @@
 const { Ingredient } = require("../models");
+const { Op } = require("sequelize");
 
 class IngredientController {
   static getIngredientById(req, res) {
-    const { id } = req.userdata.id;
+    const id = req.userdata.id;
 
     Ingredient.findAll({ where: { UserId: id } })
       .then(result => {
-        if (result) {
-          res.status(200).json({
-            message: "Success retrieve ingredient",
-            ingredients: result
-          });
-        } else if (result.length === 0) {
-          res.status(404).json({ message: "Ingredient not found" });
-        }
+        res.status(200).json({
+          message: "Success retrieved your ingredients",
+          ingredients: result
+        });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error" }); // uncovered
       });
   }
 
@@ -43,7 +40,7 @@ class IngredientController {
         if (response) {
           res.status(201).json({
             message: "Success added a new ingredient",
-            ingredients: response
+            ingredient: response
           });
         }
       })
@@ -53,7 +50,7 @@ class IngredientController {
             .status(400)
             .json({ message: "This is already in your ingredient" });
         } else {
-          res.status(500).json({ message: "Internal server error" });
+          res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }
@@ -90,8 +87,9 @@ class IngredientController {
 
     Ingredient.findOne({ where: { id } })
       .then(result => {
-        if (result) {
-          res.status(404).json({ message: "Ingredient not found" });
+        if (!result) {
+          // res.status(404).json({ message: "Ingredient not found" });
+          throw new Error({ status: 404, message: "Ingredient not found" });
         } else {
           return Ingredient.destroy({ where: { id } });
         }
@@ -100,7 +98,11 @@ class IngredientController {
         res.status(200).json({ message: "Success deleted ingredient" });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" });
+        if (err.message) {
+          res.status(404).json({ message: "Ingredient not found" });
+        } else {
+          res.status(500).json({ message: "Internal server error" }); // uncovered
+        }
       });
   }
 }
