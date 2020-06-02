@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1591083931247" clover="3.2.0">
-  <project timestamp="1591083931247" name="All files">
-    <metrics statements="190" coveredstatements="155" conditionals="45" coveredconditionals="28" methods="47" coveredmethods="35" elements="282" coveredelements="218" complexity="0" loc="190" ncloc="190" packages="5" files="11" classes="11"/>
+<coverage generated="1591117931147" clover="3.2.0">
+  <project timestamp="1591117931147" name="All files">
+    <metrics statements="240" coveredstatements="201" conditionals="59" coveredconditionals="38" methods="64" coveredmethods="51" elements="363" coveredelements="290" complexity="0" loc="240" ncloc="240" packages="5" files="14" classes="14"/>
     <package name="server">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="/Users/user/Documents/phase-3/Hokogu/server/app.js">
@@ -20,7 +20,7 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="101" coveredstatements="71" conditionals="30" coveredconditionals="18" methods="34" coveredmethods="23"/>
+      <metrics statements="137" coveredstatements="103" conditionals="44" coveredconditionals="28" methods="49" coveredmethods="37"/>
       <file name="favoriteController.js" path="/Users/user/Documents/phase-3/Hokogu/server/controllers/favoriteController.js">
         <metrics statements="41" coveredstatements="33" conditionals="12" coveredconditionals="7" methods="15" coveredmethods="11"/>
         <line num="1" count="1" type="stmt"/>
@@ -65,8 +65,47 @@
         <line num="113" count="0" type="stmt"/>
         <line num="118" count="1" type="stmt"/>
       </file>
+      <file name="ingredientController.js" path="/Users/user/Documents/phase-3/Hokogu/server/controllers/ingredientController.js">
+        <metrics statements="36" coveredstatements="33" conditionals="12" coveredconditionals="9" methods="15" coveredmethods="14"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="40" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="48" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="69" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="88" count="2" type="stmt"/>
+        <line num="90" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="101" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+      </file>
       <file name="userController.js" path="/Users/user/Documents/phase-3/Hokogu/server/controllers/userController.js">
-        <metrics statements="60" coveredstatements="38" conditionals="18" coveredconditionals="11" methods="19" coveredmethods="12"/>
+        <metrics statements="60" coveredstatements="37" conditionals="20" coveredconditionals="12" methods="19" coveredmethods="12"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -82,32 +121,30 @@
         <line num="31" count="0" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
         <line num="37" count="2" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
-        <line num="39" count="2" type="stmt"/>
-        <line num="43" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="62" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="63" count="1" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="60" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="105" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="110" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="88" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="108" count="0" type="stmt"/>
         <line num="114" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="115" count="0" type="stmt"/>
         <line num="117" count="0" type="stmt"/>
@@ -116,17 +153,19 @@
         <line num="128" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="129" count="1" type="stmt"/>
         <line num="134" count="1" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="141" count="0" type="stmt"/>
-        <line num="146" count="2" type="stmt"/>
-        <line num="147" count="2" type="stmt"/>
-        <line num="152" count="2" type="stmt"/>
-        <line num="156" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="157" count="1" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="148" count="2" type="stmt"/>
+        <line num="149" count="2" type="stmt"/>
+        <line num="154" count="2" type="stmt"/>
+        <line num="158" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="160" count="1" type="stmt"/>
-        <line num="166" count="2" type="stmt"/>
-        <line num="169" count="1" type="stmt"/>
+        <line num="162" count="1" type="stmt"/>
+        <line num="168" count="1" type="stmt"/>
+        <line num="173" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="174" count="1" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="182" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.middlewares">
@@ -136,14 +175,14 @@
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="5" count="9" type="stmt"/>
-        <line num="6" count="9" type="stmt"/>
-        <line num="7" count="9" type="stmt"/>
-        <line num="8" count="9" type="stmt"/>
-        <line num="9" count="9" type="stmt"/>
-        <line num="11" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="5" count="16" type="stmt"/>
+        <line num="6" count="16" type="stmt"/>
+        <line num="7" count="16" type="stmt"/>
+        <line num="8" count="16" type="stmt"/>
+        <line num="9" count="16" type="stmt"/>
+        <line num="11" count="16" type="cond" truecount="1" falsecount="1"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="17" count="9" type="stmt"/>
+        <line num="17" count="16" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
@@ -164,7 +203,7 @@
       </file>
     </package>
     <package name="server.models">
-      <metrics statements="36" coveredstatements="35" conditionals="9" coveredconditionals="6" methods="8" coveredmethods="8"/>
+      <metrics statements="43" coveredstatements="42" conditionals="9" coveredconditionals="6" methods="10" coveredmethods="10"/>
       <file name="favorite.js" path="/Users/user/Documents/phase-3/Hokogu/server/models/favorite.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
@@ -187,18 +226,27 @@
         <line num="13" count="0" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
-        <line num="21" count="3" type="cond" truecount="3" falsecount="0"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
+        <line num="21" count="4" type="cond" truecount="3" falsecount="0"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="29" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="30" count="2" type="stmt"/>
+        <line num="29" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="3" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
       </file>
+      <file name="ingredient.js" path="/Users/user/Documents/phase-3/Hokogu/server/models/ingredient.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+      </file>
       <file name="user.js" path="/Users/user/Documents/phase-3/Hokogu/server/models/user.js">
-        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -208,11 +256,12 @@
         <line num="50" count="1" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.routes">
-      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="24" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="favoriteRouter.js" path="/Users/user/Documents/phase-3/Hokogu/server/routes/favoriteRouter.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -220,16 +269,26 @@
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
       </file>
       <file name="index.js" path="/Users/user/Documents/phase-3/Hokogu/server/routes/index.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+      </file>
+      <file name="ingredientRouter.js" path="/Users/user/Documents/phase-3/Hokogu/server/routes/ingredientRouter.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
       </file>
       <file name="userRouter.js" path="/Users/user/Documents/phase-3/Hokogu/server/routes/userRouter.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
