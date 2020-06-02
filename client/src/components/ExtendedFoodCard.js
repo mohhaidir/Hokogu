@@ -49,9 +49,9 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     position: 'relative',
     width: "100%",
-    overflow: 'initial',
+    overflow: 'auto',
     background: '#ffffff',
-    display: 'flex',
+    display: 'inline-block',
     flexDirection: 'column',
     alignItems: 'center',
     paddingBottom: spacing(2),
@@ -69,7 +69,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     paddingBottom: '48%',
     borderRadius: spacing(2),
     backgroundColor: '#fff',
-    position: 'relative',
+    // position: 'relative',
     [breakpoints.up('md')]: {
       width: '100%',
       marginLeft: spacing(-3),
@@ -113,6 +113,15 @@ const FoodCard = (props) => {
 
     const [fav, setFav] = useState(false)
     const [openLogin, setOpenLogin] = React.useState(false);
+
+    const [height, setHeight] = useState(window.innerHeight)
+    const [width, setWidth] = useState(window.innerWidth)
+    const update = () => {
+      setHeight(window.innerHeight)
+      setWidth(window.innerWidth)
+    };
+    window.addEventListener("resize", update);
+
 
     useEffect(()=> {
         dispatch(getFavourites());
@@ -220,34 +229,70 @@ const FoodCard = (props) => {
                 />
                 </>
             }
-          <div className='detailRecipe'> 
-          <CardContent>
-              {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
-              <div style={{paddingLeft: '25px', paddingRight: '25px'}}>
-              <img src={props.recipe.image} className='imgRecipeDetail'/>
+        <div style={{display: 'flex'}}> 
+        <CardContent >
+            {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
+            <div style={{paddingLeft: '10px', paddingRight: '10px'}}>
+            {/* <div > */}
 
-              <CardActions disableSpacing className='iconDetailsCard'>
-                          <LocalDining/>
-                          {props.recipe.servings}
-                          <AccessTime style={{marginLeft:'8px'}}/>
-                          {props.recipe.readyInMinutes} mins
-              </CardActions>
-              <div className="Container" dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
-              <br/>
-              <br/>
-              <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+            { width > 600 &&
+                <img src={props.recipe.image} height='317px' style={{borderRadius: '20px'}}/>
+            }
+            {  width <= 600 &&
+                <>
+                <br/>
+                <br/>
+                <img src={props.recipe.image} height='150px' style={{borderRadius: '20px'}}/>
+                </>
+            }
 
-              <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
-                      Start Cooking
-              </ColorButton>
-              </Link>
+            <CardActions disableSpacing className='iconDetailsCard'>
+                        <LocalDining/>
+                        {props.recipe.servings}
+                        <AccessTime style={{marginLeft:'8px'}}/>
+                        {props.recipe.readyInMinutes} mins
+            </CardActions>
+            {   width < 500 &&
+                <div className="Container" style={{ width: '315px',
+                flexWrap: 'wrap', overflow:"auto",}} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+            }
+            {   width >= 500 &&
+                <div className="Container" style={{
+                flexWrap: 'wrap', overflow:"auto",}} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+            }
+            
+            <br/>
+            <br/>
+            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+
+            </Link>
+            { (height >= width || width < 1300) &&
+                <>
+                { width > 500 &&
+                <Ingredients width="100%" ingredients={props.recipe.extendedIngredients} />
+                }
+                </>
+            }
+            <br/>
+
+            { width < 500 &&
+            <ColorButton  startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                    Start Cooking
+            </ColorButton>
+            }
+            { width > 500 &&
+            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                    Start Cooking
+            </ColorButton>
+            }
 
               </div>
 
-          </CardContent>
-          <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients}/>
-
-          </div> 
+        </CardContent>
+        { (width > height && width >= 1300) &&
+        <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients} />
+        }
+        </div> 
 
         </Card>
         </>
