@@ -88,10 +88,6 @@ export default function Home() {
       setWidth(window.innerWidth)
     };
     window.addEventListener("resize", update);
-
-    const recentSearch = [
-      'nasi goreng', 'pasta', 'pancake', 'sushi',
-    ]
     const popularSearch = [
       'nasi goreng', 'pasta', 'pancake', 'sushi', 'burger', 'rendang', 'tom yum', 'fried chicken', 'lasagna', 'gyoza', 'apple tart', 'baklava'
     ]
