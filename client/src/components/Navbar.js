@@ -31,10 +31,10 @@ import {useSelector,useDispatch} from 'react-redux'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import LoginForm from './LoginForm'
 const drawerWidth = 250;
-  
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   appBar: {
     boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
@@ -42,19 +42,19 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fdfff5',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
   menuButton: {
-    color: '#ff9687',
+    color: "#ff9687"
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
-    backgroundColor: '#fdfff5',
-    width: drawerWidth,
+    backgroundColor: "#fdfff5",
+    width: drawerWidth
   },
   loginDrawerPaper: {
     backgroundColor: '#fdfff5',
@@ -62,12 +62,12 @@ const useStyles = makeStyles((theme) => ({
   },
 
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
+    ...theme.mixins.toolbar
+  }
 }));
 
 // export default function SwipeableTemporaryDrawer() {
@@ -80,26 +80,25 @@ const useStyles = makeStyles((theme) => ({
 // })
 
 export default function PersistentDrawerLeft() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const { isLoggedIn} = useSelector(state => state.userReducer);
+  const { isLoggedIn } = useSelector(state => state.userReducer);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
-  useEffect(()=> {
-    if(localStorage.getItem('hokogu_token')){
-        dispatch(setIsLoggedIn(true));
-        dispatch(setToken(localStorage.getItem('hokogu_token')));
-        dispatch(setName(localStorage.getItem('hokogu_token')));
-        dispatch(setAvatar(localStorage.getItem('hokogu_token')));
+  useEffect(() => {
+    if (localStorage.getItem("hokogu_token")) {
+      dispatch(setIsLoggedIn(true));
+      dispatch(setToken(localStorage.getItem("hokogu_token")));
+      dispatch(setName(localStorage.getItem("hokogu_token")));
+      dispatch(setAvatar(localStorage.getItem("hokogu_token")));
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn]);
 
   const doLogout = () => {
-    dispatch(logout())
-  }
-
+    dispatch(logout());
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -137,10 +136,6 @@ export default function PersistentDrawerLeft() {
     handleLoginDrawerClose()
   }
 
-
-
-
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -148,53 +143,61 @@ export default function PersistentDrawerLeft() {
         position="fixed"
         // style={{width: 'auto'}}
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open
         })}
       >
-        <Toolbar  style={{ width:'100vw'}}>
-        <div style={{display: 'flex', padding: '5px', width:'100vw', justifyContent: 'space-between', alignItems: 'center'}}>
+        <Toolbar style={{ width: "100vw" }}>
+          <div
+            style={{
+              display: "flex",
+              padding: "5px",
+              width: "100vw",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
             <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
             >
-                <MenuIcon style={{fontSize: "50px"}} />
+              <MenuIcon style={{ fontSize: "50px" }} />
             </IconButton>
             <div>
-                <Link  to='/' style={{ textDecoration: 'none' }}>
-                <img  src="/logo.png" height="50px"></img>
-                </Link>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <img src="/logo.png" height="50px"></img>
+              </Link>
             </div>
-            { isLoggedIn &&
-              <div 
-              style={{ 
-                  textDecoration: 'none', 
+            {isLoggedIn && (
+              <div
+                style={{
+                  textDecoration: "none"
                   // justifyContent: 'flex-end'
-              }} 
-              onClick={doLogout}
-              edge="end" 
+                }}
+                onClick={doLogout}
+                edge="end"
               >
                 <MuiThemeProvider
-                theme={createMuiTheme({
+                  theme={createMuiTheme({
                     typography: {
-                    useNextVariants: true
+                      useNextVariants: true
                     },
                     overrides: GradientButton.getTheme(muiBaseTheme)
-                })}
+                  })}
                 >
-                  <GradientButton words='Logout'/>
+                  <GradientButton words="Logout" />
                 </MuiThemeProvider>
               </div>
-            }
-            { !isLoggedIn &&
-              <div 
-              style={{ 
-                  textDecoration: 'none', 
+            )}
+            {!isLoggedIn && (
+              <div
+                style={{
+                  textDecoration: "none"
                   // justifyContent: 'flex-end'
-              }} 
-              edge="end" 
+                }}
+                edge="end"
               >
                   {/* <Link  to='/login' style={{ textDecoration: 'none' }}> */}
                   <div onClick={handleLoginDrawerOpen}>
@@ -211,10 +214,9 @@ export default function PersistentDrawerLeft() {
                   {/* </Link> */}
                   </div>
               </div>
-            }
-        </div>
+            )}
+          </div>
         </Toolbar>
-
       </AppBar>
       <SwipeableDrawer
         className={classes.drawer}
@@ -223,13 +225,17 @@ export default function PersistentDrawerLeft() {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
       >
 
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </div>
         <List>
@@ -254,7 +260,22 @@ export default function PersistentDrawerLeft() {
                   </ListItem>
               </Link>
             }
-
+          <Link
+            onClick={handleDrawerClose}
+            to="/favorites"
+            style={{ textDecoration: "none" }}
+          >
+            <ListItem button>
+              <ListItemIcon>
+                {" "}
+                <StarIcon style={{ color: "#ff9687", fontSize: "40px" }} />{" "}
+              </ListItemIcon>
+              <ListItemText
+                primary={"My Favourites"}
+                style={{ color: "#ff9687", fontSize: "60px" }}
+              />
+            </ListItem>
+          </Link>
         </List>
       </SwipeableDrawer>
 
@@ -278,11 +299,9 @@ export default function PersistentDrawerLeft() {
 
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: open
         })}
-      >
-
-      </main>
+      ></main>
     </div>
   );
 }

@@ -60,7 +60,6 @@ class UserController {
       })
       .catch(err => {
         if (err.message) {
-          console.log(err);
           res.status(400).json({ message: "Email already taken" });
         } else {
           res.status(500).json({ message: "Internal server error" });
@@ -71,6 +70,7 @@ class UserController {
   static googleLogin(req, res, next) {
     const client = new OAuth2Client(process.env.GOOGLE_SIGN_KEY);
     let user = {};
+    let status = false;
     client
       .verifyIdToken({
         idToken: req.body.idToken,
@@ -92,6 +92,7 @@ class UserController {
             { id: userdata.id, email: userdata.email },
             process.env.SECRET
           );
+          status = true;
           res
             .status(200)
             .json({ name: userdata.name, avatar: userdata.avatar, token });
@@ -100,11 +101,13 @@ class UserController {
         }
       })
       .then(result => {
-        let token = jwt.sign(
-          { id: result.id, email: result.email },
-          process.env.SECRET
-        );
-        res.status(200).json({ name, avatar, token });
+        if (!status) {
+          let token = jwt.sign(
+            { id: result.id, email: result.email },
+            process.env.SECRET
+          );
+          res.status(200).json({ name, avatar, token });
+        }
       })
       .catch(err => {
         if (err) {
