@@ -58,8 +58,6 @@ class FavoriteController {
   static getFavoriteMost(req, res) {
     Favorite.findAll()
       .then(data => {
-
-
         let hasil = [];
         for (let i = 0; i < data.length; i++) {
           let flag = false;
@@ -73,7 +71,6 @@ class FavoriteController {
             hasil.push([data[i].dataValues, { total: 1 }]);
           }
         }
-
         hasil.sort((a, b) => b[1].total - a[1].total);
         let result = []
         for (let i = 0; i < 10; i++) {
@@ -113,7 +110,6 @@ class FavoriteController {
         res.status(200).json({ message: "Success deleted a favorite" });
       })
       .catch(err => {
-        console.log('lose')
         res.status(500).json({ message: "Internal server error", error: err });
       });
   }
