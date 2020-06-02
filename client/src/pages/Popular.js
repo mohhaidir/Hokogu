@@ -35,6 +35,10 @@ const Popular = () => {
         </div>
 
         <br/>
+        <br/>
+        <br/>
+
+
         {   favouritesLoading  && 
             <div style={{textAlign:"center"}}>
                 <img height="300" width="300" src="/loading.gif" alt="loading" />
@@ -42,8 +46,10 @@ const Popular = () => {
         }
 
         {   (favouritesLoading === false && favourites.length > 0 )  &&
-            <div className="wrapper">
-            {   
+            // <div className="wrapper">
+            <Grid container lg={12} spacing={3} className={'resultSearch'}>
+
+            {
                 favourites.map((recipe, idx) => {
                     let modified = {
                         id: recipe.recipeId,
@@ -53,13 +59,19 @@ const Popular = () => {
                         image: recipe.image
                     }
                     return(
+                        <Grid item lg={6} sm={12} className={'resultDetail'}>
+
                         <div key={idx}>
                         <FoodCard recipe={modified}/>
                         </div>
+                        </Grid>
+
                     )
                 })
             }
-            </div>
+            </Grid>
+
+            // {/* </div> */}
         }
         {   (!favouritesLoading && favourites.length < 1) &&
             <h1>Your Favourites Are Empty</h1>

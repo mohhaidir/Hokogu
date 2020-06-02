@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   },
   loginDrawerPaper: {
     backgroundColor: '#fdfff5',
-    width: '340px',
+    width: '40vh',
     height: '100vh'
   },
   drawerPaperAccountName:{
