@@ -154,7 +154,7 @@ export default function StepCooking(props) {
             setSteps(temp);
             console.log(result.data[0])
             setActiveStep(0);
-            // textToSpeech("Let's Cook");
+            textToSpeech("Let's Cook");
         })
         .catch((err) => {
             console.log('error', err);
