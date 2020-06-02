@@ -105,10 +105,13 @@ export default function Home() {
         }
     }
 
+    const SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition(); 
+
     function speechToText() {
       // speech recognition API supported
-        var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
-        var recognition = new SpeechRecognition(); 
+        // var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+        // var recognition = new SpeechRecognition(); 
         // This will run when the speech recognition service returns a result
         recognition.onstart = function() {
             console.log("Voice recognition started. Try speaking into the microphone.");
@@ -129,6 +132,13 @@ export default function Home() {
         
         // start recognition
         recognition.start();
+        console.log('start success')
+    }
+
+    function speechToTextStop() {
+      recognition.stop();
+      setQuery('');
+      console.log('stop success')
     }
 
     const toggleDrawer = (value) => (event) => {
@@ -183,6 +193,9 @@ export default function Home() {
                   :
                   <MicIcon style={{fontSize: "40px"}} />  
                   }
+                </IconButton>
+                <IconButton onClick={speechToTextStop}>
+                  <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
                 </IconButton>
             </div>
         </SwipeableDrawer>
