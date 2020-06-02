@@ -45,57 +45,58 @@ const Ingredients = (props) => {
   const cardHeaderShadowStyles = useFadedShadowStyles();
   const ingredients = props.ingredients
   return (
-    <Card
-     className={cx(classes.card, cardShadowStyles.root)}>
-        <br/>
-        <CardHeader
-            style={{backgroundImage: 'linear-gradient(to right, #ffcbcb, #FF5F6D)'}}
-            className={cardHeaderShadowStyles.root}
-            
-            classes={cardHeaderStyles}
-            title={'Ingredients'}
-        >
-        </CardHeader>
-        <CardContent className={classes.content}
-            style={{
-                // width: "100%",
-                height: "600px",
-                overflow:"scroll"}}
-        >
-            <Table>
-            <TableHead className='IngredientHead'>
-                <TableRow>
-                <TableCell align="center" style={{fontWeight:'bold'}}></TableCell>
-                <TableCell align="center" style={{fontWeight:'bold'}}>Item</TableCell>
-                <TableCell align="center" style={{fontWeight:'bold'}}> Ammount </TableCell>
-                <TableCell align="center" style={{fontWeight:'bold'}}> Type </TableCell>
+    <div className='detailIngredient'>
+      <Card
+      className={cx(classes.card, cardShadowStyles.root)}>
+          <br/>
+          <CardHeader
+              style={{backgroundImage: 'linear-gradient(to right, #ffcbcb, #FF5F6D)'}}
+              className={cardHeaderShadowStyles.root}
+              classes={cardHeaderStyles}
+              title={'Ingredients'}
+          >
+          </CardHeader>
+          <CardContent className={classes.content}
+              style={{
+                  // width: "100%",
+                  height: "600px",
+                  overflow:"scroll"}}
+          >
+              <Table>
+              <TableHead className='IngredientHead'>
+                  <TableRow>
+                  <TableCell align="center" style={{fontWeight:'bold'}}></TableCell>
+                  <TableCell align="center" style={{fontWeight:'bold'}}>Item</TableCell>
+                  <TableCell align="center" style={{fontWeight:'bold'}}> Ammount </TableCell>
+                  <TableCell align="center" style={{fontWeight:'bold'}}> Type </TableCell>
 
-                {/* <TableCell align="right"> Ammount </TableCell> */}
-                </TableRow>
-            </TableHead>
-            <TableBody className='IngredientBody' 
-            >
-                {ingredients.map(ingredient => (
-                <TableRow key={ingredient.id}>
-                    <TableCell align="center" component="th" scope="row">
-                    <>
-                    <Avatar alt="Remy Sharp" src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} />
-                    </>
-                    </TableCell>
-                    <TableCell align="center" component="th" scope="row">
-                    <>
-                    {ingredient.name}
-                    </>
-                    </TableCell>
+                  {/* <TableCell align="right"> Ammount </TableCell> */}
+                  </TableRow>
+              </TableHead>
+              <TableBody className='IngredientBody' 
+              >
+                  {ingredients.map(ingredient => (
+                  <TableRow key={ingredient.id}>
+                      <TableCell align="center" component="th" scope="row">
+                      <>
+                      <Avatar alt="Remy Sharp" src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} />
+                      </>
+                      </TableCell>
+                      <TableCell align="center" component="th" scope="row">
+                      <>
+                      {ingredient.name}
+                      </>
+                      </TableCell>
 
-                    <TableCell align="center"> {`${ingredient.measures.metric.amount} ${ingredient.measures.metric.unitShort}`}</TableCell>
-                    <TableCell align="center">{ingredient.aisle}</TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-        </CardContent>
-    </Card>
+                      <TableCell align="center"> {`${ingredient.measures.metric.amount} ${ingredient.measures.metric.unitShort}`}</TableCell>
+                      <TableCell align="center">{ingredient.aisle}</TableCell>
+                  </TableRow>
+                  ))}
+              </TableBody>
+              </Table>
+          </CardContent>
+      </Card>
+    </div>
   );
 };
 

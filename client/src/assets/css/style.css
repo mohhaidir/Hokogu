@@ -4,12 +4,16 @@
     /* min-height: calc(100% - 130px); */
     /* position: inherit; */
     /* padding: 2% 5%; */
-    position: absolute;
+    /* position: absolute; */
     bottom: 5vh;
     left: 5vh;
     right: 5vh;
     margin: auto;
 }
+.mainContent .MuiCardContent-root {
+  width: 100%;
+}
+
 @media only screen and (max-width: 600px) {
     .mainContent {
         padding: 0;
@@ -57,11 +61,10 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 91vh;
-    padding-top: 3%;
-    padding-left: 10%;
-    padding-right: 10%;
+    /* height: 91vh; */
+    padding: 3% 10%;
     text-align: center;
+    min-height: 51vw;
 }
 
 .stepText {
@@ -70,6 +73,19 @@
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 auto;
     vertical-align: middle;
+    min-height: 21vw;
+}
+
+@media only screen and (max-width: 1215px) {
+  .stepText {
+    font-size: 3.7em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .stepText {
+    font-size: 2.7em;
+  }
 }
 
 .StepCard {
@@ -239,6 +255,56 @@
     font-size: 47px !important;
     z-index: 300;
     border-radius: 40px;
-    background-color: #ffffffa1;
+    background-color: #ffffffcc;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .mainContent .MuiStepper-horizontal {
+    flex-direction: column;
+  }
+  .mainContent .MuiStepConnector-root {
+    display: none;
+  }
+  .mainContent .MuiStep-horizontal {
+    margin-bottom: 4%;
+  }
+  .mainContent .MuiStepper-alternativeLabel {
+    align-items: center;
+  }
+}
+
+
+
+.detailRecipe {
+  display: flex;
+}
+
+@media only screen and (max-width: 960px) {
+  .detailRecipe {
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+  }
+
+  .detailIngredient {
+    width: 90%;
+    margin: auto;
+  }
+
+  .detailIngredient .MuiCard-root {
+    width: 100%;
+  }
+}
+
+.imgRecipeDetail {
+  border-radius: 20px;
+  min-height: 317px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .imgRecipeDetail {
+    min-height: unset;
+    width: 100%;
   }
 }
