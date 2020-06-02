@@ -228,3 +228,35 @@
     background-color: #ffffffa1;
   }
 }
+
+.detailRecipe {
+  display: flex;
+}
+
+@media only screen and (max-width: 960px) {
+  .detailRecipe {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .detailIngredient {
+    width: 90%;
+    margin: auto;
+  }
+
+  .detailIngredient .makeStyles-card-28 {
+    width: 100%;
+  }
+}
+
+.imgRecipeDetail {
+  border-radius: 20px;
+  min-height: 317px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .imgRecipeDetail {
+    min-height: unset;
+    width: 100%;
+  }
+}

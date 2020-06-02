@@ -220,34 +220,34 @@ const FoodCard = (props) => {
                 />
                 </>
             }
-        <div style={{display: 'flex'}}> 
-        <CardContent >
-            {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
-            <div style={{paddingLeft: '25px', paddingRight: '25px'}}>
-            <img src={props.recipe.image} height='317px' style={{borderRadius: '20px'}}/>
+          <div className='detailRecipe'> 
+          <CardContent>
+              {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
+              <div style={{paddingLeft: '25px', paddingRight: '25px'}}>
+              <img src={props.recipe.image} className='imgRecipeDetail'/>
 
-            <CardActions disableSpacing className='iconDetailsCard'>
-                        <LocalDining/>
-                        {props.recipe.servings}
-                        <AccessTime style={{marginLeft:'8px'}}/>
-                        {props.recipe.readyInMinutes} mins
-            </CardActions>
-            <div className="Container" dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
-            <br/>
-            <br/>
-            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+              <CardActions disableSpacing className='iconDetailsCard'>
+                          <LocalDining/>
+                          {props.recipe.servings}
+                          <AccessTime style={{marginLeft:'8px'}}/>
+                          {props.recipe.readyInMinutes} mins
+              </CardActions>
+              <div className="Container" dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+              <br/>
+              <br/>
+              <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
 
-            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
-                    Start Cooking
-            </ColorButton>
-            </Link>
+              <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                      Start Cooking
+              </ColorButton>
+              </Link>
 
-            </div>
+              </div>
 
-        </CardContent>
-        <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients} />
+          </CardContent>
+          <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients}/>
 
-        </div> 
+          </div> 
 
         </Card>
         </>

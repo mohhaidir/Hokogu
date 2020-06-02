@@ -48,7 +48,7 @@ export default function Detail() {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                height: '100px',
+                // height: '100px',
                 paddingTop: '8px',
                 paddingLeft: '10vw',
                 paddingRight: '10vw',
