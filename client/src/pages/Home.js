@@ -32,26 +32,26 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
       display: 'flex'
     },
-    drawerPaper: {
+    drawerPaperMobile: {
         textAlign: 'center',
         margin: 'auto',
-        marginTop: '40px',
+        marginTop: '70px',
         display: 'flex',
         backgroundColor: '#fdfff5',
-        width: '90vw',
+        width: '97vw',
         height: 'auto',
         display: 'flex',
         borderRadius: '30px'
         // borderBottomLeftRadius: '20px',
         // borderBottomRightRadius: '20px'
     },
-    drawerPaperExpanded: {
+    drawerPaper: {
       textAlign: 'center',
       margin: 'auto',
       marginTop: '40px',
       display: 'flex',
       backgroundColor: '#fdfff5',
-      width: '90vw',
+      width: '95vw',
       height: '250px',
       display: 'flex',
       borderRadius: '30px'
@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Home() {
-
     const dispatch = useDispatch()
     const { isLoggedIn} = useSelector(state => state.userReducer);
     const history = useHistory()
@@ -82,6 +81,13 @@ export default function Home() {
     const [query, setQuery] = useState('');
     const [showReccomendations, setShowReccomendations] = useState(false);
     const [isOnListening, setIsOnListening] = useState(false);
+    const [height, setHeight] = useState(window.innerHeight)
+    const [width, setWidth] = useState(window.innerWidth)
+    const update = () => {
+      setHeight(window.innerHeight)
+      setWidth(window.innerWidth)
+    };
+    window.addEventListener("resize", update);
 
     const recentSearch = [
       'nasi goreng', 'pasta', 'pancake', 'sushi',
@@ -228,13 +234,13 @@ export default function Home() {
             </div>
 
         </SwipeableDrawer>
-        
+        { height > width &&
         <div className='bannerHome'>
             <h1 className='homeSlogan'>
                     Nothing brings people together like good food
             </h1>
             <div
-            style={{marginTop: '100px'}}
+            style={{marginTop: '2vh'}}
             onClick={handleDrawerOpen} >
             <MuiThemeProvider
             theme={createMuiTheme({
@@ -248,9 +254,31 @@ export default function Home() {
             </MuiThemeProvider>
             </div>
         </div>
+        }
+        { height <= width &&
+        <div className='bannerHomeWeb'>
+            <h1 className='homeSlogan'>
+                    Nothing brings people together like good food
+            </h1>
+            <div
+            style={{marginTop: '2vh'}}
+            onClick={handleDrawerOpen} >
+            <MuiThemeProvider
+            theme={createMuiTheme({
+            typography: {
+            useNextVariants: true
+            },
+            overrides: LargeGradientButton.getTheme(muiBaseTheme)
+            })}
+            >
+            <LargeGradientButton  words='Find Recipes'/>
+            </MuiThemeProvider>
+            </div>
+        </div>
+        }
 
-        <div style={{padding: "40px 100px", backgroundColor: "#fdfff5"}}>
-            <h1 style={{color: '#fd515c', fontSize: '40px', textAlign: 'center'}}>Staff Picks</h1>
+
+        <div style={{padding: "5vh", backgroundColor: "#fdfff5"}}>
             <StaffPicks/>
             <br/>
             <br/>

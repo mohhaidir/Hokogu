@@ -31,10 +31,10 @@ const ColorButton = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
     margin: {
-        marginTop: '10px'
+        // marginTop: '10px'
       },
   root: {
-    height: '92vh',
+    // height: '92vh',
   },
   image: {
     backgroundImage: 'url(https://c0.wallpaperflare.com/preview/199/800/968/macarons-pink-aqua-pastels.jpg)',
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    // marginTop: theme.spacing(1),
     
   },
   submit: {
