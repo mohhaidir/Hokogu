@@ -72,7 +72,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     // position: 'relative',
     [breakpoints.up('md')]: {
       width: '100%',
-      marginLeft: spacing(-3),
+    //   marginLeft: spacing(-3),
       marginTop: 0,
     //   transform: 'translateX(-8px)',
     },
@@ -89,7 +89,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     },
   },
   content: {
-    padding: 24,
+    // padding: 24,
   },
 }));
 
@@ -232,7 +232,7 @@ const FoodCard = (props) => {
         <div style={{display: 'flex'}}> 
         <CardContent >
             {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
-            <div style={{paddingLeft: '10px', paddingRight: '10px'}}>
+            <div style={{paddingLeft: '3px', paddingRight: '3px'}}>
             {/* <div > */}
 
             { width > 600 &&
@@ -253,7 +253,7 @@ const FoodCard = (props) => {
                         {props.recipe.readyInMinutes} mins
             </CardActions>
             {   width < 500 &&
-                <div className="Container" style={{ width: '315px',
+                <div className="Container" style={{ width: '315px', margin: 'auto',
                 flexWrap: 'wrap', overflow:"auto",}} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
             }
             {   width >= 500 &&
@@ -263,34 +263,40 @@ const FoodCard = (props) => {
             
             <br/>
             <br/>
-            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
 
-            </Link>
             { (height >= width || width < 1300) &&
                 <>
-                { width > 500 &&
+                {/* { width > 500 && */}
                 <Ingredients width="100%" ingredients={props.recipe.extendedIngredients} />
-                }
+                {/* } */}
                 </>
             }
             <br/>
 
             { width < 500 &&
+            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+
             <ColorButton  startIcon={<DoubleArrow />} variant="contained" color="primary" >
                     Start Cooking
             </ColorButton>
+            </Link>
+
             }
             { width > 500 &&
+            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
             <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
                     Start Cooking
             </ColorButton>
+            </Link>
             }
 
               </div>
 
         </CardContent>
         { (width > height && width >= 1300) &&
-        <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients} />
+        <div style={{paddingRight: '1vw'}}>
+        <Ingredients ingredients={props.recipe.extendedIngredients} />
+        </div>
         }
         </div> 
 
