@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   loginDrawerPaper: {
     backgroundColor: '#fdfff5',
     width: '40vh',
-    height: '100vh'
+    // height: '100vh'
   },
   drawerPaperAccountName:{
     padding: '3vh',

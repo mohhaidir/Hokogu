@@ -774,7 +774,7 @@ export default function Detail() {
                 }
                 {
                     width < 500 &&
-                    <div style={{paddingLeft: '1vw', paddingRight: '1vw'}}>
+                    <div style={{padding: '0'}}>
                     <ExtendedFoodCard recipe={recipe} />
                     <br/>
                     </div>
