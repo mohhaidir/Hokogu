@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1591068205718" clover="3.2.0">
-  <project timestamp="1591068205718" name="All files">
-    <metrics statements="179" coveredstatements="140" conditionals="41" coveredconditionals="24" methods="40" coveredmethods="29" elements="260" coveredelements="193" complexity="0" loc="179" ncloc="179" packages="5" files="11" classes="11"/>
+<coverage generated="1591073097014" clover="3.2.0">
+  <project timestamp="1591073097014" name="All files">
+    <metrics statements="172" coveredstatements="155" conditionals="39" coveredconditionals="28" methods="42" coveredmethods="35" elements="253" coveredelements="218" complexity="0" loc="172" ncloc="172" packages="5" files="11" classes="11"/>
     <package name="server">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="/home/singgitbram/hacktiv phase 3/FINAL GRADUATION/Hokogu/server/app.js">
@@ -20,7 +20,7 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="91" coveredstatements="57" conditionals="26" coveredconditionals="14" methods="27" coveredmethods="17"/>
+      <metrics statements="83" coveredstatements="71" conditionals="24" coveredconditionals="18" methods="29" coveredmethods="23"/>
       <file name="favoriteController.js" path="/home/singgitbram/hacktiv phase 3/FINAL GRADUATION/Hokogu/server/controllers/favoriteController.js">
         <metrics statements="42" coveredstatements="33" conditionals="12" coveredconditionals="7" methods="15" coveredmethods="11"/>
         <line num="1" count="1" type="stmt"/>
@@ -67,7 +67,7 @@
         <line num="122" count="1" type="stmt"/>
       </file>
       <file name="userController.js" path="/home/singgitbram/hacktiv phase 3/FINAL GRADUATION/Hokogu/server/controllers/userController.js">
-        <metrics statements="49" coveredstatements="24" conditionals="14" coveredconditionals="7" methods="12" coveredmethods="6"/>
+        <metrics statements="41" coveredstatements="38" conditionals="12" coveredconditionals="11" methods="14" coveredmethods="12"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -93,30 +93,22 @@
         <line num="62" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="63" count="1" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="97" count="0" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="102" count="0" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="108" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="109" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="118" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="127" count="1" type="stmt"/>
+        <line num="123" count="2" type="stmt"/>
+        <line num="124" count="2" type="stmt"/>
+        <line num="128" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="129" count="1" type="stmt"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="141" count="0" type="stmt"/>
+        <line num="146" count="2" type="stmt"/>
+        <line num="147" count="2" type="stmt"/>
+        <line num="152" count="2" type="stmt"/>
+        <line num="156" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="166" count="2" type="stmt"/>
+        <line num="169" count="1" type="stmt"/>
+        <line num="174" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.middlewares">
@@ -126,14 +118,14 @@
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="6" count="5" type="stmt"/>
-        <line num="7" count="5" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
-        <line num="11" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="5" count="9" type="stmt"/>
+        <line num="6" count="9" type="stmt"/>
+        <line num="7" count="9" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="9" count="9" type="stmt"/>
+        <line num="11" count="9" type="cond" truecount="1" falsecount="1"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="17" count="5" type="stmt"/>
+        <line num="17" count="9" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
@@ -202,7 +194,7 @@
       </file>
     </package>
     <package name="server.routes">
-      <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="favoriteRouter.js" path="/home/singgitbram/hacktiv phase 3/FINAL GRADUATION/Hokogu/server/routes/favoriteRouter.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -222,11 +214,12 @@
         <line num="8" count="1" type="stmt"/>
       </file>
       <file name="userRouter.js" path="/home/singgitbram/hacktiv phase 3/FINAL GRADUATION/Hokogu/server/routes/userRouter.js">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
       </file>
     </package>
   </project>

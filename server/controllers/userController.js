@@ -120,7 +120,7 @@ class UserController {
   }
 
   static getUser(req, res) {
-    const id = req.userdata.id
+    const id = req.params.id
     User.findOne({
       where: { id }
     })
@@ -143,7 +143,7 @@ class UserController {
   }
 
   static editUser(req, res) {
-    const id = req.userdata.id
+    const id = req.params.id
     const obj = {
       name: req.body.name,
       email: req.body.email,
@@ -163,7 +163,7 @@ class UserController {
         }
       })
       .then(data => {
-        res.status(200).json({ message: 'Successful edit a user' })
+        res.status(200).json({ message: 'Success edit a user', editedData: obj })
       })
       .catch(err => {
         res.status(500).json({ message: 'Internal server error' })
