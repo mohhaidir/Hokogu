@@ -1,19 +1,12 @@
 import React,{useState, useEffect} from 'react'
-import {Link, useHistory} from 'react-router-dom'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {useSelector,useDispatch} from 'react-redux'
-import {setIsLoggedIn, setToken, setName, setAvatar} from '../store/actions/userActions'
-
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { useHistory } from 'react-router-dom'
+import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { useSelector,useDispatch } from 'react-redux'
+import { setIsLoggedIn, setToken, setName, setAvatar } from '../store/actions/userActions'
 import LargeGradientButton from '../components/LargeGardientButton'
-import Drawer from '@material-ui/core/Drawer';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import IconButton from '@material-ui/core/IconButton';
 import StaffPicks from '../components/StaffPicks'
-import SearchIcon from '@material-ui/icons/Search';
-import { Mic as MicIcon } from '@material-ui/icons';
+import { SwipeableDrawer, IconButton } from '@material-ui/core/';
+import { Mic as MicIcon, Search as SearchIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '50px'
         // borderBottomLeftRadius: '20px',
         // borderBottomRightRadius: '20px'
-
     },
     drawerHeader: {
       display: 'flex',
@@ -62,8 +54,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'flex-end',
     },
   }));
-  
-
 
 export default function Home() {
 
@@ -105,13 +95,10 @@ export default function Home() {
         }
     }
 
-    const SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition(); 
-
     function speechToText() {
       // speech recognition API supported
-        // var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
-        // var recognition = new SpeechRecognition(); 
+        var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+        var recognition = new SpeechRecognition(); 
         // This will run when the speech recognition service returns a result
         recognition.onstart = function() {
             console.log("Voice recognition started. Try speaking into the microphone.");
@@ -132,13 +119,6 @@ export default function Home() {
         
         // start recognition
         recognition.start();
-        console.log('start success')
-    }
-
-    function speechToTextStop() {
-      recognition.stop();
-      setQuery('');
-      console.log('stop success')
     }
 
     const toggleDrawer = (value) => (event) => {
@@ -152,7 +132,6 @@ export default function Home() {
   
       setOpen(value);
     };
-  
 
     useEffect(()=> {
       if(localStorage.getItem('hokugo_token')){
@@ -194,12 +173,8 @@ export default function Home() {
                   <MicIcon style={{fontSize: "40px"}} />  
                   }
                 </IconButton>
-                <IconButton onClick={speechToTextStop}>
-                  <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
-                </IconButton>
             </div>
         </SwipeableDrawer>
-
         
         <div className='bannerHome'>
             <h1 className='homeSlogan'>
@@ -221,7 +196,6 @@ export default function Home() {
             </div>
         </div>
 
-
         <div style={{padding: "40px 100px", backgroundColor: "#fdfff5"}}>
             <h1 style={{color: '#fd515c', fontSize: '40px', textAlign: 'center'}}>Staff Picks</h1>
             <StaffPicks/>
@@ -229,7 +203,6 @@ export default function Home() {
             <br/>
             <br/>
         </div>
-
 
         </>
     )

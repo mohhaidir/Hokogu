@@ -112,17 +112,21 @@ const SearchResults = ({ location }) => {
         }
 
         {   !recipiesLoading &&
-            <div className="wrapper">
+            // <div className="wrapper">
+            <Grid container lg={12} spacing={3} className={'resultSearch'}>
             {   
                 recipies.map((recipe, idx) => {
                     return(
+                        <Grid item lg={6} sm={12} className={'resultDetail'}>
                         <div key={idx}>
                         <FoodCard recipe={recipe}/>
                         </div>
+                        </Grid>
                     )
                 })
             }
-            </div>
+            </Grid>
+            // </div>
         }
 
         <br/>
