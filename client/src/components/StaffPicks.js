@@ -27,6 +27,7 @@ window.mobileCheck = function() {
   
 
 function Banner(props) {
+    console.log('a')
     const history = useHistory()
     if (props.newProp) console.log(props.newProp)
     const totalItems = props.length ? props.length : 3;
