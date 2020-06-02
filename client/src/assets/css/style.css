@@ -22,14 +22,24 @@
   background-size: cover;
   background-position: center;
   height: 70vh;
-  padding: 5% 22%;
+  padding: 12% 15%;
+  text-align: center;
+}
+.bannerHomeWeb{
+  background-image: url("https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  padding: 4vh 10%;
   text-align: center;
 }
 
+
 @media only screen and (max-width: 1250px) {
-  .bannerHome {
-    height: 50vh;
-  }
+  /* .bannerHome {
+    height: 100vh;
+  } */
   .resultSearch {
     justify-content: center;
   }
