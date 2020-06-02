@@ -16,7 +16,7 @@ export default function Detail() {
         setLoading(true)
         axios({
             method: "get",
-            url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=5cd43e21289d449988abacef7d29dd14`
+            url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=fd9f4d3bdf944da4add45901325004fe`
         })
             .then(response => {
                 console.log(response)

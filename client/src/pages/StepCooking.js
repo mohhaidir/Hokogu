@@ -130,7 +130,7 @@ export default function StepCooking(props) {
 
   useEffect(() => {
     axios({
-      url: `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=5cd43e21289d449988abacef7d29dd14`,
+      url: `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=fd9f4d3bdf944da4add45901325004fe`,
       method: "GET"
     })
       .then(result => {

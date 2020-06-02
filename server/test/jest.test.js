@@ -5,10 +5,10 @@ const { queryInterface } = sequelize;
 
 let id = null;
 let token = null;
-
+let email = "newtest@gmail.com";
 afterAll(done => {
   queryInterface
-    .bulkDelete('Users', {})
+    .bulkDelete("Users", {})
     .then(() => done())
     .catch(err => done(err));
 });
@@ -24,8 +24,8 @@ afterAll(done => {
 // =================================== USERS ===================================
 
 // <--- register user with 201 and 400 response
-describe("REGISTER NEW USER", function () {
-  describe("~> SUCCESSFULLY Register new user", function () {
+describe("REGISTER NEW USER", function() {
+  describe("~> SUCCESSFULLY Register new user", function() {
     it("Should return 201 and object (name, email, password, avatar)", done => {
       request(app)
         .post("/users/register")
@@ -56,7 +56,7 @@ describe("REGISTER NEW USER", function () {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Register new user with email already registered", function () {
+  describe("~> UNSUCCESSFULLY Register new user with email already registered", function() {
     it("Should return 400 and object (status, message)", done => {
       request(app)
         .post("/users/register")
@@ -81,8 +81,8 @@ describe("REGISTER NEW USER", function () {
 });
 
 // <--- login user with 200, 400 and 404
-describe("USER LOGIN", function () {
-  describe("~> SUCCESSFULLY Login as user", function () {
+describe("USER LOGIN", function() {
+  describe("~> SUCCESSFULLY Login as user", function() {
     it("Should return 200 and object (name, avatar, token)", done => {
       request(app)
         .post("/users/login")
@@ -104,7 +104,7 @@ describe("USER LOGIN", function () {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Login as user with wrong password", function () {
+  describe("~> UNSUCCESSFULLY Login as user with wrong password", function() {
     it("Sould return 400 and object (message)", done => {
       request(app)
         .post("/users/login")
@@ -124,7 +124,7 @@ describe("USER LOGIN", function () {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Login as user with wrong email", function () {
+  describe("~> UNSUCCESSFULLY Login as user with wrong email", function() {
     it("Should return 404 and object (message)", done => {
       request(app)
         .post("/users/login")
@@ -145,8 +145,8 @@ describe("USER LOGIN", function () {
   });
 });
 
-describe("GET USER DETAIL BY USERID", function () {
-  describe("~> SUCCESFULLY Get User detail by UserId", function () {
+describe("GET USER DETAIL BY USERID", function() {
+  describe("~> SUCCESFULLY Get User detail by UserId", function() {
     it("Should return 200 and object (message, theUser)", done => {
       request(app)
         .get(`/users/${id}`)
@@ -169,7 +169,7 @@ describe("GET USER DETAIL BY USERID", function () {
     });
   });
 
-  describe("~> UNSUCCESFULLY Get User data due to user not found", function () {
+  describe("~> UNSUCCESFULLY Get User data due to user not found", function() {
     it("Should return 404 and object (message)", done => {
       request(app)
         .get(`/users/999999999`)
@@ -179,10 +179,7 @@ describe("GET USER DETAIL BY USERID", function () {
         .then(response => {
           let { status, body } = response;
           expect(status).toBe(404);
-          expect(body).toHaveProperty(
-            "message",
-            "User not found"
-          );
+          expect(body).toHaveProperty("message", "User not found");
           done();
         })
         .catch(err => {
@@ -192,8 +189,8 @@ describe("GET USER DETAIL BY USERID", function () {
   });
 });
 
-describe("EDIT USER DETAIL BY USERID", function () {
-  describe("~> SUCCESFULLY Edit User detail by UserId", function () {
+describe("EDIT USER DETAIL BY USERID", function() {
+  describe("~> SUCCESFULLY Edit User detail by UserId", function() {
     it("Should return 200 and object (message, editedData)", done => {
       request(app)
         .put(`/users/${id}`)
@@ -201,17 +198,14 @@ describe("EDIT USER DETAIL BY USERID", function () {
           token: token
         })
         .send({
-          name: 'testedit',
+          name: "testedit",
           email: "newtest@gmail.com",
-          avatar: 'edit.jpg',
+          avatar: "edit.jpg"
         })
         .then(response => {
           let { status, body } = response;
           expect(status).toBe(200);
-          expect(body).toHaveProperty(
-            "message",
-            "Success edit a user"
-          );
+          expect(body).toHaveProperty("message", "Success edit a user");
           expect(body).toHaveProperty("editedData");
           done();
         })
@@ -229,17 +223,14 @@ describe("EDIT USER DETAIL BY USERID", function () {
           token: token
         })
         .send({
-          name: 'testedit',
+          name: "testedit",
           email: "newtest@gmail.com",
-          avatar: 'edit.jpg',
+          avatar: "edit.jpg"
         })
         .then(response => {
           let { status, body } = response;
           expect(status).toBe(404);
-          expect(body).toHaveProperty(
-            "message",
-            "User not found"
-          );
+          expect(body).toHaveProperty("message", "User not found");
           done();
         })
         .catch(err => {
@@ -247,7 +238,53 @@ describe("EDIT USER DETAIL BY USERID", function () {
         });
     });
   });
-})
+});
+
+describe("USER LOGIN WITH GOOGLE", function() {
+  describe("~> SUCCESSFULLY Login as if account doesn't registered yet", function() {
+    it("Should return 201 and object (name, avatar, token)", done => {
+      request(app)
+        .post("/users/googlelogin")
+        .send({
+          idToken:
+            "eyJhbGciOiJSUzI1NiIsImtpZCI6ImZiOGNhNWI3ZDhkOWE1YzZjNjc4ODA3MWU4NjZjNmM0MGYzZmMxZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA2NDQwMjgwNjE3MzYzNDMxNjgwIiwiZW1haWwiOiJraG9pcnVsam1ickBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImduNEhKNzF4ejBTS0xhZ3B6UkUyZkEiLCJuYW1lIjoiTW9oYW1tYWQgSGFpZGlyIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoN0ROcFZGRVFvR2pCVnFyWjlfWnlzMnpxNnZ0OUtJWDZyTGJkaD1zOTYtYyIsImdpdmVuX25hbWUiOiJNb2hhbW1hZCIsImZhbWlseV9uYW1lIjoiSGFpZGlyIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTExMDcwNjMsImV4cCI6MTU5MTExMDY2MywianRpIjoiNmQ2NTg4OGUwY2Q4NGMxNmMyOGUxNzMyNDExOGIwNDQ1YTNkNWRkMiJ9.QRB96T2zd2df-96R5vQNxFp2y3rM1ARoy9koK8EG36hINJAkDXw1gNU6YaBKvYzodLZkjfF1TCjJUbEpGbIZBSOnTYO2MeBrSEl2usy0fZCEBwCqnGZpdO-NNwhlHitp2I4UVNBRNz2NEx1jyzzod-4MY-B1KkgSsTpcUGIgQCYXa8qLas45yylBwnOJPB8z4JsEeVZncG-wcQuEy_ZKcBAimuPK0fo04rc6QOWGc-LMbYNqnObq-qYr0PjbZrhrmtER_GB5f1EJEt35PIukUkS8K5Cgjk_0cfE-RVH--9exHsu5MGUTYeNXiNI2iKbKp7fbCkEE-bM29_3Fnxvxyg"
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(201);
+          expect(body).toHaveProperty("name");
+          expect(body).toHaveProperty("avatar");
+          expect(body).toHaveProperty("token");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> SUCCESSFULLY Login as if account already exist in database yet", function() {
+    it("Should return 200 and object (name, avatar, token)", done => {
+      request(app)
+        .post("/users/googlelogin")
+        .send({
+          idToken:
+            "eyJhbGciOiJSUzI1NiIsImtpZCI6ImZiOGNhNWI3ZDhkOWE1YzZjNjc4ODA3MWU4NjZjNmM0MGYzZmMxZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMzk2MDI5OTY5MzI2LW4yY3NtN2ZrYW12OWhiNHE2ZTdmZzBxdWI3ZHE5NzE5LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA2NDQwMjgwNjE3MzYzNDMxNjgwIiwiZW1haWwiOiJraG9pcnVsam1ickBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImduNEhKNzF4ejBTS0xhZ3B6UkUyZkEiLCJuYW1lIjoiTW9oYW1tYWQgSGFpZGlyIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoN0ROcFZGRVFvR2pCVnFyWjlfWnlzMnpxNnZ0OUtJWDZyTGJkaD1zOTYtYyIsImdpdmVuX25hbWUiOiJNb2hhbW1hZCIsImZhbWlseV9uYW1lIjoiSGFpZGlyIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTExMDcwNjMsImV4cCI6MTU5MTExMDY2MywianRpIjoiNmQ2NTg4OGUwY2Q4NGMxNmMyOGUxNzMyNDExOGIwNDQ1YTNkNWRkMiJ9.QRB96T2zd2df-96R5vQNxFp2y3rM1ARoy9koK8EG36hINJAkDXw1gNU6YaBKvYzodLZkjfF1TCjJUbEpGbIZBSOnTYO2MeBrSEl2usy0fZCEBwCqnGZpdO-NNwhlHitp2I4UVNBRNz2NEx1jyzzod-4MY-B1KkgSsTpcUGIgQCYXa8qLas45yylBwnOJPB8z4JsEeVZncG-wcQuEy_ZKcBAimuPK0fo04rc6QOWGc-LMbYNqnObq-qYr0PjbZrhrmtER_GB5f1EJEt35PIukUkS8K5Cgjk_0cfE-RVH--9exHsu5MGUTYeNXiNI2iKbKp7fbCkEE-bM29_3Fnxvxyg"
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty("name");
+          expect(body).toHaveProperty("avatar");
+          expect(body).toHaveProperty("token");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
 
 // =================================== FAVORITES ===================================
 
@@ -261,8 +298,8 @@ afterAll(done => {
 });
 
 // <--- add favorites with 201 and 400 response
-describe("ADD FAVORITE BY USER", function () {
-  describe("~> SUCCESSFULLY Add favorites by user", function () {
+describe("ADD FAVORITE BY USER", function() {
+  describe("~> SUCCESSFULLY Add favorites by user", function() {
     it("Should return 201 and object (message and favorites)", done => {
       request(app)
         .post("/favorites")
@@ -302,7 +339,7 @@ describe("ADD FAVORITE BY USER", function () {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Add favorites by user", function () {
+  describe("~> UNSUCCESSFULLY Add favorites by user", function() {
     it("Should return 400 and object (message)", done => {
       request(app)
         .post("/favorites")
@@ -334,8 +371,8 @@ describe("ADD FAVORITE BY USER", function () {
 });
 
 // <--- get favorite by ID with 200 response
-describe("GET FAVORITES BY USERID", function () {
-  describe("~> SUCCESFULLY Get favorites by UserId", function () {
+describe("GET FAVORITES BY USERID", function() {
+  describe("~> SUCCESFULLY Get favorites by UserId", function() {
     it("Should return 200 and object (message, favorites)", done => {
       request(app)
         .get("/favorites")
@@ -360,8 +397,8 @@ describe("GET FAVORITES BY USERID", function () {
 });
 
 // <--- get most all favorite with 200 response
-describe("GET MOST ALL FAVORITES", function () {
-  describe("~> SUCCESSFULLY Get most all favorites", function () {
+describe("GET MOST ALL FAVORITES", function() {
+  describe("~> SUCCESSFULLY Get most all favorites", function() {
     it("Should return 200 and object (mostFavorite)", done => {
       request(app)
         .get("/favorites/most")
@@ -379,8 +416,8 @@ describe("GET MOST ALL FAVORITES", function () {
 });
 
 // <--- delete favorite by ID with 200 and 404 response
-describe("DELETE FAVORITES BY ID", function () {
-  describe("~> SUCCESSFULLY Delete favorite by ID", function () {
+describe("DELETE FAVORITES BY ID", function() {
+  describe("~> SUCCESSFULLY Delete favorite by ID", function() {
     it("Should return 200 and object (message)", done => {
       request(app)
         .delete(`/favorites/${favID}`)
@@ -399,7 +436,7 @@ describe("DELETE FAVORITES BY ID", function () {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Delete favorite by ID", function () {
+  describe("~> UNSUCCESSFULLY Delete favorite by ID", function() {
     it("Should return 404 and object (message)", done => {
       request(app)
         .delete(`/favorites/${favID}`)
@@ -418,4 +455,3 @@ describe("DELETE FAVORITES BY ID", function () {
     });
   });
 });
-
