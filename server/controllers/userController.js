@@ -106,7 +106,7 @@ class UserController {
             { id: result.id, email: result.email },
             process.env.SECRET
           );
-          res.status(200).json({ name, avatar, token });
+          res.status(200).json({ name: result.name, avatar: result.avatar, token });
         }
       })
       .catch(err => {
