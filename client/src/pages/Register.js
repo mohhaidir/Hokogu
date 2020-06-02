@@ -274,7 +274,7 @@ export default function Register() {
               Register
             </ColorButton>
 
-            <Grid style={{ marginTop: "30px" }} container>
+            {/* <Grid style={{ marginTop: "30px" }} container>
               <Grid item xs></Grid>
               <Grid item>
                 <Link to="/login">
@@ -283,7 +283,7 @@ export default function Register() {
                   </a>
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </form>
         </div>
       </Grid>

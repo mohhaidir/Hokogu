@@ -286,9 +286,7 @@ const FoodCard = (props) => {
             </ColorButton>
             }
 
-
-
-            </div>
+              </div>
 
         </CardContent>
         { (width > height && width >= 1300) &&
