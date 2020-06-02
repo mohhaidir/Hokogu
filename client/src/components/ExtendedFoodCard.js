@@ -15,7 +15,31 @@ import { useDispatch, useSelector} from 'react-redux'
 import { addToFavourite, setFavourites, removeFromFavourite, getFavourites } from "../store/actions/favouritesActions";
 import {Link, useHistory} from 'react-router-dom'
 import Ingredients from '../components/Ingredients'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import LoginForm from './LoginForm'
 
+const useStyleDrawer = makeStyles(theme => ({
+    root: {
+      flexGrow: 1
+    },
+    drawer: {
+      width: 250,
+      flexShrink: 0
+    },
+    loginDrawerPaper: {
+      backgroundColor: '#fdfff5',
+      width: '50vh',
+    },
+  
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar
+    }
+  }));
+  
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -81,30 +105,60 @@ const ColorButton = withStyles((theme) => ({
 
 
 const FoodCard = (props) => {
+    const classes = useStyleDrawer();
     const history = useHistory();
     const dispatch = useDispatch();
     let favourites = useSelector((state)=> state.favouritesReducer.favourites);
+    const { isLoggedIn } = useSelector(state => state.userReducer);
+
     const [fav, setFav] = useState(false)
+    const [openLogin, setOpenLogin] = React.useState(false);
 
     useEffect(()=> {
         dispatch(getFavourites());
     }, [])
 
 
+    const handleLoginDrawerOpen = () => {
+        setOpenLogin(true)
+    }
+    
+    const handleLoginDrawerClose = () => {
+        setOpenLogin(false)
+    }
+
+    const toggleLoginDrawer = (value) => (event) => {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setOpenLogin(value);
+    };
+    
+    const handleClose = () => {
+        handleLoginDrawerClose()
+    }
+    
+  
+
+
     const muiBaseTheme = createMuiTheme();
     const addToFav = () => {
-        setFav(true);
-        let data = {
-          recipeId: props.recipe.id,
-          title: props.recipe.title,
-          ready: props.recipe.readyInMinutes,
-          serving: props.recipe.servings,
-          image: props.recipe.image
+        if(isLoggedIn){
+            setFav(true);
+            let data = {
+            recipeId: props.recipe.id,
+            title: props.recipe.title,
+            ready: props.recipe.readyInMinutes,
+            serving: props.recipe.servings,
+            image: props.recipe.image
+            }
+            let temp = favourites;
+            temp.push(data)
+            dispatch(setFavourites(temp));
+            dispatch(addToFavourite(data));
+        }else{
+            handleLoginDrawerOpen();
         }
-        let temp = favourites;
-        temp.push(data)
-        dispatch(setFavourites(temp));
-        dispatch(addToFavourite(data));
     }
     const removeFromFav = () => {
         setFav(false);
@@ -132,6 +186,26 @@ const FoodCard = (props) => {
     } = useBlogTextInfoContentStyles();
     const shadowStyles = useOverShadowStyles();
     return (
+    
+        <>
+        <SwipeableDrawer
+        className={classes.drawer}
+        anchor="right"
+        open={openLogin}
+        onClose={toggleLoginDrawer(false)}
+        onOpen={toggleLoginDrawer(true)}
+        classes={{
+          paper: classes.loginDrawerPaper,
+        }}
+        >
+            <div className={classes.drawerHeader}>
+            {/* <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> */}
+            </div>
+            <LoginForm handleClose={handleClose}/>
+        </SwipeableDrawer>
+
         <Card className={cx(styles.root, shadowStyles.root)}>
             {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
                 <StarIcon onClick={removeFromFav} className='topFav' style={{
@@ -176,6 +250,7 @@ const FoodCard = (props) => {
         </div> 
 
         </Card>
+        </>
     );
 };
 
