@@ -6,11 +6,15 @@ import {Button} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-
-
+import AccountMenu from './AccountMenu'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Avatar from '@material-ui/core/Avatar';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -49,16 +53,38 @@ const useStyles = makeStyles(theme => ({
     color: "#ff9687"
   },
   drawer: {
+    textAlign: 'center',
     width: drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
+    textAlign: 'center',
     backgroundColor: "#fdfff5",
     width: drawerWidth
   },
   loginDrawerPaper: {
     backgroundColor: '#fdfff5',
     width: '50vh',
+  },
+  drawerPaperAccountName:{
+    padding: '3vh',
+    borderRadius: '20px',
+    margin: 'auto',
+    textAlign: 'center',
+    backgroundColor: '#fdfff5',
+    marginTop: '10vh',
+    width: '25vh',
+    height: 'auto',
+  },
+  drawerPaperAccountAvatar:{
+    padding: '3vh',
+    borderRadius: '20px',
+    margin: 'auto',
+    textAlign: 'center',
+    backgroundColor: '#fdfff5',
+    marginTop: '10vh',
+    width: '25vh',
+    height: 'auto',
   },
 
   drawerHeader: {
@@ -70,15 +96,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// export default function SwipeableTemporaryDrawer() {
-//   const classes = useStyles();
-//   const [state, setState] = React.useState({
-//     top: false,
-//     left: false,
-//     bottom: false,
-//     right: false,
-// })
-
 export default function PersistentDrawerLeft() {
   const dispatch = useDispatch();
   const history = useHistory()
@@ -87,6 +104,11 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
+  const [openAccountName, setOpenAccountName] = React.useState(false);
+  const [openAccountAvatar, setOpenAccountAvatar] = React.useState(false);
+
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const muiBaseTheme = createMuiTheme();
   useEffect(() => {
     if (localStorage.getItem("hokogu_token")) {
@@ -134,6 +156,23 @@ export default function PersistentDrawerLeft() {
     setOpenLogin(value);
   };
 
+
+  const toggleAccountDrawerName = (value) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setOpenAccountName(value);
+  };
+
+
+  const toggleAccountDrawerAvatar = (value) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setOpenAccountAvatar(value);
+  };
+
+
   const handleClose = () => {
     handleLoginDrawerClose()
   }
@@ -146,8 +185,19 @@ export default function PersistentDrawerLeft() {
       handleLoginDrawerOpen();
     }
   }
+  
+
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
 
   return (
+    <>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -182,25 +232,117 @@ export default function PersistentDrawerLeft() {
               </Link>
             </div>
             {isLoggedIn && (
+              <>
               <div
                 style={{
                   textDecoration: "none"
-                  // justifyContent: 'flex-end'
                 }}
-                onClick={doLogout}
+                onClick={handleClickMenu}
                 edge="end"
               >
-                <MuiThemeProvider
-                  theme={createMuiTheme({
-                    typography: {
-                      useNextVariants: true
-                    },
-                    overrides: GradientButton.getTheme(muiBaseTheme)
-                  })}
-                >
-                  <GradientButton words="Logout" />
-                </MuiThemeProvider>
+                <>
+                <Avatar className='navbarAvatar' style={
+                  {
+                    height: '50px',
+                    width: '50px',
+                    fontSize: '25px',
+                    backgroundImage:'linear-gradient(to right, #ffcbcb, #FF5F6D)'
+                  }
+                }>
+                  {localStorage.getItem('hokogu_name')[0].toUpperCase()}
+                </Avatar>
+            
+                </>
               </div>
+              <Menu
+        id="simple-menu"
+        style={{top: '55px'}}
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleCloseMenu}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem onClick={()=> {
+            setOpenAccountName(true)
+            handleCloseMenu();
+          }
+        }>Edit Name</MenuItem>
+        <MenuItem onClick={()=> {
+            setOpenAccountAvatar(true)
+            handleCloseMenu();
+          }
+        }>Edit Avatar</MenuItem>
+
+        <MenuItem onClick={()=> {
+            handleCloseMenu();
+            doLogout();
+          }
+        }>Logout</MenuItem>
+      </Menu>
+
+
+
+      <Drawer
+        className={classes.drawer}
+        anchor="top"
+        open={openAccountName}
+        onClose={toggleAccountDrawerName(false)}
+        onOpen={toggleAccountDrawerName(true)}
+        classes={{
+          paper: classes.drawerPaperAccountName
+        }}
+      >
+        <div>
+          {/* <Avatar className='navbarAvatar' style={
+            {
+                margin: 'auto',
+                height: '60px',
+                width: '60px',
+                fontSize: '30px',
+                backgroundImage:'linear-gradient(to right, #ffcbcb, #FF5F6D)'
+              }
+            }>
+              {localStorage.getItem('hokogu_name')[0].toUpperCase()}
+          </Avatar> */}
+          <h1> {localStorage.getItem('hokogu_name')} </h1>
+        </div>
+      </Drawer>
+      <Drawer
+        className={classes.drawer}
+        anchor="top"
+        open={openAccountAvatar}
+        onClose={toggleAccountDrawerAvatar(false)}
+        onOpen={toggleAccountDrawerAvatar(true)}
+        classes={{
+          paper: classes.drawerPaperAccountAvatar
+        }}
+      >
+        <div>
+          <Avatar className='navbarAvatar' style={
+            {
+                margin: 'auto',
+                height: '60px',
+                width: '60px',
+                fontSize: '30px',
+                backgroundImage:'linear-gradient(to right, #ffcbcb, #FF5F6D)'
+              }
+            }>
+              {localStorage.getItem('hokogu_name')[0].toUpperCase()}
+          </Avatar>
+          {/* <h1> {localStorage.getItem('hokogu_name')} </h1> */}
+        </div>
+      </Drawer>
+
+
+              </>
             )}
             {!isLoggedIn && (
               <div
@@ -211,6 +353,8 @@ export default function PersistentDrawerLeft() {
                 edge="end"
               >
                   {/* <Link  to='/login' style={{ textDecoration: 'none' }}> */}
+
+
                   <div onClick={handleLoginDrawerOpen}>
                       <MuiThemeProvider
                       theme={createMuiTheme({
@@ -224,11 +368,15 @@ export default function PersistentDrawerLeft() {
                       </MuiThemeProvider>
                   {/* </Link> */}
                   </div>
+
+
+
               </div>
             )}
           </div>
         </Toolbar>
       </AppBar>
+
       <SwipeableDrawer
         className={classes.drawer}
         anchor="left"
@@ -241,13 +389,6 @@ export default function PersistentDrawerLeft() {
       >
 
         <div className={classes.drawerHeader}>
-          {/* <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton> */}
         </div>
         <List>
             <Link onClick={handleDrawerClose} to='/' style={{ textDecoration: 'none' }}>
@@ -262,20 +403,6 @@ export default function PersistentDrawerLeft() {
                     <ListItemText primary={'Popular'} style={{color:"#ff9687", fontSize: "60px"}}/>
                 </ListItem>
             </Link>
-
-            {/* { isLoggedIn &&
-              <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
-                  <ListItem button>
-                      <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
-                      <ListItemText primary={'My Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
-                  </ListItem>
-              </Link>
-            } */}
-          {/* <Link
-            onClick={handleFavOpen}
-            to="/favorites"
-            style={{ textDecoration: "none" }}
-          > */}
             <ListItem button onClick={handleFavOpen}>
               <ListItemIcon>
                 {" "}
@@ -286,7 +413,6 @@ export default function PersistentDrawerLeft() {
                 style={{ color: "#ff9687", fontSize: "60px" }}
               />
             </ListItem>
-          {/* </Link> */}
         </List>
       </SwipeableDrawer>
 
@@ -301,9 +427,6 @@ export default function PersistentDrawerLeft() {
         }}
       >
         <div className={classes.drawerHeader}>
-          {/* <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton> */}
         </div>
         <LoginForm handleClose={handleClose}/>
       </SwipeableDrawer>
@@ -314,5 +437,6 @@ export default function PersistentDrawerLeft() {
         })}
       ></main>
     </div>
+    </>
   );
 }
