@@ -26,6 +26,22 @@
   text-align: center;
 }
 
+@media only screen and (max-width: 1250px) {
+  .bannerHome {
+    height: 50vh;
+  }
+  .resultSearch {
+    justify-content: center;
+  }
+  .resultDetail {
+    margin-bottom: 20px !important;
+    text-align: center;
+  }
+  .resultDetail .iconDetailsCard {
+    justify-content: center;
+  }
+}
+
 .bannerStep {
     background-image: url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg');
     background-repeat: no-repeat;
@@ -188,5 +204,27 @@
 @media only screen and (max-width: 1250px) {
   .labelStep {
     font-size: 1.5em;
+  }
+}
+
+.topFav {
+  position: absolute;
+  top: 12px;
+  right: 12px; 
+  left: auto;
+  line-height: 50%;
+  font-size: 35px !important;
+  margin-bottom: 5px; 
+  color: #FF5F6D;
+}
+
+@media only screen and (max-width: 960px) {
+  .topFav {
+    top: -3%;
+    right: 7%;
+    font-size: 47px !important;
+    z-index: 300;
+    border-radius: 40px;
+    background-color: #ffffffa1;
   }
 }

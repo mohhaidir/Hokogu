@@ -226,16 +226,10 @@ const FoodCard = (props) => {
                 />
             } */}
             {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
-                <StarIcon onClick={removeFromFav} className='topFav' style={{
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
-                    lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
-                />
+                <StarIcon onClick={removeFromFav} className='topFav'/>
                 :
                 <>
-                <StarBorderIcon onClick={addToFav} className='topFav' style={{
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
-                    lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
-                />
+                <StarBorderIcon onClick={addToFav} className='topFav'/>
                 </>
             }
 
@@ -253,6 +247,7 @@ const FoodCard = (props) => {
                         <AccessTime style={{marginLeft:'8px'}}/>
                         {props.recipe.readyInMinutes} mins
             </CardActions>
+            
             <p className='insibleText'> ................................................................</p>
             <div onClick={()=>getDetails(props.recipe.id)}>
 
