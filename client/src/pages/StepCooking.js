@@ -310,7 +310,6 @@ export default function StepCooking(props) {
 
     return (
         <div style={{backgroundColor: 'white', minHeight: '90vh'}}>
-            {activeStep && JSON.stringify(activeStep)}
         <div className='bannerStep'>
             <div>
                 <h1 className='stepText'>
