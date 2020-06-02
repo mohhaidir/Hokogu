@@ -221,7 +221,7 @@ describe("EDIT USER DETAIL BY USERID", function () {
     });
   });
 
-  describe("~> UNSUCCESFULLY Edit User data due to user not found", function() {
+  describe("~> UNSUCCESFULLY Edit User data due to user not found", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .put(`/users/999999999`)
@@ -419,3 +419,198 @@ describe("DELETE FAVORITES BY ID", function () {
   });
 });
 
+// =================================== INGREDIENTS ===================================
+
+
+let ingID = null;
+
+afterAll(done => {
+  queryInterface
+    .bulkDelete("Ingredients", {})
+    .then(() => done())
+    .catch(err => done(err));
+});
+
+describe("ADD INGREDIENT BY USER", function () {
+  describe("~> SUCCESSFULLY Add ingredient by user", function () {
+    it("Should return 201 and object (message, ingredient)", done => {
+      request(app)
+        .post("/ingredients")
+        .set({
+          token: token
+        })
+        .send({
+          title: 'blueberry',
+          type: "fruit",
+          status: true,
+        })
+        .then(response => {
+          let { body, status } = response;
+          expect(status).toBe(201);
+          expect(body).toHaveProperty(
+            "message",
+            "Success added a new ingredient"
+          );
+          expect(body).toHaveProperty("ingredient");
+          expect(body.ingredient).toHaveProperty("title", 'blueberry');
+          expect(body.ingredient).toHaveProperty("type", "fruit");
+          expect(body.ingredient).toHaveProperty("status", true);
+          ingID = body.ingredient.id;
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESSFULLY Add ingredient by user", function () {
+    it("Should return 400 and object (message)", done => {
+      request(app)
+        .post("/ingredients")
+        .set({
+          token: token
+        })
+        .send({
+          title: 'blueberry',
+          type: "fruit",
+          status: true,
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(400);
+          expect(body).toHaveProperty(
+            "message",
+            "This is already in your ingredient"
+          );
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+})
+
+describe("GET INGREDIENTS BY USERID", function () {
+  describe("~> SUCCESFULLY Get Ingredient by UserId", function () {
+    it("Should return 200 and object (message, ingredients)", done => {
+      request(app)
+        .get("/ingredients")
+        .set({
+          token: token
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty(
+            "message",
+            "Success retrieved your ingredients"
+          );
+          expect(body).toHaveProperty("ingredients");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+});
+
+describe("EDIT INGREDIENT BY ID", function () {
+  describe("~> SUCCESFULLY Edit Ingredient by Id", function () {
+    it("Should return 200 and object (message, editedData)", done => {
+      request(app)
+        .put(`/ingredients/${ingID}`)
+        .set({
+          token: token
+        })
+        .send({
+          title: 'blueberry',
+          type: "fruit",
+          status: false,
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty(
+            "message",
+            "Success edited ingredient"
+          );
+          expect(body).toHaveProperty("editedData");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESFULLY Edit ingredient due to ingredient not found", function () {
+    it("Should return 404 and object (message)", done => {
+      request(app)
+        .put(`/ingredients/999999999`)
+        .set({
+          token: token
+        })
+        .send({
+          title: 'blueberry',
+          type: "fruit",
+          status: false,
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(404);
+          expect(body).toHaveProperty(
+            "message",
+            "Ingredient not found"
+          );
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+})
+
+describe("DELETE INGREDIENT BY ID", function () {
+  describe("~> SUCCESSFULLY Delete ingredient by ID", function () {
+    it("Should return 200 and object (message)", done => {
+      request(app)
+        .delete(`/ingredients/${ingID}`)
+        .set({
+          token: token
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty("message", "Success deleted ingredient");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESSFULLY Delete ingredient by ID", function () {
+    it("Should return 404 and object (message)", done => {
+      request(app)
+        .delete(`/ingredients/${ingID}`)
+        .set({
+          token: token
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(404);
+          expect(body).toHaveProperty("message", "Ingredient not found");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
