@@ -7,6 +7,8 @@ import {setIsLoggedIn, setToken, setName, setAvatar} from '../store/actions/user
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import LargeGradientButton from '../components/LargeGardientButton'
 import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import IconButton from '@material-ui/core/IconButton';
 import StaffPicks from '../components/StaffPicks'
@@ -84,13 +86,12 @@ export default function Home() {
     }, [isLoggedIn])
   
     const handleDrawerOpen = () => {
-
-        speechToText();
         setOpen(true);
     };
     
     const handleDrawerClose = () => {
         setOpen(false);    
+        setIsOnListening(false);
     };
 
     const handleQuery = (value) => {
@@ -106,29 +107,42 @@ export default function Home() {
 
     function speechToText() {
       // speech recognition API supported
-      var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
-      var recognition = new SpeechRecognition(); 
-      // This will run when the speech recognition service returns a result
-      recognition.onstart = function() {
-          console.log("Voice recognition started. Try speaking into the microphone.");
-          setIsOnListening(true);
-      };
-      
-      recognition.onresult = function(event) {
-          setIsOnListening(false);
-          var transcript = event.results[0][0].transcript;
-          if (query !== '' || query !== undefined || query !== null) {
-            setQuery(transcript);
-            console.log('querrry', query)
-            if(transcript !== ''){
-              history.push(`/search?query=${transcript}`)
+        var SpeechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
+        var recognition = new SpeechRecognition(); 
+        // This will run when the speech recognition service returns a result
+        recognition.onstart = function() {
+            console.log("Voice recognition started. Try speaking into the microphone.");
+            setIsOnListening(true);
+        };
+        
+        recognition.onresult = function(event) {
+            setIsOnListening(false);
+            var transcript = event.results[0][0].transcript;
+            if (query !== '' || query !== undefined || query !== null) {
+              setQuery(transcript);
+              console.log('querrry', query)
+              if(transcript !== ''){
+                history.push(`/search?query=${transcript}`)
+              }
             }
-          }
-      };
-      
-      // start recognition
-      recognition.start();
+        };
+        
+        // start recognition
+        recognition.start();
     }
+
+    const toggleDrawer = (value) => (event) => {
+      if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        return;
+      }
+
+      if(value == false){
+        setIsOnListening(false);
+      }
+  
+      setOpen(value);
+    };
+  
 
     useEffect(()=> {
       if(localStorage.getItem('hokugo_token')){
@@ -141,23 +155,19 @@ export default function Home() {
   
     return (
         <>
-        <Drawer
+        <SwipeableDrawer
         // className={classes.drawer}
         anchor="top"
         open={open == true}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+
         classes={{
           paper: classes.drawerPaper,
         }}
         >
             <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
-            <IconButton>
-            {isOnListening ? 
-            <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
-            :
-            <MicIcon style={{fontSize: "40px"}} />  
-            }
-            </IconButton>
-
+            <SearchIcon style={{fontSize: "40px", margin: '8px', color: 'gray'}}/>
                 <form className='searchForm' onSubmit={search}>
                     <input 
                     autoFocus 
@@ -167,15 +177,15 @@ export default function Home() {
                     className='searchInput' 
                     type="text"/>
                 </form>
-                <IconButton onClick={()=>{
-                    handleDrawerClose()
-                    setIsOnListening(false)
+                <IconButton onClick={speechToText}>
+                  {isOnListening ? 
+                  <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
+                  :
+                  <MicIcon style={{fontSize: "40px"}} />  
                   }
-                }>
-                    <HighlightOffIcon style={{fontSize: "40px"}}/>
                 </IconButton>
             </div>
-        </Drawer>
+        </SwipeableDrawer>
 
         
         <div className='bannerHome'>
