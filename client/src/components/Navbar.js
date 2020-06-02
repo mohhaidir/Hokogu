@@ -64,7 +64,8 @@ const useStyles = makeStyles(theme => ({
   },
   loginDrawerPaper: {
     backgroundColor: '#fdfff5',
-    width: '50vh',
+    width: '340px',
+    height: '100vh'
   },
   drawerPaperAccountName:{
     padding: '3vh',
@@ -86,7 +87,6 @@ const useStyles = makeStyles(theme => ({
     width: '25vh',
     height: 'auto',
   },
-
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -106,10 +106,16 @@ export default function PersistentDrawerLeft() {
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openAccountName, setOpenAccountName] = React.useState(false);
   const [openAccountAvatar, setOpenAccountAvatar] = React.useState(false);
-
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const muiBaseTheme = createMuiTheme();
+  const [height, setHeight] = useState(window.innerHeight)
+  const [width, setWidth] = useState(window.innerWidth)
+  const update = () => {
+    setHeight(window.innerHeight)
+    setWidth(window.innerWidth)
+  };
+  window.addEventListener("resize", update);
+
   useEffect(() => {
     if (localStorage.getItem("hokogu_token")) {
       dispatch(setIsLoggedIn(true));
@@ -118,6 +124,11 @@ export default function PersistentDrawerLeft() {
       dispatch(setAvatar(localStorage.getItem("hokogu_token")));
     }
   }, [isLoggedIn]);
+  
+
+  // useEffect(()=>{
+  //   update()
+  // }, [])
 
   const doLogout = () => {
     dispatch(logout());
@@ -226,11 +237,15 @@ export default function PersistentDrawerLeft() {
             >
               <MenuIcon style={{ fontSize: "50px" }} />
             </IconButton>
+
+            { width * 1.35 > height &&
             <div>
               <Link to="/" style={{ textDecoration: "none" }}>
                 <img src="/logo.png" height="50px"></img>
               </Link>
             </div>
+            }
+
             {isLoggedIn && (
               <>
               <div
@@ -241,17 +256,31 @@ export default function PersistentDrawerLeft() {
                 edge="end"
               >
                 <>
-                <Avatar className='navbarAvatar' style={
-                  {
-                    height: '50px',
-                    width: '50px',
-                    fontSize: '25px',
-                    backgroundImage:'linear-gradient(to right, #ffcbcb, #FF5F6D)'
-                  }
-                }>
-                  {localStorage.getItem('hokogu_name')[0].toUpperCase()}
-                </Avatar>
-            
+                { localStorage.getItem('hokogu_avatar') === 'none' &&
+                  <Avatar className='navbarAvatar' style={
+                    {
+                      height: '50px',
+                      width: '50px',
+                      fontSize: '25px',
+                      backgroundImage:'linear-gradient(to right, #ffcbcb, #FF5F6D)'
+                    }
+                  }>
+                    {localStorage.getItem('hokogu_name')[0].toUpperCase()}
+                  </Avatar>
+                }
+                { localStorage.getItem('hokogu_avatar') !== 'none' &&
+                  <Avatar 
+                  className='navbarAvatar'
+                  src={localStorage.getItem('hokogu_avatar')}
+                  style={
+                    {
+                      height: '50px',
+                      width: '50px',
+                      fontSize: '25px',
+                    }
+                  }/>
+                  
+                }
                 </>
               </div>
               <Menu
@@ -416,7 +445,7 @@ export default function PersistentDrawerLeft() {
         </List>
       </SwipeableDrawer>
 
-      <SwipeableDrawer
+      <Drawer
         className={classes.drawer}
         anchor="right"
         open={openLogin}
@@ -429,7 +458,7 @@ export default function PersistentDrawerLeft() {
         <div className={classes.drawerHeader}>
         </div>
         <LoginForm handleClose={handleClose}/>
-      </SwipeableDrawer>
+      </Drawer>
 
       <main
         className={clsx(classes.content, {
