@@ -356,7 +356,6 @@ export default function StepCooking(props) {
 
             </div>
             <Box className='mainContent'>
-            {props && JSON.stringify(props.type)}
 
             <Card className={cx(styles.root, shadowStyles.root)}>
             <CardContent>
