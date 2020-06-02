@@ -15,23 +15,23 @@ import StaffPicks from '../components/StaffPicks'
 import SearchIcon from '@material-ui/icons/Search';
 import { Mic as MicIcon } from '@material-ui/icons';
 
+import Chip from '@material-ui/core/Chip';
+
+const useChipStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+}));
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-    },
-    appBar: {
-      // marginLeft: '30px',
-      textAlign: 'center',
-      boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
-      backgroundColor: '#fdfff5',
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    menuButton: {
-      color: '#ff9687',
-      // marginRight: theme.spacing(2),
     },
     drawer: {
         textAlign: 'center',
@@ -42,17 +42,32 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
         textAlign: 'center',
         margin: 'auto',
-        marginTop: '30px',
+        marginTop: '40px',
         display: 'flex',
         backgroundColor: '#fdfff5',
         width: '90vw',
-        height: '75px',
+        height: 'auto',
         display: 'flex',
-        borderRadius: '50px'
+        borderRadius: '30px'
         // borderBottomLeftRadius: '20px',
         // borderBottomRightRadius: '20px'
 
     },
+    drawerPaperExpanded: {
+      textAlign: 'center',
+      margin: 'auto',
+      marginTop: '40px',
+      display: 'flex',
+      backgroundColor: '#fdfff5',
+      width: '90vw',
+      height: '250px',
+      display: 'flex',
+      borderRadius: '30px'
+      // borderBottomLeftRadius: '20px',
+      // borderBottomRightRadius: '20px'
+
+  },
+
     drawerHeader: {
       display: 'flex',
       alignItems: 'center',
@@ -72,9 +87,18 @@ export default function Home() {
     const history = useHistory()
     const muiBaseTheme = createMuiTheme();
     const classes = useStyles();
+    const chipClasses = useChipStyles();
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
+    const [showReccomendations, setShowReccomendations] = useState(false);
     const [isOnListening, setIsOnListening] = useState(false);
+
+    const recentSearch = [
+      'nasi goreng', 'pasta', 'pancake', 'sushi',
+    ]
+    const popularSearch = [
+      'nasi goreng', 'pasta', 'pancake', 'sushi', 'burger', 'rendang', 'tom yum', 'fried chicken', 'lasagna', 'gyoza', 'apple tart', 'baklava'
+    ]
 
     useEffect(()=> {
       if(localStorage.getItem('hokugo_token')){
@@ -166,16 +190,18 @@ export default function Home() {
           paper: classes.drawerPaper,
         }}
         >
-            <div style={{display: 'flex', padding: '7px', textAlign: 'center'}}>
+            <div style={{display: 'flex', padding: '7px', textAlign: 'center', border: '2px solid black;'}}>
             <SearchIcon style={{fontSize: "40px", margin: '8px', color: 'gray'}}/>
                 <form className='searchForm' onSubmit={search}>
                     <input 
                     autoFocus 
+                    onFocus={()=> setShowReccomendations(true)}
                     value={query}
                     onChange={(e)=>handleQuery(e.target.value)}
                     placeholder='what are you craving...' 
                     className='searchInput' 
-                    type="text"/>
+                    type="text"
+                    />
                 </form>
                 <IconButton onClick={speechToText}>
                   {isOnListening ? 
@@ -185,6 +211,33 @@ export default function Home() {
                   }
                 </IconButton>
             </div>
+            <div style={
+              {
+                display:'flex',
+                flexWrap: 'wrap',
+                paddingRight: '20px',
+                paddingLeft: '20px',
+                overflow:"auto",
+                width: '100%'
+              }
+            }>
+                {popularSearch.map((item, idx)=>{
+                  return (
+                    <Chip
+                    onClick ={()=> history.push(`/search?query=${item}`)}
+                    label={item}
+                    clickable
+                    style={{
+                      marginRight: '10px',
+                      marginBottom: '10px'
+                    }}
+                  />
+            
+                  )
+                })
+                }
+            </div>
+
         </SwipeableDrawer>
 
         

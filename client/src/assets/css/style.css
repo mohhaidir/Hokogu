@@ -105,6 +105,10 @@
 .imageFood img {
   border-radius: 10px;
 }
+.navbarAvatar:hover {
+    transform: scale(1.05);
+}
+
 .cardIngredient {
   border-radius: 20px !important;
   background-color: #bbd8d8 !important;
