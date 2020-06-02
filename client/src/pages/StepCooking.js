@@ -25,6 +25,7 @@ import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
 
 
 import StepConnector from '@material-ui/core/StepConnector';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -125,7 +126,8 @@ export default function StepCooking(props) {
       firstExcluded: true,
       space: 2,
     });
-  
+
+    const { id } = useParams();  
 
     const [activeStep, setActiveStep] = React.useState(0);
     const [showIngredient, setShowIngredient] = React.useState(false);
@@ -137,93 +139,94 @@ export default function StepCooking(props) {
     const [resultText, setResultText] = React.useState('');
 
     useEffect(() => {
-        // axios({
-        //     url: `https://api.spoonacular.com/recipes/216954/analyzedInstructions?apiKey=5cd43e21289d449988abacef7d29dd14`,
-        //     method: 'GET'
-        // })
-        // .then((result) => {
-        //     setAllStep(result.data[0].steps);
-        //     let temp = [];
-        //     temp.push("Let's Cook");
-        //     result.data[0].steps.forEach(item => {
-        //         temp.push(item.step)
-        //     });
-        //     temp.push("Let's Eat");
-        //     setSteps(temp);
-        //     console.log(result.data[0])
-        //     textToSpeech("Let's Cook");
-        // })
-        // .catch((err) => {
-        //     console.log('error', err);
-        // });
-        setAllStep([
-            {
-                number: 8, 
-                step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.", 
-                ingredients: [
-                    {
-                        id: 11677, 
-                        name: "shallot", 
-                        image: "shallots.jpg"
-                    }
-                ], 
-                equipment: [
-                    {
-                        id: 404783, 
-                        name: "bowl", 
-                        image: "bowl.jpg"
-                    }
-                ]
-            },
-            {
-                number: 8, 
-                step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.", 
-                ingredients: [
-                    {
-                        id: 11677, 
-                        name: "shallot2", 
-                        image: "shallots.jpg"
-                    }
-                ], 
-                equipment: [
-                    {
-                        id: 404783, 
-                        name: "bowl2", 
-                        image: "bowl.jpg"
-                    }
-                ]
-            },
-            {
-                number: 8, 
-                step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.", 
-                ingredients: [
-                    {
-                        id: 11677, 
-                        name: "shallot3", 
-                        image: "shallots.jpg"
-                    }
-                ], 
-                equipment: [
-                    {
-                        id: 404783, 
-                        name: "bowl3", 
-                        image: "bowl.jpg"
-                    }
-                ]
-            }
-        ])
-        setSteps(["Let's Cook", 
-            "Heat most of the oil in a large wok and fry the shallots until crispy and golden.", 
-            "Remove with a slotted spoon, season with salt and …ith 1 tsp of the soy sauce and some black pepper.", 
-            "Pour out most of the oil from the wok and wipe with kitchen paper.", 
-            "Add the eggs, swirl to coat the pan in a thin omelette layer, cook until set, then remove.", 
-            "Roll up, slice and set aside.", 
-            "Add the paste to the wok with the chicken and cook… soy sauce, then mix well to coat all the grains.", 
-            "Heat through until piping hot.", 
-            "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.",
-            "Let's Eat"
-        ])
-        textToSpeech("Let's Cook");
+        axios({
+            url: `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=5cd43e21289d449988abacef7d29dd14`,
+            method: 'GET'
+        })
+        .then((result) => {
+            setAllStep(result.data[0].steps);
+            let temp = [];
+            temp.push("Let's Cook");
+            result.data[0].steps.forEach(item => {
+                temp.push(item.step)
+            });
+            temp.push("Let's Eat");
+            setSteps(temp);
+            console.log(result.data[0])
+            setActiveStep(0);
+            // textToSpeech("Let's Cook");
+        })
+        .catch((err) => {
+            console.log('error', err);
+        });
+        // setAllStep([
+        //     {
+        //         number: 8, 
+        //         step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.", 
+        //         ingredients: [
+        //             {
+        //                 id: 11677, 
+        //                 name: "shallot", 
+        //                 image: "shallots.jpg"
+        //             }
+        //         ], 
+        //         equipment: [
+        //             {
+        //                 id: 404783, 
+        //                 name: "bowl", 
+        //                 image: "bowl.jpg"
+        //             }
+        //         ]
+        //     },
+        //     {
+        //         number: 8, 
+        //         step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.", 
+        //         ingredients: [
+        //             {
+        //                 id: 11677, 
+        //                 name: "shallot2", 
+        //                 image: "shallots.jpg"
+        //             }
+        //         ], 
+        //         equipment: [
+        //             {
+        //                 id: 404783, 
+        //                 name: "bowl2", 
+        //                 image: "bowl.jpg"
+        //             }
+        //         ]
+        //     },
+        //     {
+        //         number: 8, 
+        //         step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.", 
+        //         ingredients: [
+        //             {
+        //                 id: 11677, 
+        //                 name: "shallot3", 
+        //                 image: "shallots.jpg"
+        //             }
+        //         ], 
+        //         equipment: [
+        //             {
+        //                 id: 404783, 
+        //                 name: "bowl3", 
+        //                 image: "bowl.jpg"
+        //             }
+        //         ]
+        //     }
+        // ])
+        // setSteps(["Let's Cook", 
+        //     "Heat most of the oil in a large wok and fry the shallots until crispy and golden.", 
+        //     "Remove with a slotted spoon, season with salt and …ith 1 tsp of the soy sauce and some black pepper.", 
+        //     "Pour out most of the oil from the wok and wipe with kitchen paper.", 
+        //     "Add the eggs, swirl to coat the pan in a thin omelette layer, cook until set, then remove.", 
+        //     "Roll up, slice and set aside.", 
+        //     "Add the paste to the wok with the chicken and cook… soy sauce, then mix well to coat all the grains.", 
+        //     "Heat through until piping hot.", 
+        //     "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.",
+        //     "Let's Eat"
+        // ])
+        // textToSpeech("Let's Cook");
         const intervalSpeechToText = setInterval(speechToText, 5000);
 
         // returned function will be called on component unmount 
@@ -247,7 +250,6 @@ export default function StepCooking(props) {
                 setShowEquipment(true);
             }
         }
-        
     }, [activeStep])
 
     function speechToText() {
@@ -308,6 +310,7 @@ export default function StepCooking(props) {
 
     return (
         <div style={{backgroundColor: 'white', minHeight: '90vh'}}>
+            {activeStep && JSON.stringify(activeStep)}
         <div className='bannerStep'>
             <div>
                 <h1 className='stepText'>
