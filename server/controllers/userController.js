@@ -97,6 +97,7 @@ class UserController {
             .status(200)
             .json({ name: userdata.name, avatar: userdata.avatar, token });
         } else {
+          console.log(`masuk ke create`)
           return User.create(user);
         }
       })
@@ -106,7 +107,7 @@ class UserController {
             { id: result.id, email: result.email },
             process.env.SECRET
           );
-          res.status(200).json({ name, avatar, token });
+          res.status(201).json({ name: result.name, avatar: result.avatar, token });
         }
       })
       .catch(err => {
@@ -116,6 +117,57 @@ class UserController {
           next({ status: 400, message: `Failed` });
         }
       });
+  }
+
+  static getUser(req, res) {
+    const id = req.userdata.id
+    User.findOne({
+      where: { id }
+    })
+      .then(result => {
+        if (result) {
+          let temp = {
+            name: result.name,
+            email: result.email,
+            avatar: result.avatar
+          }
+          res.status(200).json({ theUser: temp, message: 'Success retrieved logged in user data' })
+
+        } else {
+          res.status(404).json({ message: 'User not found' })
+        }
+      })
+      .catch(err => {
+        res.status(500).json({ message: 'Internal Server Error' })
+      })
+  }
+
+  static editUser(req, res) {
+    const id = req.userdata.id
+    const obj = {
+      name: req.body.name,
+      email: req.body.email,
+      avatar: req.body.avatar,
+    }
+    User.findOne({
+      where: { id }
+    })
+      .then(result => {
+        if (!result) {
+          res.status(404).json({ message: 'User not found' })
+
+        } else {
+          return User.update(obj, {
+            where: { id }
+          })
+        }
+      })
+      .then(data => {
+        res.status(200).json({ message: 'Successful edit a user' })
+      })
+      .catch(err => {
+        res.status(500).json({ message: 'Internal server error' })
+      })
   }
 }
 
