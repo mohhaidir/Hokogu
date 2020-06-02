@@ -213,7 +213,7 @@ const SearchResults = ({ location }) => {
                     return(
                         <Grid item lg={6} sm={12} className={'resultDetail'}>
                         <div  key={idx}>
-                        <FoodCard style={{marginBotoom: '50px'}} recipe={recipe}/>
+                        <FoodCard  recipe={recipe}/>
                         </div>
                         </Grid>
                     )
