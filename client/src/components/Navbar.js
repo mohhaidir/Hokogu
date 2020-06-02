@@ -81,6 +81,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PersistentDrawerLeft() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const classes = useStyles();
   const { isLoggedIn } = useSelector(state => state.userReducer);
   const theme = useTheme();
@@ -109,6 +110,7 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleLoginDrawerOpen = () => {
+
     setOpenLogin(true)
   }
 
@@ -134,6 +136,15 @@ export default function PersistentDrawerLeft() {
 
   const handleClose = () => {
     handleLoginDrawerClose()
+  }
+
+  const handleFavOpen = () => {
+    setOpen(false);
+    if(isLoggedIn) {
+      history.push('/favorites')
+    }else{
+      handleLoginDrawerOpen();
+    }
   }
 
   return (
@@ -230,13 +241,13 @@ export default function PersistentDrawerLeft() {
       >
 
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          {/* <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
               <ChevronRightIcon />
             )}
-          </IconButton>
+          </IconButton> */}
         </div>
         <List>
             <Link onClick={handleDrawerClose} to='/' style={{ textDecoration: 'none' }}>
@@ -252,20 +263,20 @@ export default function PersistentDrawerLeft() {
                 </ListItem>
             </Link>
 
-            { isLoggedIn &&
+            {/* { isLoggedIn &&
               <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
                   <ListItem button>
                       <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
                       <ListItemText primary={'My Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
                   </ListItem>
               </Link>
-            }
-          <Link
-            onClick={handleDrawerClose}
+            } */}
+          {/* <Link
+            onClick={handleFavOpen}
             to="/favorites"
             style={{ textDecoration: "none" }}
-          >
-            <ListItem button>
+          > */}
+            <ListItem button onClick={handleFavOpen}>
               <ListItemIcon>
                 {" "}
                 <StarIcon style={{ color: "#ff9687", fontSize: "40px" }} />{" "}
@@ -275,7 +286,7 @@ export default function PersistentDrawerLeft() {
                 style={{ color: "#ff9687", fontSize: "60px" }}
               />
             </ListItem>
-          </Link>
+          {/* </Link> */}
         </List>
       </SwipeableDrawer>
 

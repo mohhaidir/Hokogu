@@ -14,6 +14,30 @@ import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector} from 'react-redux'
 import { addToFavourite, setFavourites, removeFromFavourite } from "../store/actions/favouritesActions";
 import {Link, useHistory} from 'react-router-dom'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import LoginForm from './LoginForm'
+
+const useStyleDrawer = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  drawer: {
+    width: 250,
+    flexShrink: 0
+  },
+  loginDrawerPaper: {
+    backgroundColor: '#fdfff5',
+    width: '50vh',
+  },
+
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar
+  }
+}));
 
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
@@ -36,6 +60,21 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       paddingTop: spacing(2),
     },
   },
+  // drawer: {
+  //   width: 250,
+  //   flexShrink: 0
+  // },
+  // loginDrawerPaper: {
+  //   backgroundColor: '#fdfff5',
+  //   width: '50vh',
+  // },
+  // drawerHeader: {
+  //   display: "flex",
+  //   alignItems: "center",
+  //   padding: theme.spacing(0, 1),
+  //   // necessary for content to be below app bar
+  //   ...theme.mixins.toolbar
+  // },
   media: {
     width: '88%',
     marginLeft: 'auto',
@@ -74,16 +113,45 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 }));
 
 const FoodCard = (props) => {
+    const classes = useStyleDrawer();
     const history = useHistory();
     const dispatch = useDispatch();
     if(props.recipe.title.length > 23){
         props.recipe.title = props.recipe.title.substring(0, 20) + '...';
     }
     let favourites = useSelector((state)=> state.favouritesReducer.favourites);
+    const { isLoggedIn } = useSelector(state => state.userReducer);
+
     const [fav, setFav] = useState(false)
+    const [openLogin, setOpenLogin] = React.useState(false);
+
 
     const muiBaseTheme = createMuiTheme();
+
+
+    const handleLoginDrawerOpen = () => {
+      setOpenLogin(true)
+    }
+  
+    const handleLoginDrawerClose = () => {
+      setOpenLogin(false)
+    }
+  
+
+    const toggleLoginDrawer = (value) => (event) => {
+      if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        return;
+      }
+      setOpenLogin(value);
+    };
+  
+    const handleClose = () => {
+      handleLoginDrawerClose()
+    }
+  
+  
     const addToFav = () => {
+      if(isLoggedIn){
         setFav(true);
         let data = {
           recipeId: props.recipe.id,
@@ -96,6 +164,9 @@ const FoodCard = (props) => {
         temp.push(data)
         dispatch(setFavourites(temp));
         dispatch(addToFavourite(data));
+      }else{
+        handleLoginDrawerOpen();
+      }
     }
     const removeFromFav = () => {
         setFav(false);
@@ -126,6 +197,25 @@ const FoodCard = (props) => {
     } = useBlogTextInfoContentStyles();
     const shadowStyles = useOverShadowStyles();
     return (
+      <>
+        <SwipeableDrawer
+          className={classes.drawer}
+          anchor="right"
+          open={openLogin}
+          onClose={toggleLoginDrawer(false)}
+          onOpen={toggleLoginDrawer(true)}
+          classes={{
+            paper: classes.loginDrawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            {/* <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> */}
+          </div>
+          <LoginForm handleClose={handleClose}/>
+        </SwipeableDrawer>
+
         <Card className={cx(styles.root, shadowStyles.root)}>
             {/* {
                 fav == true &&
@@ -182,6 +272,7 @@ const FoodCard = (props) => {
 
         </CardContent>
         </Card>
+      </>
     );
 };
 
