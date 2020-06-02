@@ -21,7 +21,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     marginRight: 20,
     borderRadius: spacing(0.5),
     transition: '0.3s',
-    width: '30vw',
+    width: '100%',
     overflow: 'initial',
     background: '#ffffff',
   },

@@ -47,6 +47,8 @@ const MyFav = () => {
 
         <br/>
         <br/>
+
+        <br/>
         {   favouritesLoading  && 
             <div style={{textAlign:"center"}}>
             <img height="300" width="300" src="loading.gif" alt="loading" />
