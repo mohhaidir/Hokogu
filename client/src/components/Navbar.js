@@ -5,6 +5,9 @@ import {logout, setIsLoggedIn, setToken, setName, setAvatar} from '../store/acti
 import {Button} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,7 +29,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GradientButton from './GradientButton'
 import {useSelector,useDispatch} from 'react-redux'
 import FavoriteIcon from '@material-ui/icons/Favorite'
-
+import LoginForm from './LoginForm'
 const drawerWidth = 250;
   
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     boxShadow: '0 3px 6px rgba(0,0,0,0.01), 0 3px 6px rgba(0,0,0,0.23)',
+    // boxShadow: 'none',
     backgroundColor: '#fdfff5',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -52,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fdfff5',
     width: drawerWidth,
   },
+  loginDrawerPaper: {
+    backgroundColor: '#fdfff5',
+    width: '50vh',
+  },
+
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -61,12 +70,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// export default function SwipeableTemporaryDrawer() {
+//   const classes = useStyles();
+//   const [state, setState] = React.useState({
+//     top: false,
+//     left: false,
+//     bottom: false,
+//     right: false,
+// })
+
 export default function PersistentDrawerLeft() {
   const dispatch = useDispatch()
   const classes = useStyles();
   const { isLoggedIn} = useSelector(state => state.userReducer);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
   const muiBaseTheme = createMuiTheme();
   useEffect(()=> {
     if(localStorage.getItem('hokogu_token')){
@@ -89,6 +108,36 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLoginDrawerOpen = () => {
+    setOpenLogin(true)
+  }
+
+  const handleLoginDrawerClose = () => {
+    setOpenLogin(false)
+  }
+
+
+  const toggleDrawer = (value) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setOpen(value);
+  };
+
+  const toggleLoginDrawer = (value) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setOpenLogin(value);
+  };
+
+  const handleClose = () => {
+    handleLoginDrawerClose()
+  }
+
+
 
 
 
@@ -147,7 +196,8 @@ export default function PersistentDrawerLeft() {
               }} 
               edge="end" 
               >
-                  <Link  to='/login' style={{ textDecoration: 'none' }}>
+                  {/* <Link  to='/login' style={{ textDecoration: 'none' }}> */}
+                  <div onClick={handleLoginDrawerOpen}>
                       <MuiThemeProvider
                       theme={createMuiTheme({
                           typography: {
@@ -158,26 +208,29 @@ export default function PersistentDrawerLeft() {
                       >
                           <GradientButton words='Login'/>
                       </MuiThemeProvider>
-                  </Link>
+                  {/* </Link> */}
+                  </div>
               </div>
             }
         </div>
         </Toolbar>
 
       </AppBar>
-      <Drawer
+      <SwipeableDrawer
         className={classes.drawer}
         anchor="left"
         open={open}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
+
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-          
         </div>
         <List>
             <Link onClick={handleDrawerClose} to='/' style={{ textDecoration: 'none' }}>
@@ -193,15 +246,36 @@ export default function PersistentDrawerLeft() {
                 </ListItem>
             </Link>
 
-            <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
-                <ListItem button>
-                    <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
-                    <ListItemText primary={'My Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
-                </ListItem>
-            </Link>
+            { isLoggedIn &&
+              <Link onClick={handleDrawerClose} to='/favorites' style={{ textDecoration: 'none' }}>
+                  <ListItem button>
+                      <ListItemIcon> <StarIcon style={{color:"#ff9687", fontSize: "40px"}}/> </ListItemIcon>
+                      <ListItemText primary={'My Favourites'} style={{color:"#ff9687", fontSize: "60px"}}/>
+                  </ListItem>
+              </Link>
+            }
 
         </List>
-      </Drawer>
+      </SwipeableDrawer>
+
+      <SwipeableDrawer
+        className={classes.drawer}
+        anchor="right"
+        open={openLogin}
+        onClose={toggleLoginDrawer(false)}
+        onOpen={toggleLoginDrawer(true)}
+        classes={{
+          paper: classes.loginDrawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          {/* <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton> */}
+        </div>
+        <LoginForm handleClose={handleClose}/>
+      </SwipeableDrawer>
+
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
