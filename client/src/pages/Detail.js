@@ -82,7 +82,7 @@ export default function Detail() {
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  height: "60px",
+                  height: "100%",
                   paddingTop: "8px",
                   paddingLeft: "10vw",
                   paddingRight: "10vw",

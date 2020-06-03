@@ -65,7 +65,7 @@ const MyFav = () => {
               image: recipe.image
             };
             return (
-              <Grid item lg={6} sm={12} className={"resultDetail"}>
+              <Grid item lg={6} sm={12} spacing={1} className={"resultDetail"}>
                 <div key={idx}>
                   <FoodCard recipe={modified} />
                 </div>

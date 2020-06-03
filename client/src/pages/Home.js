@@ -7,6 +7,7 @@ import LargeGradientButton from '../components/LargeGardientButton'
 import StaffPicks from '../components/StaffPicks'
 import { SwipeableDrawer, IconButton } from '@material-ui/core/';
 import { Mic as MicIcon, Search as SearchIcon } from '@material-ui/icons';
+import StaffPicksGrid from '../components/StaffPicksGrid';
 
 import Chip from '@material-ui/core/Chip';
 
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '70px',
         display: 'flex',
         backgroundColor: '#fdfff5',
-        width: '97vw',
+        width: '98vw',
         height: 'auto',
         display: 'flex',
         borderRadius: '30px'
@@ -48,11 +49,11 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
       textAlign: 'center',
       margin: 'auto',
-      marginTop: '40px',
+      marginTop: '8vh',
       display: 'flex',
       backgroundColor: '#fdfff5',
-      width: '95vw',
-      height: '250px',
+      width: '97vw',
+      height: 'auto',
       display: 'flex',
       borderRadius: '30px'
       // borderBottomLeftRadius: '20px',
@@ -182,8 +183,11 @@ export default function Home() {
           paper: classes.drawerPaper,
         }}
         >
-            <div style={{display: 'flex', padding: '7px', textAlign: 'center', border: '2px solid black;'}}>
-            <SearchIcon style={{fontSize: "40px", margin: '8px', color: 'gray'}}/>
+        <div style={{display: 'flex', justifyContent: 'spaceBetween', padding: '7px', textAlign: 'center', border: '2px solid black;'}}>
+            <IconButton>
+            <SearchIcon style={{fontSize: "30px", color: 'gray'}}/>
+            </IconButton>
+
                 <form className='searchForm' onSubmit={search}>
                     <input 
                     autoFocus 
@@ -197,9 +201,9 @@ export default function Home() {
                 </form>
                 <IconButton onClick={speechToText}>
                   {isOnListening ? 
-                  <MicIcon style={{fontSize: "40px"}} className='iconColor'/>
+                  <MicIcon style={{fontSize: "30px", }} className='iconColor'/>
                   :
-                  <MicIcon style={{fontSize: "40px"}} />  
+                  <MicIcon style={{fontSize: "30px", }} />  
                   }
                 </IconButton>
             </div>
@@ -231,12 +235,22 @@ export default function Home() {
             </div>
 
         </SwipeableDrawer>
+        <div style={{backgroundColor: 'ff959c'}}>
+        <header>
         { height > width &&
-        <div className='bannerHome'>
-            <h1 className='homeSlogan'>
-                    Nothing brings people together like good food
+        <div className='bannerHome header-content'>
+            <h1 className='homeSlogan header-title animate-pop-in'>
+                    Nothing brings people together
             </h1>
+            <h1 className='homeSlogan header-subtitle animate-pop-in'>
+                    like good food
+            </h1>
+
+            <br/>
+            <br/>
+
             <div
+            className='header-button animate-pop-in'
             style={{marginTop: '2vh'}}
             onClick={handleDrawerOpen} >
             <MuiThemeProvider
@@ -254,10 +268,20 @@ export default function Home() {
         }
         { height <= width &&
         <div className='bannerHomeWeb'>
-            <h1 className='homeSlogan'>
-                    Nothing brings people together like good food
+            <h1 className='homeSlogan header-title animate-pop-in'>
+                    Nothing brings people together
             </h1>
-            <div
+            <h1 className='homeSlogan header-subtitle animate-pop-in'>
+                    like good food
+            </h1>
+            { height > 500 &&
+              <>
+                <br/>
+                <br/>
+              </>
+            }
+            <div 
+            className='header-button animate-pop-in'
             style={{marginTop: '2vh'}}
             onClick={handleDrawerOpen} >
             <MuiThemeProvider
@@ -273,14 +297,45 @@ export default function Home() {
             </div>
         </div>
         }
+        </header>
 
+        { width > 500 &&
+          <div style={{padding: "3vh", backgroundColor: "#fdfff5"}}>
+          <h1
+          style={{
+            color: "#fd626c",
+            fontSize: "40px",
+            textAlign: "center",
+            fontFamily: "Noto Serif JP, serif"
+          }}
+          >
+            Happiness Is Homemade
+          </h1>
 
-        <div style={{padding: "5vh", backgroundColor: "#fdfff5"}}>
-            <StaffPicks/>
-            <br/>
-            <br/>
-            <br/>
+          <StaffPicks/>
+      </div>
+        }
+
+        { width <= 500 &&
+          <div style={{ color: "#ff959c" }}>
+
+                    <h1
+          style={{
+            color: "#fd626c",
+            fontSize: "40px",
+            textAlign: "center",
+            fontFamily: "Noto Serif JP, serif"
+          }}
+          >
+            Happiness Is Homemade
+          </h1>
+
+          <StaffPicksGrid/>
+          </div>
+
+        }
         </div>
+
 
         </>
     )

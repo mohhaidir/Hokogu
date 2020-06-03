@@ -301,7 +301,6 @@ const FoodCard = (props) => {
         </div>
         }
         </div> 
-
         </Card>
         </>
     );

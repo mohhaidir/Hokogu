@@ -15,6 +15,7 @@ import {
 } from "./pages";
 import { Navbar } from "./components";
 import "./assets/css/style.css";
+import ScrollToTop from './components/ScrollToTop'
 
 const routes = [
   {
@@ -79,10 +80,12 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
+        <ScrollToTop>
         <Navbar />
         <div className="underNav">
           <AppRouter />
         </div>
+        </ScrollToTop>
       </Router>
     </Provider>
   );

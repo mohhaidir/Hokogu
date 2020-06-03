@@ -11,7 +11,6 @@ export default function GroceryList() {
   const { groceries, groceriesLoading } = useSelector(
     state => state.groceryReducer
   );
-  const [checked, setChecked] = useState([]);
   const [height, setHeight] = useState(window.innerHeight);
   const [width, setWidth] = useState(window.innerWidth);
   const update = () => {

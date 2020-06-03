@@ -77,6 +77,8 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   // },
   media: {
     width: '88%',
+    width: '250px',
+    height: '170px',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: spacing(-3),
@@ -227,7 +229,7 @@ const FoodCard = (props) => {
                 <StarIcon onClick={removeFromFav} className='topFav'/>
                 :
                 <>
-                <StarBorderIcon onClick={addToFav} className='topFav'/>
+                <StarBorderIcon  onClick={addToFav} className='topFav'/>
                 </>
             }
 
