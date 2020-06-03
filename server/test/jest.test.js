@@ -6,6 +6,7 @@ const { queryInterface } = sequelize;
 let id = null;
 let token = null;
 let email = "newtest@gmail.com";
+
 afterAll(done => {
   queryInterface
     .bulkDelete("Users", {})
