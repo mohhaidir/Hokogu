@@ -29,7 +29,11 @@
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300&display=swap" rel="stylesheet">
-
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Hokogu App">
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -56,10 +60,16 @@
     -->
     <script>
       if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(reg) {
-                console.log('Service Worker Registered', reg.scope);
-          });
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register("%PUBLIC_URL%/sw.js")
+            .then(reg => {
+              console.log('Service Worker: Registered');
+            })
+            .catch(err => {
+              console.log('Service Worker: Error', err);
+            })
+        })
       }
     </script>
   </body>
