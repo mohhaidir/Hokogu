@@ -105,6 +105,24 @@ class IngredientController {
         }
       });
   }
+
+  static bulkDeleteIngredient(req, res){
+    console.log('a')
+    const selected = req.body.selected
+    Ingredient.destroy({ where: { id: selected }})
+    .then(result => {
+      res.status(200).json({message: "Success deleted ingredient(s)"});
+    })
+    .catch(err=>{
+      if (err.message) {
+        res.status(404).json({ message: "Ingredient(s) not found" });
+      } else {
+        res.status(500).json({ message: "Internal server error" }); // uncovered
+      }
+    })
+
+
+  }
 }
 
 module.exports = IngredientController;

@@ -20,8 +20,6 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { useDispatch, useSelector} from 'react-redux'
 import { addToGroceries, getGroceries, setGroceries, removeFromGroceries } from "../store/actions/groceryAction";
 
-
-
 const useStyles = makeStyles(({ spacing }) => ({
   card: {
     marginTop: 20,

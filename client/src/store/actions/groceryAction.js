@@ -89,7 +89,6 @@ export const removeFromGroceries = (title) =>{
         else{
             throw new Error ({msg: 'ingredient not found'})
         }
-
     })
     .then(response => {
       console.log(response);
@@ -98,6 +97,35 @@ export const removeFromGroceries = (title) =>{
         console.log(err)
     })
   }
+}
+
+export const bulkRemoveGroceries = (payload) => {
+    let token = localStorage.getItem('hokogu_token')
+    let selected = [];
+    for(let i =0; i<payload.length; i++){
+        selected.push(payload[i].id);
+    }
+    console.log('The Ids')
+    console.log(selected)
+    return (dispatch) => {
+        axios ({
+            method: "delete",
+            url: url + '/ingredients/bulk',
+            data: {
+                selected: selected
+            },
+            headers: {
+                token: token
+            }
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
 }
 
 export const setGroceriesLoading = (value)=> {
