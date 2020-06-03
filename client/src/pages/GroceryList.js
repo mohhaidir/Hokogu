@@ -7,15 +7,17 @@ import { useStyles } from '../assets/css';
 import { useParams, Link, useHistory } from 'react-router-dom'
 import Ingredients from '../components/Ingredients'
 import ExtendedFoodCard from '../components/ExtendedFoodCard'
-
+import GroceryTable from '../components/GroceryTable'
 
 const loading = false;
+
+const groceryList = []
 
 export default function GroceryList() {
     const history = useHistory()
     // const { id } = useParams()
-    const [groceryList, setGroceryList] = useState(null)
-    const [loading, setLoading] = useState(false)
+    // const [groceryList, setGroceryList] = useState(null)
+    // const [loading, setLoading] = useState(false)
     useEffect(() => {
         // setLoading(true)
         // axios({
@@ -39,32 +41,29 @@ export default function GroceryList() {
       setWidth(window.innerWidth)
     };
     window.addEventListener("resize", update);
-
     
     // function goToStep(){
     //     history.push(`/step/${id}`)
     // }
 
     return (
-        <div style={{ textAlign:'center', backgroundColor: 'white', minHeight: '90vh'}}>
-        {   width > 1000 &&
+        <div style={{ textAlign:'center', backgroundColor: 'white', height: '100%'}}>
+        {/* {   width > 1000 && */}
 
             <div style={{
             backgroundImage: `url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            // height: '100px',
-            paddingTop: '5px',
-            paddingLeft: '10vw',
-            paddingRight: '10vw',
+            height: '200px',
+            paddingTop: '60px',
             textAlign: 'center'
             }}>
                     <h1 className='accountText'>
                         Grocery List
                     </h1>
             </div>
-        }
+        {/* }
 
         {   width <= 1000 &&
             <div style={{
@@ -82,14 +81,7 @@ export default function GroceryList() {
                 Grocery List
             </h5>
             </div>
-        }
-
-
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <h1>Groceries</h1>
+        } */}
             <>
             {   loading &&
                     <div style={{textAlign:"center"}}>
@@ -99,7 +91,7 @@ export default function GroceryList() {
             
             {   (!loading && groceryList !== null) &&
                 <div>
-
+                    <GroceryTable/>
                 </div>
             }
             </>

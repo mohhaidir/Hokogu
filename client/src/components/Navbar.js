@@ -309,7 +309,7 @@ export default function PersistentDrawerLeft() {
           horizontal: 'right',
         }}
       >
-        <MenuItem onClick={()=> {
+        {/* <MenuItem onClick={()=> {
             setOpenAccountName(true)
             handleCloseMenu();
           }
@@ -318,7 +318,7 @@ export default function PersistentDrawerLeft() {
             setOpenAccountAvatar(true)
             handleCloseMenu();
           }
-        }>Edit Avatar</MenuItem>
+        }>Edit Avatar</MenuItem> */}
 
         <MenuItem onClick={()=> {
             handleCloseMenu();
