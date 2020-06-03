@@ -18,7 +18,7 @@ class IngredientController {
   }
 
   static addIngredient(req, res) {
-    const { title, type, status } = req.body;
+    const { title, type, status, image } = req.body;
     const UserId = req.userdata.id;
 
     Ingredient.findOne({
@@ -36,7 +36,7 @@ class IngredientController {
             .status(400)
             .json({ message: "This is already in your ingredient" });
         } else {
-          return Ingredient.create({ title, type, status, UserId });
+          return Ingredient.create({ title, type, status, image, UserId });
         }
       })
       .then(response => {
@@ -60,11 +60,12 @@ class IngredientController {
 
   static editIngredient(req, res) {
     const id = Number(req.params.id);
-    const { title, type, status } = req.body;
+    const { title, type, status, image } = req.body;
     const obj = {
       title,
       type,
-      status
+      status,
+      image
     };
 
     Ingredient.findOne({ where: { id } })

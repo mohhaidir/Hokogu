@@ -278,9 +278,7 @@ class StaffPicks extends React.Component {
   render() {
     return (
       <div style={{ color: "#ff959c" }}>
-        {this.state.width * 1.35 > this.state.height && (
-          <>
-            <h1
+          <h1
               style={{
                 color: "#fd626c",
                 fontSize: "40px",
@@ -290,6 +288,9 @@ class StaffPicks extends React.Component {
             >
               Happiness Is Homemade
             </h1>
+
+        {this.state.width * 1.35 > this.state.height && (
+          <>
             <Carousel
               className="Example"
               autoPlay={this.state.autoPlay}
