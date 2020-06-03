@@ -1,0 +1,1 @@
+export const hostingUrl = 'https://evening-meadow-56067.herokuapp.com'

@@ -1,6 +1,7 @@
 import axios from "axios";
+import {hostingUrl} from "../host"
 
-const url = "http://localhost:3000";
+const url = hostingUrl;
 
 export function register(data) {
   return dispatch => {

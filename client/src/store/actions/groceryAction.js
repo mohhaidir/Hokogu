@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const url = 'http://localhost:3000'
+import {hostingUrl} from "../host"
+const url = hostingUrl
  
 
 export const getGroceries = () => {

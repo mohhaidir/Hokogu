@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, googleLogin } from "../store/actions/userActions";
 import { GoogleLogin, useGoogleLogin } from "react-google-login";
 import Axios from "axios";
-
+import {hostingUrl} from "../host"
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 
 const ColorButton = withStyles(theme => ({
@@ -99,7 +99,7 @@ export default function LoginForm(props) {
   const responseGoogle = response => {
     console.log(response, "ini response ID");
     Axios({
-      url: `http://localhost:3000/users/googlelogin`,
+      url: `${hostingUrl}/users/googlelogin`,
       method: "post",
       data: {
         idToken: response.tokenId
