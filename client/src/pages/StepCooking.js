@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Box,
@@ -127,6 +127,15 @@ export default function StepCooking(props) {
   const [allStep, setAllStep] = React.useState([]); // step, ingredient, equipment
   const [steps, setSteps] = React.useState([]); // array step
   const [resultText, setResultText] = React.useState("");
+
+  const [height, setHeight] = useState(window.innerHeight)
+  const [width, setWidth] = useState(window.innerWidth)
+  const update = () => {
+    setHeight(window.innerHeight)
+    setWidth(window.innerWidth)
+  };
+  window.addEventListener("resize", update);
+
 
   useEffect(() => {
     axios({
@@ -304,13 +313,20 @@ export default function StepCooking(props) {
   };
 
   return (
-    <div style={{ backgroundColor: "white", minHeight: "90vh" }}>
+    <div>
       <div className="bannerStep">
         <div>
-          <h1 className="stepText">
-            {steps && steps.length !== 0 && steps[activeStep]}
-          </h1>
-          {activeStep === steps.length && (
+          { width * 1.35 > height &&
+            <>
+            <h1 className="stepText">
+              {steps && steps.length !== 0 && steps[activeStep]}
+            </h1>
+            <br/>
+            <br/>
+            </>
+
+          }
+          {/* {activeStep === steps.length && (
             <div>
               <Button
                 onClick={handleReset}
@@ -319,7 +335,7 @@ export default function StepCooking(props) {
                 Reset
               </Button>
             </div>
-          )}
+          )} */}
           {/* { activeStep === steps.length &&
                     <div>
                         <Button onClick={handleReset} style={{backgroundColor:'rgba(220, 109, 109, 0.86)'}}>Reset</Button>
@@ -334,9 +350,10 @@ export default function StepCooking(props) {
                 color: "#FF5F6D",
                 fontWeight: "bold",
                 border: "5px solid #FF5F6D",
-                position: "absolute",
-                top: "30vh",
-                left: "7vh"
+                position: "fixed",
+                zIndex: '99',
+                top: "42vh",
+                left: "3vw"
               }}
             >
               <KeyboardArrowLeft style={{ color: "#FF5F6D" }} />
@@ -350,9 +367,10 @@ export default function StepCooking(props) {
                 color: "#FF5F6D",
                 fontWeight: "bold",
                 border: "5px solid #FF5F6D",
-                position: "absolute",
-                top: "30vh",
-                right: "7vh"
+                position: "fixed",
+                zIndex: '99',
+                top: "42vh",
+                right: "3vw"
               }}
             >
               <KeyboardArrowRight style={{ color: "#FF5F6D" }} />
@@ -363,6 +381,7 @@ export default function StepCooking(props) {
           <Card className={cx(styles.root, shadowStyles.root)}>
             <CardContent>
               {/* <div className='StepCard'> */}
+              
               <Stepper
                 activeStep={activeStep}
                 connector={<ColorlibConnector />}
@@ -371,12 +390,23 @@ export default function StepCooking(props) {
               >
                 {steps.map(label => (
                   <Step color="secondary" key={label}>
+                    { width * 1.35 <= height &&
                     <StepLabel
                       StepIconComponent={ColorlibStepIcon}
                       color="secondary"
                     >
                       {label}
                     </StepLabel>
+                    }
+
+                    { width * 1.35 > height &&
+
+                    <StepLabel
+                      StepIconComponent={ColorlibStepIcon}
+                      color="secondary"
+                    >
+                    </StepLabel>
+                    }
                   </Step>
                 ))}
               </Stepper>
