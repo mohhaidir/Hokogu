@@ -16,6 +16,7 @@ import { login, googleLogin } from "../store/actions/userActions";
 import { GoogleLogin, useGoogleLogin } from "react-google-login";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Axios from "axios";
+import {hostingUrl} from "../host"
 
 const ColorButton = withStyles(theme => ({
   root: {
@@ -98,7 +99,7 @@ export default function Login() {
   const responseGoogle = response => {
     console.log(response, "ini response ID");
     Axios({
-      url: `http://localhost:3000/users/googlelogin`,
+      url: `${hostingUrl}/users/googlelogin`,
       method: "post",
       data: {
         idToken: response.tokenId
@@ -117,6 +118,7 @@ export default function Login() {
 
   return (
     <Grid container component="main" className={classes.root}>
+      {hostingUrl && JSON.stringify(hostingUrl)}
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid

@@ -18,7 +18,7 @@ class IngredientController {
   }
 
   static addIngredient(req, res) {
-    const { title, type, status } = req.body;
+    const { title, type, status, image } = req.body;
     const UserId = req.userdata.id;
 
     Ingredient.findOne({
@@ -28,16 +28,20 @@ class IngredientController {
     })
       .then(matched => {
         if (matched) {
-          throw new Error({
-            status: 400,
-            message: "This is already in your ingredient"
-          });
+          // throw new Error({
+          //   status: 400,
+          //   message: "This is already in your ingredient"
+          // });
+          res
+            .status(400)
+            .json({ message: "This is already in your ingredient" });
         } else {
-          return Ingredient.create({ title, type, status, UserId });
+          return Ingredient.create({ title, type, status, image, UserId });
         }
       })
       .then(response => {
         if (response) {
+
           res.status(201).json({
             message: "Success added a new ingredient",
             ingredient: response
@@ -45,29 +49,30 @@ class IngredientController {
         }
       })
       .catch(err => {
-        if (err.message) {
-          res
-            .status(400)
-            .json({ message: "This is already in your ingredient" });
-        } else {
-          res.status(500).json({ message: "Internal server error" }); // uncovered
-        }
+        // if (err.message) {
+        //   res
+        //     .status(400)
+        //     .json({ message: "This is already in your ingredient" });
+        // } else {
+        res.status(500).json({ message: "Internal server error" }); // uncovered
+        // }
       });
   }
 
   static editIngredient(req, res) {
     const id = Number(req.params.id);
-    const { title, type, status } = req.body;
+    const { title, type, status, image } = req.body;
     const obj = {
       title,
       type,
-      status
+      status,
+      image
     };
 
     Ingredient.findOne({ where: { id } })
       .then(result => {
         if (!result) {
-          res.status(404).json({ message: "Ingredient not found" });
+          throw new Error({ message: "Ingredient not found" });
         } else {
           return Ingredient.update(obj, { where: { id } });
         }
@@ -78,7 +83,11 @@ class IngredientController {
           .json({ message: "Success edited ingredient", editedData: obj });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" });
+        if (err.message) {
+          res.status(404).json({ message: "Ingredient not found" });
+        } else {
+          res.status(500).json({ message: "Internal server error" });
+        }
       });
   }
 
@@ -104,6 +113,26 @@ class IngredientController {
           res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
+  }
+
+  static bulkDeleteIngredient(req, res) {
+
+    const selected = req.body.selected
+    Ingredient.destroy({ where: { id: selected } })
+      .then(result => {
+        if (result) {
+          res.status(200).json({ message: "Success deleted ingredient(s)" });
+        } else {
+          throw new Error({ message: "Ingredient(s) not found" });
+        }
+      })
+      .catch(err => {
+        if (err.message) {
+          res.status(404).json({ message: "Ingredient(s) not found" })
+        } else {
+          res.status(500).json({ message: "Internal server error" }); // uncovered
+        }
+      })
   }
 }
 

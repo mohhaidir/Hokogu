@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       type: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
-      UserId: DataTypes.INTEGER
+      UserId: DataTypes.INTEGER,
+      image: DataTypes.STRING
     },
     { sequelize }
   );

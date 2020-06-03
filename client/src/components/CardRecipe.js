@@ -4,10 +4,10 @@ import { Grid, Card, CardMedia, CardContent, CardActions, IconButton } from '@ma
 import { LocalDining, Favorite, AccessTime } from '@material-ui/icons';
 import { useParams, Link, useHistory } from 'react-router-dom'
 import axios from "axios";
-
+import {hostingUrl} from "../host"
 
 export default function CardRecipe(props) {
-    const host = 'http://localhost:3000'
+    const host = hostingUrl
     const [isFav, setIsFav] = useState(props.isFav)
     const classes = useStyles();
     const history = useHistory()

@@ -1,27 +1,27 @@
 .mainContent {
-    /* background-color: #fbf4f4; */
-    background-color: 'white';
-    /* min-height: calc(100% - 130px); */
-    /* position: inherit; */
-    /* padding: 2% 5%; */
-    /* position: absolute; */
-    bottom: 5vh;
-    left: 5vh;
-    right: 5vh;
-    margin: auto;
+  /* background-color: #fbf4f4; */
+  background-color: "white";
+  /* min-height: calc(100% - 130px); */
+  /* position: inherit; */
+  /* padding: 2% 5%; */
+  /* position: absolute; */
+  bottom: 5vh;
+  left: 5vh;
+  right: 5vh;
+  margin: auto;
 }
 .mainContent .MuiCardContent-root {
   width: 100%;
 }
 
 @media only screen and (max-width: 600px) {
-    .mainContent {
-        padding: 0;
-        bottom: 0vh;
-    }
+  .mainContent {
+    padding: 0;
+    bottom: 0vh;
+  }
 }
 .bannerHome {
-  background-image: url("https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg");
+  background-image: url("/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -29,8 +29,8 @@
   padding: 12% 15%;
   text-align: center;
 }
-.bannerHomeWeb{
-  background-image: url("https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg");
+.bannerHomeWeb {
+  background-image: url("/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -38,7 +38,6 @@
   padding: 4vh 10%;
   text-align: center;
 }
-
 
 @media only screen and (max-width: 1250px) {
   /* .bannerHome {
@@ -57,23 +56,26 @@
 }
 
 .bannerStep {
-    background-image: url('https://cutewallpaper.org/21/pastel-backgrounds/Watercolor-Background-Tumblr-Mint-Green-Pastel-Background-.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    /* height: 91vh; */
-    padding: 3% 15%;
-    text-align: center;
-    min-height: 96vh;
+  background-image: url("/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* height: 91vh; */
+  padding-top: 3%;
+  padding-bottom: 8%;
+  padding-right: 12%;
+  padding-left: 12%;
+  text-align: center;
+  min-height: 85vh;
 }
 
 .stepText {
-    color: #FF5F6D;
-    font-size: 5.2em;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0 auto;
-    vertical-align: middle;
-    min-height: 21vw;
+  color: #ff5f6d;
+  font-size: 3.5em;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 auto;
+  vertical-align: middle;
+  min-height: 21vw;
 }
 
 @media only screen and (max-width: 1215px) {
@@ -89,7 +91,7 @@
 }
 
 .StepCard {
-    bottom: '5vh';
+  bottom: "5vh";
 }
 
 .underNav {
@@ -148,7 +150,7 @@
   border-radius: 10px;
 }
 .navbarAvatar:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .cardIngredient {
@@ -190,6 +192,17 @@
   text-decoration: none;
   color: #fff;
 }
+.buttonWrapperGoogle {
+  width: 100%;
+  margin: 10px 0px !important;
+  padding: 0px !important;
+  text-align: center;
+}
+.buttonWrapperGoogle button {
+  justify-content: center;
+  width: 100%;
+}
+
 @media only screen and (max-width: 600px) {
   .buttonCooking {
     text-align: center;
@@ -219,12 +232,12 @@
   font-size: 2em !important;
 }
 .labelStep {
-    text-align: center;
-    font-size: 2.24em;
+  text-align: center;
+  font-size: 2.24em;
 }
 .labelStep h1 {
-    color: #000000 !important;
-    font-family: Arial, Helvetica, sans-serif;
+  color: #000000 !important;
+  font-family: Arial, Helvetica, sans-serif;
 }
 @media only screen and (max-width: 600px) {
   .labelStep {
@@ -240,12 +253,12 @@
 .topFav {
   position: absolute;
   top: 12px;
-  right: 12px; 
+  right: 12px;
   left: auto;
   line-height: 50%;
   font-size: 35px !important;
-  margin-bottom: 5px; 
-  color: #FF5F6D;
+  margin-bottom: 5px;
+  color: #ff5f6d;
 }
 
 @media only screen and (max-width: 960px) {
@@ -273,8 +286,6 @@
     align-items: center;
   }
 }
-
-
 
 .detailRecipe {
   display: flex;
