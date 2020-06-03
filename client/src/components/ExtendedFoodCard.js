@@ -232,7 +232,7 @@ const FoodCard = (props) => {
         <div style={{display: 'flex'}}> 
         <CardContent >
             {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
-            <div style={{paddingLeft: '3px', paddingRight: '3px'}}>
+            <div style={{paddingLeft: '0px', paddingRight: '0px'}}>
             {/* <div > */}
 
             { width > 600 &&

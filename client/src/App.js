@@ -10,7 +10,8 @@ import {
   Detail,
   SearchResults,
   Popular,
-  StepCooking
+  StepCooking,
+  GroceryList
 } from "./pages";
 import { Navbar } from "./components";
 import "./assets/css/style.css";
@@ -39,6 +40,10 @@ const routes = [
     children: <MyFav />
   },
   {
+    path: '/groceries',
+    children: <GroceryList />
+  },
+  {
     path: '/step/:id',
     children: <StepCooking/>
   },
@@ -51,6 +56,7 @@ const routes = [
     path: '/recipe/:id',
     component: Detail
   }
+
 ];
 
 const AppRouter = () => (

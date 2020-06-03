@@ -22,6 +22,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -192,6 +193,15 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
     if(isLoggedIn) {
       history.push('/favorites')
+    }else{
+      handleLoginDrawerOpen();
+    }
+  }
+
+  const handleGroOpen = () => {
+    setOpen(false);
+    if(isLoggedIn) {
+      history.push('/groceries')
     }else{
       handleLoginDrawerOpen();
     }
@@ -442,6 +452,17 @@ export default function PersistentDrawerLeft() {
                 style={{ color: "#ff9687", fontSize: "60px" }}
               />
             </ListItem>
+            <ListItem button onClick={handleGroOpen}>
+              <ListItemIcon>
+                {" "}
+                <ShoppingCartIcon style={{ color: "#ff9687", fontSize: "40px" }} />{" "}
+              </ListItemIcon>
+              <ListItemText
+                primary={"Grocery List"}
+                style={{ color: "#ff9687", fontSize: "60px" }}
+              />
+            </ListItem>
+
         </List>
       </SwipeableDrawer>
 
