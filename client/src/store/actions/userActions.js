@@ -1,5 +1,5 @@
 import axios from "axios";
-import {hostingUrl} from "../host"
+import { hostingUrl } from "../../host";
 
 const url = hostingUrl;
 
@@ -12,7 +12,7 @@ export function register(data) {
         name: data.name,
         email: data.email,
         password: data.password,
-        avatar: data.avatar
+        avatar: "none"
       }
     })
       .then(success => {

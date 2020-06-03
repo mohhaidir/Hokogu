@@ -238,7 +238,7 @@ export default function Register() {
               onChange={confirmPasswordHandle}
             />
 
-            <input
+            {/* <input
               accept="image/*"
               className={classes.input}
               id="contained-button-file"
@@ -258,7 +258,7 @@ export default function Register() {
               >
                 Upload
               </Button>
-            </label>
+            </label> */}
 
             {preview && preview !== "" && (
               <label style={{ marginLeft: "20px" }}>{preview}</label>

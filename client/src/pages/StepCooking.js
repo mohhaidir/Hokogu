@@ -25,6 +25,7 @@ import { usePushingGutterStyles } from "@mui-treasury/styles/gutter/pushing";
 
 import StepConnector from "@material-ui/core/StepConnector";
 import { useParams } from "react-router-dom";
+import { spoonKEY } from "../host";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -128,18 +129,17 @@ export default function StepCooking(props) {
   const [steps, setSteps] = React.useState([]); // array step
   const [resultText, setResultText] = React.useState("");
 
-  const [height, setHeight] = useState(window.innerHeight)
-  const [width, setWidth] = useState(window.innerWidth)
+  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(window.innerWidth);
   const update = () => {
-    setHeight(window.innerHeight)
-    setWidth(window.innerWidth)
+    setHeight(window.innerHeight);
+    setWidth(window.innerWidth);
   };
   window.addEventListener("resize", update);
 
-
   useEffect(() => {
     axios({
-      url: `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=fd9f4d3bdf944da4add45901325004fe`,
+      url: `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${spoonKEY}`,
       method: "GET"
     })
       .then(result => {
@@ -248,17 +248,24 @@ export default function StepCooking(props) {
     <div>
       <div className="bannerStep">
         <div>
-          { width * 1.35 > height &&
+          {width * 1.35 > height && (
             <>
-            <div style={{margin: 'auto', height: '66.6vh', textOverflow: 'ellipsis', overflow: 'hidden'}}>
-            <h1 className="stepText">
-              {steps && steps.length !== 0 && steps[activeStep]}
-            </h1>
-            </div>
-            <br/>
-            <br/>
+              <div
+                style={{
+                  margin: "auto",
+                  height: "66.6vh",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden"
+                }}
+              >
+                <h1 className="stepText">
+                  {steps && steps.length !== 0 && steps[activeStep]}
+                </h1>
+              </div>
+              <br />
+              <br />
             </>
-          }
+          )}
           {activeStep >= 1 && activeStep < steps.length && (
             <Button
               onClick={handleBack}
@@ -268,7 +275,7 @@ export default function StepCooking(props) {
                 fontWeight: "bold",
                 border: "5px solid #FF5F6D",
                 position: "fixed",
-                zIndex: '99',
+                zIndex: "99",
                 top: "42vh",
                 left: "3vw"
               }}
@@ -285,7 +292,7 @@ export default function StepCooking(props) {
                 fontWeight: "bold",
                 border: "5px solid #FF5F6D",
                 position: "fixed",
-                zIndex: '99',
+                zIndex: "99",
                 top: "42vh",
                 right: "3vw"
               }}
@@ -295,10 +302,9 @@ export default function StepCooking(props) {
           )}
         </div>
 
-        
         <Box className="mainContent">
           <Card className={cx(styles.root, shadowStyles.root)}>
-            <CardContent>              
+            <CardContent>
               <Stepper
                 activeStep={activeStep}
                 connector={<ColorlibConnector />}
@@ -307,23 +313,21 @@ export default function StepCooking(props) {
               >
                 {steps.map(label => (
                   <Step color="secondary" key={label}>
-                    { width * 1.35 <= height &&
-                    <StepLabel
-                      StepIconComponent={ColorlibStepIcon}
-                      color="secondary"
-                    >
-                      {label}
-                    </StepLabel>
-                    }
+                    {width * 1.35 <= height && (
+                      <StepLabel
+                        StepIconComponent={ColorlibStepIcon}
+                        color="secondary"
+                      >
+                        {label}
+                      </StepLabel>
+                    )}
 
-                    { width * 1.35 > height &&
-
-                    <StepLabel
-                      StepIconComponent={ColorlibStepIcon}
-                      color="secondary"
-                    >
-                    </StepLabel>
-                    }
+                    {width * 1.35 > height && (
+                      <StepLabel
+                        StepIconComponent={ColorlibStepIcon}
+                        color="secondary"
+                      ></StepLabel>
+                    )}
                   </Step>
                 ))}
               </Stepper>
