@@ -17,8 +17,8 @@ afterAll(done => {
 // =================================== USERS ===================================
 
 // <--- register user with 201 and 400 response
-describe("REGISTER NEW USER", function() {
-  describe("~> SUCCESSFULLY Register new user", function() {
+describe("REGISTER NEW USER", function () {
+  describe("~> SUCCESSFULLY Register new user", function () {
     it("Should return 201 and object (name, email, password, avatar)", done => {
       request(app)
         .post("/users/register")
@@ -49,7 +49,7 @@ describe("REGISTER NEW USER", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Register new user with email already registered", function() {
+  describe("~> UNSUCCESSFULLY Register new user with email already registered", function () {
     it("Should return 400 and object (status, message)", done => {
       request(app)
         .post("/users/register")
@@ -74,8 +74,8 @@ describe("REGISTER NEW USER", function() {
 });
 
 // <--- login user with 200, 400 and 404
-describe("USER LOGIN", function() {
-  describe("~> SUCCESSFULLY Login as user", function() {
+describe("USER LOGIN", function () {
+  describe("~> SUCCESSFULLY Login as user", function () {
     it("Should return 200 and object (name, avatar, token)", done => {
       request(app)
         .post("/users/login")
@@ -97,7 +97,7 @@ describe("USER LOGIN", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Login as user with wrong password", function() {
+  describe("~> UNSUCCESSFULLY Login as user with wrong password", function () {
     it("Sould return 400 and object (message)", done => {
       request(app)
         .post("/users/login")
@@ -117,7 +117,7 @@ describe("USER LOGIN", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Login as user with wrong email", function() {
+  describe("~> UNSUCCESSFULLY Login as user with wrong email", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .post("/users/login")
@@ -138,8 +138,8 @@ describe("USER LOGIN", function() {
   });
 });
 
-describe("GET USER DETAIL BY USERID", function() {
-  describe("~> SUCCESFULLY Get User detail by UserId", function() {
+describe("GET USER DETAIL BY USERID", function () {
+  describe("~> SUCCESFULLY Get User detail by UserId", function () {
     it("Should return 200 and object (message, theUser)", done => {
       request(app)
         .get(`/users/${id}`)
@@ -162,7 +162,7 @@ describe("GET USER DETAIL BY USERID", function() {
     });
   });
 
-  describe("~> UNSUCCESFULLY Get User data due to user not found", function() {
+  describe("~> UNSUCCESFULLY Get User data due to user not found", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .get(`/users/999999999`)
@@ -182,8 +182,8 @@ describe("GET USER DETAIL BY USERID", function() {
   });
 });
 
-describe("EDIT USER DETAIL BY USERID", function() {
-  describe("~> SUCCESFULLY Edit User detail by UserId", function() {
+describe("EDIT USER DETAIL BY USERID", function () {
+  describe("~> SUCCESFULLY Edit User detail by UserId", function () {
     it("Should return 200 and object (message, editedData)", done => {
       request(app)
         .put(`/users/${id}`)
@@ -208,7 +208,7 @@ describe("EDIT USER DETAIL BY USERID", function() {
     });
   });
 
-  describe("~> UNSUCCESFULLY Edit User data due to user not found", function() {
+  describe("~> UNSUCCESFULLY Edit User data due to user not found", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .put(`/users/999999999`)
@@ -245,8 +245,8 @@ afterAll(done => {
 });
 
 // <--- add favorites with 201 and 400 response
-describe("ADD FAVORITE BY USER", function() {
-  describe("~> SUCCESSFULLY Add favorites by user", function() {
+describe("ADD FAVORITE BY USER", function () {
+  describe("~> SUCCESSFULLY Add favorites by user", function () {
     it("Should return 201 and object (message and favorites)", done => {
       request(app)
         .post("/favorites")
@@ -286,7 +286,7 @@ describe("ADD FAVORITE BY USER", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Add favorites by user", function() {
+  describe("~> UNSUCCESSFULLY Add favorites by user", function () {
     it("Should return 400 and object (message)", done => {
       request(app)
         .post("/favorites")
@@ -318,8 +318,8 @@ describe("ADD FAVORITE BY USER", function() {
 });
 
 // <--- get favorite by ID with 200 response
-describe("GET FAVORITES BY USERID", function() {
-  describe("~> SUCCESFULLY Get favorites by UserId", function() {
+describe("GET FAVORITES BY USERID", function () {
+  describe("~> SUCCESFULLY Get favorites by UserId", function () {
     it("Should return 200 and object (message, favorites)", done => {
       request(app)
         .get("/favorites")
@@ -344,8 +344,8 @@ describe("GET FAVORITES BY USERID", function() {
 });
 
 // <--- get most all favorite with 200 response
-describe("GET MOST ALL FAVORITES", function() {
-  describe("~> SUCCESSFULLY Get most all favorites", function() {
+describe("GET MOST ALL FAVORITES", function () {
+  describe("~> SUCCESSFULLY Get most all favorites", function () {
     it("Should return 200 and object (mostFavorite)", done => {
       request(app)
         .get("/favorites/most")
@@ -363,8 +363,8 @@ describe("GET MOST ALL FAVORITES", function() {
 });
 
 // <--- delete favorite by ID with 200 and 404 response
-describe("DELETE FAVORITES BY ID", function() {
-  describe("~> SUCCESSFULLY Delete favorite by ID", function() {
+describe("DELETE FAVORITES BY ID", function () {
+  describe("~> SUCCESSFULLY Delete favorite by ID", function () {
     it("Should return 200 and object (message)", done => {
       request(app)
         .delete(`/favorites/${favID}`)
@@ -383,7 +383,7 @@ describe("DELETE FAVORITES BY ID", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Delete favorite by ID", function() {
+  describe("~> UNSUCCESSFULLY Delete favorite by ID", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .delete(`/favorites/${favID}`)
@@ -406,6 +406,8 @@ describe("DELETE FAVORITES BY ID", function() {
 // =================================== INGREDIENTS ===================================
 
 let ingID = null;
+let selectedID1 = null
+let selectedID2 = null
 
 afterAll(done => {
   queryInterface
@@ -414,8 +416,8 @@ afterAll(done => {
     .catch(err => done(err));
 });
 
-describe("ADD INGREDIENT BY USER", function() {
-  describe("~> SUCCESSFULLY Add ingredient by user", function() {
+describe("ADD INGREDIENT BY USER", function () {
+  describe("~> SUCCESSFULLY Add ingredient by user", function () {
     it("Should return 201 and object (message, ingredient)", done => {
       request(app)
         .post("/ingredients")
@@ -453,7 +455,7 @@ describe("ADD INGREDIENT BY USER", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Add ingredient by user", function() {
+  describe("~> UNSUCCESSFULLY Add ingredient by user", function () {
     it("Should return 400 and object (message)", done => {
       request(app)
         .post("/ingredients")
@@ -483,8 +485,8 @@ describe("ADD INGREDIENT BY USER", function() {
   });
 });
 
-describe("GET INGREDIENTS BY USERID", function() {
-  describe("~> SUCCESFULLY Get Ingredient by UserId", function() {
+describe("GET INGREDIENTS BY USERID", function () {
+  describe("~> SUCCESFULLY Get Ingredient by UserId", function () {
     it("Should return 200 and object (message, ingredients)", done => {
       request(app)
         .get("/ingredients")
@@ -508,8 +510,8 @@ describe("GET INGREDIENTS BY USERID", function() {
   });
 });
 
-describe("EDIT INGREDIENT BY ID", function() {
-  describe("~> SUCCESFULLY Edit Ingredient by Id", function() {
+describe("EDIT INGREDIENT BY ID", function () {
+  describe("~> SUCCESFULLY Edit Ingredient by Id", function () {
     it("Should return 200 and object (message, editedData)", done => {
       request(app)
         .put(`/ingredients/${ingID}`)
@@ -536,7 +538,7 @@ describe("EDIT INGREDIENT BY ID", function() {
     });
   });
 
-  describe("~> UNSUCCESFULLY Edit ingredient due to ingredient not found", function() {
+  describe("~> UNSUCCESFULLY Edit ingredient due to ingredient not found", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .put(`/ingredients/999999999`)
@@ -563,8 +565,8 @@ describe("EDIT INGREDIENT BY ID", function() {
   });
 });
 
-describe("DELETE INGREDIENT BY ID", function() {
-  describe("~> SUCCESSFULLY Delete ingredient by ID", function() {
+describe("DELETE INGREDIENT BY ID", function () {
+  describe("~> SUCCESSFULLY Delete ingredient by ID", function () {
     it("Should return 200 and object (message)", done => {
       request(app)
         .delete(`/ingredients/${ingID}`)
@@ -583,7 +585,7 @@ describe("DELETE INGREDIENT BY ID", function() {
     });
   });
 
-  describe("~> UNSUCCESSFULLY Delete ingredient by ID", function() {
+  describe("~> UNSUCCESSFULLY Delete ingredient by ID", function () {
     it("Should return 404 and object (message)", done => {
       request(app)
         .delete(`/ingredients/${ingID}`)
@@ -594,6 +596,82 @@ describe("DELETE INGREDIENT BY ID", function() {
           let { status, body } = response;
           expect(status).toBe(404);
           expect(body).toHaveProperty("message", "Ingredient not found");
+          done();
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+});
+
+describe("DELETE BULK INGREDIENT BY ID", function () {
+  describe("~> SUCCESSFULLY Delete bulk ingredient by ID", function () {
+    it("Should return 200 and object (message)", done => {
+      request(app)
+        .post("/ingredients")
+        .set({
+          token: token
+        })
+        .send({
+          title: "fish",
+          type: "animal",
+          status: true,
+          image: 'fish.jpg'
+        })
+        .then(response1 => {
+          let { body, status } = response1;
+          selectedID1 = body.ingredient.id
+          request(app)
+            .post("/ingredients")
+            .set({
+              token: token
+            })
+            .send({
+              title: "broccoli",
+              type: "vegetable",
+              status: true,
+              image: 'vegetable.jpg'
+            })
+            .then(response2 => {
+              let { body, status } = response2;
+              selectedID2 = body.ingredient.id
+              request(app)
+                .delete(`/ingredients/bulk`)
+                .set({
+                  token: token
+                })
+                .send({
+                  selected: [selectedID1, selectedID2],
+                })
+                .then(response => {
+                  let { status, body } = response;
+                  expect(status).toBe(200);
+                  expect(body).toHaveProperty("message", "Success deleted ingredient(s)");
+                  done();
+                })
+            })
+        })
+        .catch(err => {
+          done(err);
+        });
+    });
+  });
+
+  describe("~> UNSUCCESSFULLY Delete bulk ingredient by ID", function () {
+    it("Should return 404 and object (message)", done => {
+      request(app)
+        .delete(`/ingredients/bulk`)
+        .set({
+          token: token
+        })
+        .send({
+          selected: [323299999, 121113421],
+        })
+        .then(response => {
+          let { status, body } = response;
+          expect(status).toBe(404);
+          expect(body).toHaveProperty("message", "Ingredient(s) not found");
           done();
         })
         .catch(err => {

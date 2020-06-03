@@ -20,7 +20,7 @@ class IngredientController {
   static addIngredient(req, res) {
     const { title, type, status, image } = req.body;
     const UserId = req.userdata.id;
-    console.log(req.body.image, "ini image");
+
     Ingredient.findOne({
       where: {
         [Op.and]: [{ title: title }, { UserId: req.userdata.id }]
@@ -41,7 +41,7 @@ class IngredientController {
       })
       .then(response => {
         if (response) {
-          // console.log(response, "response---<<<<");
+
           res.status(201).json({
             message: "Success added a new ingredient",
             ingredient: response
@@ -72,7 +72,7 @@ class IngredientController {
     Ingredient.findOne({ where: { id } })
       .then(result => {
         if (!result) {
-          res.status(404).json({ message: "Ingredient not found" });
+          throw new Error({ message: "Ingredient not found" });
         } else {
           return Ingredient.update(obj, { where: { id } });
         }
@@ -83,7 +83,11 @@ class IngredientController {
           .json({ message: "Success edited ingredient", editedData: obj });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" });
+        if (err.message) {
+          res.status(404).json({ message: "Ingredient not found" });
+        } else {
+          res.status(500).json({ message: "Internal server error" });
+        }
       });
   }
 
@@ -93,8 +97,8 @@ class IngredientController {
     Ingredient.findOne({ where: { id } })
       .then(result => {
         if (!result) {
-          res.status(404).json({ message: "Ingredient not found" });
-          // throw new Error({ status: 404, message: "Ingredient not found" });
+          // res.status(404).json({ message: "Ingredient not found" });
+          throw new Error({ status: 404, message: "Ingredient not found" });
         } else {
           return Ingredient.destroy({ where: { id } });
         }
@@ -103,30 +107,32 @@ class IngredientController {
         res.status(200).json({ message: "Success deleted ingredient" });
       })
       .catch(err => {
-        // if (err.message) {
-        //   res.status(404).json({ message: "Ingredient not found" });
-        // } else {
-        res.status(500).json({ message: "Internal server error" }); // uncovered
-        // }
+        if (err.message) {
+          res.status(404).json({ message: "Ingredient not found" });
+        } else {
+          res.status(500).json({ message: "Internal server error" }); // uncovered
+        }
       });
   }
 
-  static bulkDeleteIngredient(req, res){
-    console.log('a')
+  static bulkDeleteIngredient(req, res) {
+
     const selected = req.body.selected
-    Ingredient.destroy({ where: { id: selected }})
-    .then(result => {
-      res.status(200).json({message: "Success deleted ingredient(s)"});
-    })
-    .catch(err=>{
-      if (err.message) {
-        res.status(404).json({ message: "Ingredient(s) not found" });
-      } else {
-        res.status(500).json({ message: "Internal server error" }); // uncovered
-      }
-    })
-
-
+    Ingredient.destroy({ where: { id: selected } })
+      .then(result => {
+        if (result) {
+          res.status(200).json({ message: "Success deleted ingredient(s)" });
+        } else {
+          throw new Error({ message: "Ingredient(s) not found" });
+        }
+      })
+      .catch(err => {
+        if (err.message) {
+          res.status(404).json({ message: "Ingredient(s) not found" })
+        } else {
+          res.status(500).json({ message: "Internal server error" }); // uncovered
+        }
+      })
   }
 }
 
