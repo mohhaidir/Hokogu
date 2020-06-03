@@ -51,9 +51,9 @@ export default function GroceryList() {
             }
             
             {   (!groceriesLoading && groceries !== null) &&
-                <div>
+                <>
                     <GroceryTable groceries={groceries}/>
-                </div>
+                </>
             }
             </>
         </div>
