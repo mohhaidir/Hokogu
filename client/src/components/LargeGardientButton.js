@@ -17,12 +17,12 @@ export const getTheme = muiBaseTheme => ({
         }
       }
     },
-    // label: {
-    //   color: muiBaseTheme.palette.common.white,
-    //   textTransform: "none",
-    //   fontSize: 25,
-    //   fontWeight: 700
-    // },
+    label: {
+      color: muiBaseTheme.palette.common.white,
+      textTransform: "none",
+      fontSize: 30,
+      fontWeight: 700
+    },
     contained: {
       minHeight: 30,
       boxShadow: muiBaseTheme.shadows[0],

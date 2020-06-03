@@ -20,7 +20,7 @@ export const getTheme = muiBaseTheme => ({
     label: {
       color: muiBaseTheme.palette.common.white,
       textTransform: "none",
-      fontSize: 22.5,
+      fontSize: 17.5,
       fontWeight: 700
     },
     contained: {
