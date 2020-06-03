@@ -247,13 +247,59 @@ export default function StepCooking(props) {
   return (
     <div>
       <div className="bannerStep">
+      <Box className="mainContent">
+          <Card className={cx(styles.root, shadowStyles.root)}>
+            <CardContent>
+              <Stepper
+                activeStep={activeStep}
+                connector={<ColorlibConnector />}
+                alternativeLabel
+                style={{ overflowX: "scroll" }}
+              >
+                {steps.map(label => (
+                  <Step color="secondary" key={label}>
+                    {width * 1.35 <= height && (
+                      <StepLabel
+                        StepIconComponent={ColorlibStepIcon}
+                        color="secondary"
+                      >
+                        {label}
+                      </StepLabel>
+                    )}
+
+                    {width * 1.35 > height && (
+                      <StepLabel
+                        StepIconComponent={ColorlibStepIcon}
+                        color="secondary"
+                      ></StepLabel>
+                    )}
+                  </Step>
+                ))}
+              </Stepper>
+            </CardContent>
+          </Card>
+
+          {/* <Grid container  className='content'>
+            </Grid> */}
+        </Box>
+
+        { width * 1.35 > height &&
+          <>
+            <br/>
+            <br/>
+            <br/>
+
+          </>
+
+        }
+
         <div>
           {width * 1.35 > height && (
             <>
               <div
                 style={{
                   margin: "auto",
-                  height: "66.6vh",
+                  height: "64vh",
                   textOverflow: "ellipsis",
                   overflow: "hidden"
                 }}
@@ -302,41 +348,6 @@ export default function StepCooking(props) {
           )}
         </div>
 
-        <Box className="mainContent">
-          <Card className={cx(styles.root, shadowStyles.root)}>
-            <CardContent>
-              <Stepper
-                activeStep={activeStep}
-                connector={<ColorlibConnector />}
-                alternativeLabel
-                style={{ overflowX: "scroll" }}
-              >
-                {steps.map(label => (
-                  <Step color="secondary" key={label}>
-                    {width * 1.35 <= height && (
-                      <StepLabel
-                        StepIconComponent={ColorlibStepIcon}
-                        color="secondary"
-                      >
-                        {label}
-                      </StepLabel>
-                    )}
-
-                    {width * 1.35 > height && (
-                      <StepLabel
-                        StepIconComponent={ColorlibStepIcon}
-                        color="secondary"
-                      ></StepLabel>
-                    )}
-                  </Step>
-                ))}
-              </Stepper>
-            </CardContent>
-          </Card>
-
-          {/* <Grid container  className='content'>
-            </Grid> */}
-        </Box>
       </div>
     </div>
   );

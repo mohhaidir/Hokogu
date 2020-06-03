@@ -28,6 +28,7 @@ const ColorButton = withStyles(theme => ({
   }
 }))(Button);
 
+
 const useStyles = makeStyles(theme => ({
   margin: {
     // marginTop: '10px'
@@ -82,7 +83,7 @@ export default function LoginForm(props) {
   };
 
   const clientLogin = () => {
-    props.handleClose();
+    // props.handleClose();
     let data = {
       email: email,
       password: password
@@ -92,7 +93,8 @@ export default function LoginForm(props) {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push(`/`);
+      props.handleClose();
+      // history.push(`/`);
     }
   }, [isLoggedIn]);
 
