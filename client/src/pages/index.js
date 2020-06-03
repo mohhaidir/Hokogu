@@ -6,4 +6,4 @@ export { default as MyFav } from './MyFav';
 export { default as StepCooking } from './StepCooking';
 export { default as SearchResults } from './SearchResults';
 export { default as Popular } from './Popular';
-
+export { default as GroceryList } from './GroceryList';

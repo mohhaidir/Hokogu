@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import cx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Card, CardMedia, CardContent, CardActions, IconButton } from '@material-ui/core/';
@@ -12,10 +12,34 @@ import GradientButton from '../components/GradientButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector} from 'react-redux'
-import { addToFavourite, setFavourites, removeFromFavourite } from "../store/actions/favouritesActions";
+import { addToFavourite, setFavourites, removeFromFavourite, getFavourites } from "../store/actions/favouritesActions";
 import {Link, useHistory} from 'react-router-dom'
 import Ingredients from '../components/Ingredients'
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import LoginForm from './LoginForm'
 
+const useStyleDrawer = makeStyles(theme => ({
+    root: {
+      flexGrow: 1
+    },
+    drawer: {
+      width: 250,
+      flexShrink: 0
+    },
+    loginDrawerPaper: {
+      backgroundColor: '#fdfff5',
+      width: '50vh',
+    },
+  
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar
+    }
+  }));
+  
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -25,9 +49,9 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     position: 'relative',
     width: "100%",
-    overflow: 'initial',
+    overflow: 'auto',
     background: '#ffffff',
-    display: 'flex',
+    display: 'inline-block',
     flexDirection: 'column',
     alignItems: 'center',
     paddingBottom: spacing(2),
@@ -45,10 +69,10 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     paddingBottom: '48%',
     borderRadius: spacing(2),
     backgroundColor: '#fff',
-    position: 'relative',
+    // position: 'relative',
     [breakpoints.up('md')]: {
       width: '100%',
-      marginLeft: spacing(-3),
+    //   marginLeft: spacing(-3),
       marginTop: 0,
     //   transform: 'translateX(-8px)',
     },
@@ -65,12 +89,8 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     },
   },
   content: {
-    padding: 24,
+    // padding: 24,
   },
-//   cta: {
-//     // marginTop: 24,
-//     textTransform: 'initial',
-//   },
 }));
 
 const ColorButton = withStyles((theme) => ({
@@ -85,25 +105,69 @@ const ColorButton = withStyles((theme) => ({
 
 
 const FoodCard = (props) => {
+    const classes = useStyleDrawer();
     const history = useHistory();
     const dispatch = useDispatch();
     let favourites = useSelector((state)=> state.favouritesReducer.favourites);
+    const { isLoggedIn } = useSelector(state => state.userReducer);
+
     const [fav, setFav] = useState(false)
+    const [openLogin, setOpenLogin] = React.useState(false);
+
+    const [height, setHeight] = useState(window.innerHeight)
+    const [width, setWidth] = useState(window.innerWidth)
+    const update = () => {
+      setHeight(window.innerHeight)
+      setWidth(window.innerWidth)
+    };
+    window.addEventListener("resize", update);
+
+
+    useEffect(()=> {
+        dispatch(getFavourites());
+    }, [])
+
+
+    const handleLoginDrawerOpen = () => {
+        setOpenLogin(true)
+    }
+    
+    const handleLoginDrawerClose = () => {
+        setOpenLogin(false)
+    }
+
+    const toggleLoginDrawer = (value) => (event) => {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setOpenLogin(value);
+    };
+    
+    const handleClose = () => {
+        handleLoginDrawerClose()
+    }
+    
+  
+
 
     const muiBaseTheme = createMuiTheme();
     const addToFav = () => {
-        setFav(true);
-        let data = {
-          recipeId: props.recipe.id,
-          title: props.recipe.title,
-          ready: props.recipe.readyInMinutes,
-          serving: props.recipe.servings,
-          image: props.recipe.image
+        if(isLoggedIn){
+            setFav(true);
+            let data = {
+            recipeId: props.recipe.id,
+            title: props.recipe.title,
+            ready: props.recipe.readyInMinutes,
+            serving: props.recipe.servings,
+            image: props.recipe.image
+            }
+            let temp = favourites;
+            temp.push(data)
+            dispatch(setFavourites(temp));
+            dispatch(addToFavourite(data));
+        }else{
+            handleLoginDrawerOpen();
         }
-        let temp = favourites;
-        temp.push(data)
-        dispatch(setFavourites(temp));
-        dispatch(addToFavourite(data));
     }
     const removeFromFav = () => {
         setFav(false);
@@ -124,9 +188,6 @@ const FoodCard = (props) => {
         }
         
     }
-    const getDetails = (id) => {
-      history.push(`/recipe/${id}`)
-    }
     const styles = useStyles();
     const {
         button: buttonStyles,
@@ -134,15 +195,27 @@ const FoodCard = (props) => {
     } = useBlogTextInfoContentStyles();
     const shadowStyles = useOverShadowStyles();
     return (
+    
+        <>
+        <SwipeableDrawer
+        className={classes.drawer}
+        anchor="right"
+        open={openLogin}
+        onClose={toggleLoginDrawer(false)}
+        onOpen={toggleLoginDrawer(true)}
+        classes={{
+          paper: classes.loginDrawerPaper,
+        }}
+        >
+            <div className={classes.drawerHeader}>
+            {/* <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> */}
+            </div>
+            <LoginForm handleClose={handleClose}/>
+        </SwipeableDrawer>
+
         <Card className={cx(styles.root, shadowStyles.root)}>
-            {/* {
-                fav == true &&
-                <StarIcon onClick={removeFromFav} className='topFav' style={{
-                    zIndex: 99,
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
-                    lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
-                />
-            } */}
             {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
                 <StarIcon onClick={removeFromFav} className='topFav' style={{
                     position: "absolute", top: "12px", left:"12px", right:"auto",
@@ -159,8 +232,19 @@ const FoodCard = (props) => {
         <div style={{display: 'flex'}}> 
         <CardContent >
             {/* <h2 style={{top: '30px'}}>{props.recipe.title}</h2> */}
-            <div style={{paddingLeft: '25px', paddingRight: '25px'}}>
-            <img src={props.recipe.image} height='317px' style={{borderRadius: '20px'}}/>
+            <div style={{paddingLeft: '0px', paddingRight: '0px'}}>
+            {/* <div > */}
+
+            { width > 600 &&
+                <img src={props.recipe.image} height='317px' style={{borderRadius: '20px'}}/>
+            }
+            {  width <= 600 &&
+                <>
+                <br/>
+                <br/>
+                <img src={props.recipe.image} height='150px' style={{borderRadius: '20px'}}/>
+                </>
+            }
 
             <CardActions disableSpacing className='iconDetailsCard'>
                         <LocalDining/>
@@ -168,38 +252,56 @@ const FoodCard = (props) => {
                         <AccessTime style={{marginLeft:'8px'}}/>
                         {props.recipe.readyInMinutes} mins
             </CardActions>
-            <div className="Container" dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+            {   width < 500 &&
+                <div className="Container" style={{ width: '315px', margin: 'auto',
+                flexWrap: 'wrap', overflow:"auto",}} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+            }
+            {   width >= 500 &&
+                <div className="Container" style={{
+                flexWrap: 'wrap', overflow:"auto",}} dangerouslySetInnerHTML={{__html: props.recipe.summary}}></div>
+            }
+            
             <br/>
             <br/>
-            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
-                <Link to='/step/123' style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
-                    Start Cooking
-                </Link>
-            </ColorButton>
-            </div>
-            {/* <p> {props.recipe.summary} </p> */}
-            <div>
 
-                {/* <MuiThemeProvider
-                style={{marginLeft: '100px'}}
-                theme={createMuiTheme({
-                typography: {
-                useNextVariants: true
-                },
-                overrides: GradientButton.getTheme(muiBaseTheme)
-                })}
-                >
-                <br/>
-                <GradientButton  words='Start Cooking'/>
-                </MuiThemeProvider> */}
-            </div>
+            { (height >= width || width < 1300) &&
+                <>
+                {/* { width > 500 && */}
+                <Ingredients width="100%" ingredients={props.recipe.extendedIngredients} />
+                {/* } */}
+                </>
+            }
+            <br/>
+
+            { width < 500 &&
+            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+
+            <ColorButton  startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                    Start Cooking
+            </ColorButton>
+            </Link>
+
+            }
+            { width > 500 &&
+            <Link to={`/step/${props.recipe.id}`} style={{textDecoration: 'none', color: 'white'}} type='inigambar'>
+            <ColorButton fullWidth startIcon={<DoubleArrow />} variant="contained" color="primary" >
+                    Start Cooking
+            </ColorButton>
+            </Link>
+            }
+
+              </div>
 
         </CardContent>
-        <Ingredients width="60vh" ingredients={props.recipe.extendedIngredients} />
-
+        { (width > height && width >= 1300) &&
+        <div style={{paddingRight: '1vw'}}>
+        <Ingredients ingredients={props.recipe.extendedIngredients} />
+        </div>
+        }
         </div> 
 
         </Card>
+        </>
     );
 };
 

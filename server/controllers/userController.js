@@ -28,14 +28,12 @@ class UserController {
         }
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error" }); // uncovered
       });
   }
 
   static registerUser(req, res) {
     const { name, email, password, avatar } = req.body;
-    console.log(email);
-    console.log(password);
     User.findOne({
       where: { email }
     })
@@ -60,10 +58,9 @@ class UserController {
       })
       .catch(err => {
         if (err.message) {
-          console.log(err);
           res.status(400).json({ message: "Email already taken" });
         } else {
-          res.status(500).json({ message: "Internal server error" });
+          res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }
@@ -71,6 +68,7 @@ class UserController {
   static googleLogin(req, res, next) {
     const client = new OAuth2Client(process.env.GOOGLE_SIGN_KEY);
     let user = {};
+    let status = false;
     client
       .verifyIdToken({
         idToken: req.body.idToken,
@@ -92,25 +90,90 @@ class UserController {
             { id: userdata.id, email: userdata.email },
             process.env.SECRET
           );
+          status = true;
           res
             .status(200)
             .json({ name: userdata.name, avatar: userdata.avatar, token });
         } else {
+          console.log(`masuk ke create`);
           return User.create(user);
         }
       })
       .then(result => {
-        let token = jwt.sign(
-          { id: result.id, email: result.email },
-          process.env.SECRET
-        );
-        res.status(200).json({ name, avatar, token });
+        if (!status) {
+          let token = jwt.sign(
+            { id: result.id, email: result.email },
+            process.env.SECRET
+          );
+          res
+            .status(201)
+            .json({ name: result.name, avatar: result.avatar, token });
+        }
       })
       .catch(err => {
         if (err) {
           next(err);
         } else {
           next({ status: 400, message: `Failed` });
+        }
+      });
+  }
+
+  static getUser(req, res) {
+    const id = req.params.id;
+    User.findOne({
+      where: { id }
+    })
+      .then(result => {
+        if (result) {
+          let temp = {
+            name: result.name,
+            email: result.email,
+            avatar: result.avatar
+          };
+          res.status(200).json({
+            theUser: temp,
+            message: "Success retrieved logged in user data"
+          });
+        } else {
+          res.status(404).json({ message: "User not found" });
+        }
+      })
+      .catch(err => {
+        res.status(500).json({ message: "Internal Server Error" }); // uncovered
+      });
+  }
+
+  static editUser(req, res) {
+    const id = req.params.id;
+    const obj = {
+      name: req.body.name,
+      email: req.body.email,
+      avatar: req.body.avatar
+    };
+    User.findOne({
+      where: { id }
+    })
+      .then(result => {
+        if (!result) {
+          // res.status(404).json({ message: "User not found" });
+          throw new Error({ status: 404, message: "User not found" });
+        } else {
+          return User.update(obj, {
+            where: { id }
+          });
+        }
+      })
+      .then(data => {
+        res
+          .status(200)
+          .json({ message: "Success edit a user", editedData: obj });
+      })
+      .catch(err => {
+        if (err.message) {
+          res.status(404).json({ message: "User not found" });
+        } else {
+          res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }

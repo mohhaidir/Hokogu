@@ -20,7 +20,7 @@ export const getTheme = muiBaseTheme => ({
     label: {
       color: muiBaseTheme.palette.common.white,
       textTransform: "none",
-      fontSize: 25,
+      fontSize: 22.5,
       fontWeight: 700
     },
     contained: {
@@ -41,7 +41,7 @@ export const getTheme = muiBaseTheme => ({
 
 const GradientButton = (props) => (
   <React.Fragment>
-    <Button style={{width: '100px'}} className={"MuiButton--gradient MuiButton--chubby"}>{props.words}</Button>
+    <Button style={{width: '75px'}} className={"MuiButton--gradient MuiButton--chubby"}>{props.words}</Button>
 
   </React.Fragment>
 );
