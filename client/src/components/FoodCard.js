@@ -48,6 +48,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     position: 'relative',
     maxWidth: 500,
+    minWidth: 285,
     marginLeft: 'auto',
     overflow: 'initial',
     background: '#ffffff',
@@ -60,25 +61,10 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       paddingTop: spacing(2),
     },
   },
-  // drawer: {
-  //   width: 250,
-  //   flexShrink: 0
-  // },
-  // loginDrawerPaper: {
-  //   backgroundColor: '#fdfff5',
-  //   width: '50vh',
-  // },
-  // drawerHeader: {
-  //   display: "flex",
-  //   alignItems: "center",
-  //   padding: theme.spacing(0, 1),
-  //   // necessary for content to be below app bar
-  //   ...theme.mixins.toolbar
-  // },
   media: {
-    width: '88%',
-    width: '250px',
-    height: '170px',
+    minWidth: '190px',
+    minHeight: '150px',
+    width: '70%',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: spacing(-3),
@@ -100,7 +86,6 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
       left: 0,
       width: '100%',
       height: '100%',
-    //   backgroundImage: 'linear-gradient(147deg, #fe8a39 0%, #fd3838 74%)',
       borderRadius: spacing(2), // 16
       opacity: 0.5,
     },
@@ -239,7 +224,7 @@ const FoodCard = (props) => {
                 `https://spoonacular.com/recipeImages/${props.recipe.image}`
             }
             />
-        <CardContent>
+        <CardContent >
             <h2 style={{top: '30px'}}>{props.recipe.title}</h2>
             <CardActions disableSpacing className='iconDetailsCard'>
                         <LocalDining/>
@@ -248,7 +233,7 @@ const FoodCard = (props) => {
                         {props.recipe.readyInMinutes} mins
             </CardActions>
             
-            <p className='insibleText'> ................................................................</p>
+            {/* <p className='insibleText'> ................................................................</p> */}
             <div onClick={()=>getDetails(props.recipe.id)}>
 
                 <MuiThemeProvider

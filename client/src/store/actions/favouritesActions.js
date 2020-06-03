@@ -5,6 +5,7 @@ import {
   SET_POPULARLOADING
 } from "./types";
 import axios from "axios";
+import alertify from 'alertifyjs';
 import { hostingUrl } from "../../host";
 const url = hostingUrl;
 

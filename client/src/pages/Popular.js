@@ -47,6 +47,8 @@ const Popular = () => {
 
         {   (favouritesLoading === false && favourites.length > 0 )  &&
             // <div className="wrapper">
+            <div style={{padding: '0px 9%'}}> 
+
             <Grid container lg={12} spacing={3} className={'resultSearch'}>
 
             {
@@ -71,7 +73,7 @@ const Popular = () => {
             }
             </Grid>
 
-            // {/* </div> */}
+            </div>
         }
         {   (!favouritesLoading && favourites.length < 1) &&
             <h1>Your Favourites Are Empty</h1>

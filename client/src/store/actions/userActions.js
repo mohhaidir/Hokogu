@@ -1,5 +1,8 @@
 import axios from "axios";
 import { hostingUrl } from "../../host";
+import alertify from 'alertifyjs';
+alertify.set('notifier','position', 'top-center');
+alertify.set('notifier','delay', 2);
 
 const url = hostingUrl;
 
@@ -32,13 +35,16 @@ export function register(data) {
         localStorage.setItem("hokogu_token", response.data.token);
         localStorage.setItem("hokogu_name", response.data.name);
         localStorage.setItem("hokogu_avatar", response.data.avatar);
+        alertify.success('Welcome ' + response.data.name);
         dispatch({
           type: "LOGIN",
           payload: response.data
         });
+        
       })
       .catch(err => {
         console.log(err);
+        alertify.error('Invalid Inputs');
       });
   };
 }
@@ -58,13 +64,16 @@ export function login(data) {
         localStorage.setItem("hokogu_token", response.data.token);
         localStorage.setItem("hokogu_name", response.data.name);
         localStorage.setItem("hokogu_avatar", response.data.avatar);
+        alertify.success('Welcome ' + response.data.name);
         dispatch({
           type: "LOGIN",
           payload: response.data
         });
+        
       })
       .catch(err => {
         console.log(err);
+        alertify.error('Invalid Username/Password');
       });
   };
 }
@@ -73,6 +82,7 @@ export function googleLogin(data) {
   localStorage.setItem("hokogu_token", data.token);
   localStorage.setItem("hokogu_name", data.name);
   localStorage.setItem("hokogu_avatar", data.avatar);
+  alertify.success('Welcome ' + data.name);
   return {
     type: "LOGIN",
     payload: {
@@ -84,6 +94,7 @@ export function googleLogin(data) {
 }
 
 export function logout() {
+  alertify.success('Logout Success');
   localStorage.clear();
   return {
     type: "LOGOUT",

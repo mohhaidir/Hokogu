@@ -1,4 +1,5 @@
 import axios from "axios";
+import alertify from 'alertifyjs';
 import { hostingUrl } from "../../host";
 const url = hostingUrl;
 

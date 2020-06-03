@@ -55,6 +55,7 @@ const MyFav = () => {
       )}
 
       {favouritesLoading === false && favourites.length > 0 && (
+        <div style={{padding: '0px 9%'}}> 
         <Grid container lg={12} spacing={3} className={"resultSearch"}>
           {favourites.map((recipe, idx) => {
             let modified = {
@@ -65,14 +66,15 @@ const MyFav = () => {
               image: recipe.image
             };
             return (
-              <Grid item lg={6} sm={12} spacing={1} className={"resultDetail"}>
+              <Grid justify='space-between' item lg={6} sm={12} spacing={3} className={"resultDetail"}>
                 <div key={idx}>
-                  <FoodCard recipe={modified} />
+                  <FoodCard recipe={modified}/>
                 </div>
               </Grid>
             );
           })}
         </Grid>
+        </div>
       )}
       {!favouritesLoading && favourites.length < 1 && (
         <div style={{ textAlign: "center" }}>

@@ -129,6 +129,8 @@ const SearchResults = ({ location }) => {
       )}
 
       {!recipiesLoading && (
+        <div style={{padding: '0px 9%'}}> 
+
         <Grid container lg={12} spacing={3} className={"resultSearch"}>
           {recipies.map((recipe, idx) => {
             return (
@@ -140,6 +142,7 @@ const SearchResults = ({ location }) => {
             );
           })}
         </Grid>
+        </div>
       )}
       {!recipiesLoading && recipies.length < 1 && (
         <div style={{ textAlign: "center" }}>
