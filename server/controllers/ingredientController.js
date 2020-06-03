@@ -20,7 +20,7 @@ class IngredientController {
   static addIngredient(req, res) {
     const { title, type, status, image } = req.body;
     const UserId = req.userdata.id;
-
+    console.log(req.body.image, "ini image");
     Ingredient.findOne({
       where: {
         [Op.and]: [{ title: title }, { UserId: req.userdata.id }]
@@ -41,6 +41,7 @@ class IngredientController {
       })
       .then(response => {
         if (response) {
+          // console.log(response, "response---<<<<");
           res.status(201).json({
             message: "Success added a new ingredient",
             ingredient: response

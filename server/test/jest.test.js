@@ -433,7 +433,9 @@ describe("ADD INGREDIENT BY USER", function() {
         .send({
           title: "blueberry",
           type: "fruit",
-          status: true
+          status: true,
+          image:
+            "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/3/10/3936525/3936525_cec5de48-773e-4fdd-bbe5-62a1b1cb831a_506_506.jpg"
         })
         .then(response => {
           let { body, status } = response;
@@ -446,6 +448,10 @@ describe("ADD INGREDIENT BY USER", function() {
           expect(body.ingredient).toHaveProperty("title", "blueberry");
           expect(body.ingredient).toHaveProperty("type", "fruit");
           expect(body.ingredient).toHaveProperty("status", true);
+          expect(body.ingredient).toHaveProperty(
+            "image",
+            "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/3/10/3936525/3936525_cec5de48-773e-4fdd-bbe5-62a1b1cb831a_506_506.jpg"
+          );
           ingID = body.ingredient.id;
           done();
         })
@@ -465,7 +471,9 @@ describe("ADD INGREDIENT BY USER", function() {
         .send({
           title: "blueberry",
           type: "fruit",
-          status: true
+          status: true,
+          image:
+            "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/3/10/3936525/3936525_cec5de48-773e-4fdd-bbe5-62a1b1cb831a_506_506.jpg"
         })
         .then(response => {
           let { status, body } = response;
@@ -519,7 +527,9 @@ describe("EDIT INGREDIENT BY ID", function() {
         .send({
           title: "blueberry",
           type: "fruit",
-          status: false
+          status: false,
+          image:
+            "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/3/10/3936525/3936525_cec5de48-773e-4fdd-bbe5-62a1b1cb831a_506_506.jpg"
         })
         .then(response => {
           let { status, body } = response;
@@ -544,7 +554,9 @@ describe("EDIT INGREDIENT BY ID", function() {
         .send({
           title: "blueberry",
           type: "fruit",
-          status: false
+          status: false,
+          image:
+            "https://ecs7.tokopedia.net/img/cache/700/product-1/2019/3/10/3936525/3936525_cec5de48-773e-4fdd-bbe5-62a1b1cb831a_506_506.jpg"
         })
         .then(response => {
           let { status, body } = response;
