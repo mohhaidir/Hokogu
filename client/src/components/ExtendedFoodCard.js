@@ -152,6 +152,8 @@ const FoodCard = (props) => {
 
     const muiBaseTheme = createMuiTheme();
     const addToFav = () => {
+      console.log('the image');
+      console.log(props.recipe.image);
         if(isLoggedIn){
             setFav(true);
             let data = {
@@ -159,7 +161,7 @@ const FoodCard = (props) => {
             title: props.recipe.title,
             ready: props.recipe.readyInMinutes,
             serving: props.recipe.servings,
-            image: props.recipe.image
+            image: props.recipe.image.replace('https://spoonacular.com/recipeImages/','')
             }
             let temp = favourites;
             temp.push(data)
