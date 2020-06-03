@@ -14,14 +14,6 @@ afterAll(done => {
     .catch(err => done(err));
 });
 
-// afterAll(done => {
-//   User.destroy({ where: { id } })
-//     .then(result => {
-//       done();
-//     })
-//     .catch(err => done(err));
-// });
-
 // =================================== USERS ===================================
 
 // <--- register user with 201 and 400 response
