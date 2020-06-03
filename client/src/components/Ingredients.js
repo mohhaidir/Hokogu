@@ -27,7 +27,7 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
   content: {
     textAlign: 'left',
-    // overflowX: 'auto',
+    overflowX: 'auto',
   },
 }));
 
@@ -66,7 +66,7 @@ const Ingredients = (props) => {
           </CardHeader>
           <CardContent className={classes.content}
               style={{
-                  // width: "100%",
+                  width: "100%",
                   height: "600px",
                   overflow:"scroll"}}
           >
@@ -79,7 +79,7 @@ const Ingredients = (props) => {
                   { width > 500 &&
                   <TableCell align="center" style={{fontWeight:'bold'}}> Type </TableCell>
                   }
-
+                  <TableCell align="center" style={{fontWeight:'bold'}}> </TableCell>
                   {/* <TableCell align="right"> Ammount </TableCell> */}
                   </TableRow>
               </TableHead>
@@ -88,9 +88,15 @@ const Ingredients = (props) => {
                   {ingredients.map(ingredient => (
                   <TableRow key={ingredient.id}>
                       <TableCell align="center" component="th" scope="row">
+                      { width > 500 &&
+                        <Avatar alt="Remy Sharp" src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} />
+                      }
+                      { width <= 500 &&
                       <>
-                      <Avatar alt="Remy Sharp" src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} />
+                      <Avatar style={{height: '20px', width: '20px'}} alt="Remy Sharp" src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} />
                       </>
+                      }
+
                       </TableCell>
                       <TableCell align="center" component="th" scope="row">
                       <>
@@ -102,7 +108,22 @@ const Ingredients = (props) => {
                       { width > 500 &&
                         <TableCell align="center">{ingredient.aisle}</TableCell>
                       }
-                  </TableRow>
+
+                      <TableCell align="center" component="th" scope="row">
+                      <>
+                      <Avatar className='navbarAvatar' style={
+                    {
+                      height: '20px',
+                      width: '20px',
+                      fontSize: '14px',
+                      backgroundImage:'linear-gradient(to right, #ffcbcb, #FF5F6D)'
+                    }
+                  }>
+                    +
+                  </Avatar>
+                      </>
+                      </TableCell>
+                      </TableRow>
                   ))}
               </TableBody>
               </Table>
