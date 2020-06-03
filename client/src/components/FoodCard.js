@@ -185,7 +185,6 @@ const FoodCard = (props) => {
           dispatch(setFavourites(temp));
           dispatch(removeFromFavourite(id));
         }
-        
     }
     const getDetails = (id) => {
       history.push(`/recipe/${id}`)

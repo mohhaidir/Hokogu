@@ -6,6 +6,7 @@ router
   .get("/", authentication, ingredientController.getIngredientById)
   .post("/", authentication, ingredientController.addIngredient)
   .put("/:id", authentication, ingredientController.editIngredient)
+  .delete("/bulk", authentication, ingredientController.bulkDeleteIngredient)
   .delete("/:id", authentication, ingredientController.deleteIngredient);
 
 module.exports = router;
