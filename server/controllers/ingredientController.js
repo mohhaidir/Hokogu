@@ -4,7 +4,6 @@ const { Op } = require("sequelize");
 class IngredientController {
   static getIngredientById(req, res) {
     const id = req.userdata.id;
-
     Ingredient.findAll({ where: { UserId: id } })
       .then(result => {
         res.status(200).json({

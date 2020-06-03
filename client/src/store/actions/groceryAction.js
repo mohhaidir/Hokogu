@@ -1,7 +1,8 @@
 import axios from "axios";
-import {hostingUrl} from "../host"
-const url = hostingUrl
+import {hostingUrl} from "../../host"
+// const url = hostingUrl
  
+const url = 'http://localhost:3000'
 
 export const getGroceries = () => {
     console.log('gettinggg')
@@ -13,7 +14,7 @@ export const getGroceries = () => {
         method: "get",
         url: url + '/ingredients',
         headers: {
-            token: token
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJqdWxpb0BtYWlsLmNvbSIsImlhdCI6MTU5MDk2ODE5M30.qof2qoLOn5YTvUZyQp8xr-7BpFdbm_NTfUlPX7zi7DQ'
         }
     })
     .then(response => {

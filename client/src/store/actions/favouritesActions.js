@@ -1,8 +1,10 @@
 import { SET_FAVOURITES, SET_FAVOURITESLOADING, SET_POPULAR, SET_POPULARLOADING} from "./types";
 import axios from "axios";
-import {hostingUrl} from "../host"
-const url = hostingUrl
+import {hostingUrl} from "../../host"
+// const url = hostingUrl
  
+const url = 'http://localhost:3000'
+
 
 export const getPopularRecipies = () => {
   return (dispatch) => {
