@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -133,12 +133,12 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          color: theme.palette.text.primary,
+          backgroundColor: '#dbdbdb',
         }
       : {
           color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
+          backgroundColor: '##dbdbdb',
         },
   title: {
     flex: '1 1 100%',
@@ -189,7 +189,6 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          0 items selected
         </Typography>
       )}
 
@@ -211,7 +210,8 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    height: '100%'
+    height: '7vh'
+     
   },
   paper: {
     width: '100%',
@@ -219,6 +219,7 @@ const useStyles = makeStyles((theme) => ({
     // marginBottom: theme.spacing(0),
   },
   table: {
+    marginBottom: '7vh'
     // minWidth: 750,
   },
   visuallyHidden: {
@@ -245,6 +246,13 @@ export default function GroceryTable(props) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(1000);
+  const [height, setHeight] = useState(window.innerHeight)
+  const [width, setWidth] = useState(window.innerWidth)
+  const update = () => {
+    setHeight(window.innerHeight)
+    setWidth(window.innerWidth)
+  };
+  window.addEventListener("resize", update);
 
   useEffect(()=>{
     console.log('selected' + selected);
@@ -334,9 +342,18 @@ const emptyRows = 0;
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none" style={{textAlign: 'left'}}>
-                        {row.title}
-                      </TableCell>
+                      {selected.find(x => x === row.title) ?
+
+                        <TableCell component="th" id={labelId} scope="row" padding="none" style={{fontFamily: 'Indie Flower', textAlign: 'left', fontSize: '30px', textDecoration: 'line-through'}}>
+                          {row.title}
+                        </TableCell>
+                        :
+                        <TableCell component="th" id={labelId} scope="row" padding="none" style={{fontFamily: 'Indie Flower', textAlign: 'left', fontSize: '30px'}}>
+                          {row.title}
+                        </TableCell>
+                      }
+
+
 
                       {/* <TableCell align="right">{row.calories}</TableCell>
                       <TableCell align="right">{row.fat}</TableCell>

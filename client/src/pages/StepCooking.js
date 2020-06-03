@@ -158,74 +158,6 @@ export default function StepCooking(props) {
       .catch(err => {
         console.log("error", err);
       });
-    // setAllStep([
-    //     {
-    //         number: 8,
-    //         step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.",
-    //         ingredients: [
-    //             {
-    //                 id: 11677,
-    //                 name: "shallot",
-    //                 image: "shallots.jpg"
-    //             }
-    //         ],
-    //         equipment: [
-    //             {
-    //                 id: 404783,
-    //                 name: "bowl",
-    //                 image: "bowl.jpg"
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         number: 8,
-    //         step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.",
-    //         ingredients: [
-    //             {
-    //                 id: 11677,
-    //                 name: "shallot2",
-    //                 image: "shallots.jpg"
-    //             }
-    //         ],
-    //         equipment: [
-    //             {
-    //                 id: 404783,
-    //                 name: "bowl2",
-    //                 image: "bowl.jpg"
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         number: 8,
-    //         step: "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.",
-    //         ingredients: [
-    //             {
-    //                 id: 11677,
-    //                 name: "shallot3",
-    //                 image: "shallots.jpg"
-    //             }
-    //         ],
-    //         equipment: [
-    //             {
-    //                 id: 404783,
-    //                 name: "bowl3",
-    //                 image: "bowl.jpg"
-    //             }
-    //         ]
-    //     }
-    // ])
-    // setSteps(["Let's Cook",
-    //     "Heat most of the oil in a large wok and fry the shallots until crispy and golden.",
-    //     "Remove with a slotted spoon, season with salt and …ith 1 tsp of the soy sauce and some black pepper.",
-    //     "Pour out most of the oil from the wok and wipe with kitchen paper.",
-    //     "Add the eggs, swirl to coat the pan in a thin omelette layer, cook until set, then remove.",
-    //     "Roll up, slice and set aside.",
-    //     "Add the paste to the wok with the chicken and cook… soy sauce, then mix well to coat all the grains.",
-    //     "Heat through until piping hot.",
-    //     "Add the omelette and the peas, warm through, then … 2 bowls and top with the shallots and coriander.",
-    //     "Let's Eat"
-    // ])
-    // textToSpeech("Let's Cook");
     const intervalSpeechToText = setInterval(speechToText, 5000);
 
     // returned function will be called on component unmount
@@ -318,30 +250,15 @@ export default function StepCooking(props) {
         <div>
           { width * 1.35 > height &&
             <>
+            <div style={{margin: 'auto', height: '66.6vh', textOverflow: 'ellipsis', overflow: 'hidden'}}>
             <h1 className="stepText">
               {steps && steps.length !== 0 && steps[activeStep]}
             </h1>
+            </div>
             <br/>
             <br/>
             </>
-
           }
-          {/* {activeStep === steps.length && (
-            <div>
-              <Button
-                onClick={handleReset}
-                style={{ backgroundColor: "rgba(220, 109, 109, 0.86)" }}
-              >
-                Reset
-              </Button>
-            </div>
-          )} */}
-          {/* { activeStep === steps.length &&
-                    <div>
-                        <Button onClick={handleReset} style={{backgroundColor:'rgba(220, 109, 109, 0.86)'}}>Reset</Button>
-                    </div>
-                } */}
-
           {activeStep >= 1 && activeStep < steps.length && (
             <Button
               onClick={handleBack}
@@ -377,11 +294,11 @@ export default function StepCooking(props) {
             </Button>
           )}
         </div>
+
+        
         <Box className="mainContent">
           <Card className={cx(styles.root, shadowStyles.root)}>
-            <CardContent>
-              {/* <div className='StepCard'> */}
-              
+            <CardContent>              
               <Stepper
                 activeStep={activeStep}
                 connector={<ColorlibConnector />}
@@ -410,32 +327,6 @@ export default function StepCooking(props) {
                   </Step>
                 ))}
               </Stepper>
-              {/* <div>
-                        {activeStep === steps.length ? (
-                        <div>
-                            <Typography className={classes.instructions}>All steps completed</Typography>
-                            <Button onClick={handleReset} style={{backgroundColor:'rgba(220, 109, 109, 0.86)'}}>Reset</Button>
-                        </div>
-                        ) : (
-                        <div>
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                            <div  style={{display:'flex', justifyContent:'space-between'}}>
-                            <Button
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                className={classes.backButton}
-                                style={{backgroundColor: 'rgba(55, 136, 193, 0.86)'}}
-                            >
-                                Back
-                            </Button>
-                            <Button variant="contained" color="primary" onClick={handleNext}>
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
-                            </div>
-                        </div>
-                        )}
-                    </div> */}
-              {/* </div> */}
             </CardContent>
           </Card>
 

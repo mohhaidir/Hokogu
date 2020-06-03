@@ -136,8 +136,7 @@ const FoodCard = (props) => {
     const handleLoginDrawerClose = () => {
       setOpenLogin(false)
     }
-  
-
+    
     const toggleLoginDrawer = (value) => (event) => {
       if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
