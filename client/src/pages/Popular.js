@@ -76,7 +76,11 @@ const Popular = () => {
             </div>
         }
         {   (!favouritesLoading && favourites.length < 1) &&
-            <h1>Your Favourites Are Empty</h1>
+            <div style={{ textAlign: "center" }}>
+                <img style={{ width: "13vw" }} src="/confused.gif" />
+                <p style={{ fontSize: "15px", fontFamily: "Noto Serif JP, serif" }}>There's nothing here, yet..</p>
+            </div>
+          
         }
 
         <br/>

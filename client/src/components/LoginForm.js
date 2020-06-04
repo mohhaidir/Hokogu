@@ -190,7 +190,8 @@ export default function LoginForm(props) {
                 style={{
                   color: "#FF5F6D",
                   fontSize: "17px",
-                  textDecoration: "underline"
+                  textDecoration: "underline",
+                  fontFamily: "Noto Serif JP, serif"
                 }}
               >
                 Don't have an account? Sign Up

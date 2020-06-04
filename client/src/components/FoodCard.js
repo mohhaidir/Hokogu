@@ -202,14 +202,6 @@ const FoodCard = (props) => {
         </SwipeableDrawer>
 
         <Card className={cx(styles.root, shadowStyles.root)}>
-            {/* {
-                fav == true &&
-                <StarIcon onClick={removeFromFav} className='topFav' style={{
-                    zIndex: 99,
-                    position: "absolute", top: "12px", right:"12px", left:"auto",
-                    lineHeight: '50%', fontSize: "35px", marginBottom: '5px', color: '#FF5F6D'}}
-                />
-            } */}
             {   favourites.find(x=> x.recipeId === props.recipe.id || fav === true) ?
                 <StarIcon onClick={removeFromFav} className='topFav'/>
                 :
@@ -225,8 +217,8 @@ const FoodCard = (props) => {
             }
             />
         <CardContent >
-            <h2 style={{top: '30px'}}>{props.recipe.title}</h2>
-            <CardActions disableSpacing className='iconDetailsCard'>
+            <h2 style={{top: '15px', fontFamily: "Noto Serif JP, serif"}}>{props.recipe.title}</h2>
+            <CardActions disableSpacing className='iconDetailsCard' style={{fontFamily: "Noto Serif JP, serif"}}>
                         <LocalDining/>
                         {props.recipe.servings}
                         <AccessTime style={{marginLeft:'8px'}}/>

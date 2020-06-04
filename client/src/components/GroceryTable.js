@@ -142,6 +142,7 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
+    fontFamily: "Noto Serif JP, serif"
   },
 }));
 

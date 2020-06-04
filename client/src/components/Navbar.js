@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     textAlign: 'center',
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     textAlign: 'center',
@@ -269,6 +269,7 @@ export default function PersistentDrawerLeft() {
                 { localStorage.getItem('hokogu_avatar') === 'none' &&
                   <Avatar className='navbarAvatar' style={
                     {
+                      fontFamily: "Noto Serif JP, serif",
                       height: '50px',
                       width: '50px',
                       fontSize: '25px',

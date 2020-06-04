@@ -21,7 +21,8 @@ export const getTheme = muiBaseTheme => ({
       color: muiBaseTheme.palette.common.white,
       textTransform: "none",
       fontSize: 22.5,
-      fontWeight: 700
+      fontWeight: 700,
+      fontFamily: "Noto Serif JP, serif"
     },
     contained: {
       minHeight: 30,

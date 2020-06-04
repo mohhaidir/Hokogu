@@ -37,7 +37,7 @@ function Banner(props) {
         onClick={() => history.push(`/recipe/${item.id}`)}
       >
         <CardMedia className="Media" image={item.Image} title={item.Name}>
-          <Typography className="MediaCaption">{item.Name}</Typography>
+          <Typography style={{fontFamily: "Noto Serif JP, serif"}} className="MediaCaption">{item.Name}</Typography>
         </CardMedia>
       </Grid>
     );
@@ -67,7 +67,7 @@ function Banner2(props) {
         image={props.item.Image}
         title={props.item.Name}
       >
-        <Typography className="MediaCaption">{props.item.Name}</Typography>
+        <Typography style={{fontFamily: "Noto Serif JP, serif", fontSize: '30px'}} className="MediaCaption">{props.item.Name}</Typography>
       </CardMedia>
     </Card>
   );

@@ -8,7 +8,7 @@ import StaffPicks from '../components/StaffPicks'
 import { SwipeableDrawer, IconButton } from '@material-ui/core/';
 import { Mic as MicIcon, Search as SearchIcon } from '@material-ui/icons';
 import StaffPicksGrid from '../components/StaffPicksGrid';
-
+import '../style/Example.scss'
 import Chip from '@material-ui/core/Chip';
 
 const useChipStyles = makeStyles((theme) => ({
@@ -301,35 +301,38 @@ export default function Home() {
 
         { width > 500 &&
           <div style={{padding: "3vh", backgroundColor: "#fdfff5"}}>
-          <h1
-          style={{
-            color: "#fd626c",
-            fontSize: "40px",
-            textAlign: "center",
-            fontFamily: "Noto Serif JP, serif"
-          }}
-          >
-            Happiness Is Homemade
-          </h1>
-
+          <section style={{marginTop: '10px', marginBottom: '15px', marginLeft: 'auto', marginRight: 'auto', width: '60%'}} className="effect effect-c">
+            <h1 
+            style={{
+              color: "#fd626c",
+              fontSize: "30px",
+              textAlign: "center",
+              fontFamily: "Noto Serif JP, serif",
+            }}
+            className="effect__heading">
+              "I’m just someone who likes cooking and for whom sharing food is a form of expression..” 
+            </h1>
+            <h2 className="effect__subheading">Maya Angelou</h2>
+          </section>
           <StaffPicks/>
       </div>
         }
 
         { width <= 500 &&
           <div style={{ color: "#ff959c" }}>
-
-                    <h1
-          style={{
-            color: "#fd626c",
-            fontSize: "40px",
-            textAlign: "center",
-            fontFamily: "Noto Serif JP, serif"
-          }}
-          >
-            Happiness Is Homemade
-          </h1>
-
+          <section style={{margin: '10px auto', width: '80%'}} className="effect effect-c">
+            <h1 
+            style={{
+              color: "#fd626c",
+              fontSize: "20px",
+              textAlign: "center",
+              fontFamily: "Noto Serif JP, serif",
+            }}
+            className="effect__heading">
+              "I’m just someone who likes cooking and for whom sharing food is a form of expression..” 
+            </h1>
+            <h2 className="effect__subheading">Maya Angelou</h2>
+          </section>
           <StaffPicksGrid/>
           </div>
 

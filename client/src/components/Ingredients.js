@@ -179,7 +179,7 @@ const Ingredients = (props) => {
       className={cx(classes.card, cardShadowStyles.root)}>
           <br/>
           <CardHeader
-              style={{backgroundImage: 'linear-gradient(to right, #ffcbcb, #FF5F6D)'}}
+              style={{backgroundImage: 'linear-gradient(to right, #ffcbcb, #FF5F6D)', fontFamily: "Noto Serif JP, serif"}}
               className={cardHeaderShadowStyles.root}
               classes={cardHeaderStyles}
               title={'Ingredients'}
