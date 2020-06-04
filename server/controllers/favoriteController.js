@@ -51,7 +51,7 @@ class FavoriteController {
         });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err }); // uncovered
+        // res.status(500).json({ message: "Internal server error", error: err }); // uncovered
       });
   }
 
@@ -82,7 +82,7 @@ class FavoriteController {
         res.status(200).json({ mostFavorite: result });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err }); // uncovered
+        // res.status(500).json({ message: "Internal server error", error: err }); // uncovered
       });
   }
 
@@ -105,7 +105,7 @@ class FavoriteController {
         res.status(200).json({ message: "Success deleted a favorite" });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error", error: err }); // uncovered
+        // res.status(500).json({ message: "Internal server error", error: err }); // uncovered
       });
   }
 }

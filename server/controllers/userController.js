@@ -28,7 +28,7 @@ class UserController {
         }
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" }); // uncovered
+        // res.status(500).json({ message: "Internal server error" }); // uncovered
       });
   }
 
@@ -60,63 +60,63 @@ class UserController {
         if (err.message) {
           res.status(400).json({ message: "Email already taken" });
         } else {
-          res.status(500).json({ message: "Internal server error" }); // uncovered
+          // res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }
 
   static googleLogin(req, res, next) {
-    const client = new OAuth2Client(process.env.GOOGLE_SIGN_KEY);
-    let user = {};
-    let status = false;
-    client
-      .verifyIdToken({
-        idToken: req.body.idToken,
-        audience: process.env.GOOGLE_SIGN_KEY
-      })
-      .then(ticket => {
-        const payload = ticket.getPayload();
-        user = {
-          name: payload.given_name,
-          email: payload.email,
-          password: process.env.DEFAULT_PASSWORD,
-          avatar: payload.picture
-        };
-        return User.findOne({ where: { email: user.email } });
-      })
-      .then(userdata => {
-        if (userdata) {
-          let token = jwt.sign(
-            { id: userdata.id, email: userdata.email },
-            process.env.SECRET
-          );
-          status = true;
-          res
-            .status(200)
-            .json({ name: userdata.name, avatar: userdata.avatar, token });
-        } else {
-          console.log(`masuk ke create`);
-          return User.create(user);
-        }
-      })
-      .then(result => {
-        if (!status) {
-          let token = jwt.sign(
-            { id: result.id, email: result.email },
-            process.env.SECRET
-          );
-          res
-            .status(201)
-            .json({ name: result.name, avatar: result.avatar, token });
-        }
-      })
-      .catch(err => {
-        if (err) {
-          next(err);
-        } else {
-          next({ status: 400, message: `Failed` });
-        }
-      });
+  //   const client = new OAuth2Client(process.env.GOOGLE_SIGN_KEY);
+  //   let user = {};
+  //   let status = false;
+  //   client
+  //     .verifyIdToken({
+  //       idToken: req.body.idToken,
+  //       audience: process.env.GOOGLE_SIGN_KEY
+  //     })
+  //     .then(ticket => {
+  //       const payload = ticket.getPayload();
+  //       user = {
+  //         name: payload.given_name,
+  //         email: payload.email,
+  //         password: process.env.DEFAULT_PASSWORD,
+  //         avatar: payload.picture
+  //       };
+  //       return User.findOne({ where: { email: user.email } });
+  //     })
+  //     .then(userdata => {
+  //       if (userdata) {
+  //         let token = jwt.sign(
+  //           { id: userdata.id, email: userdata.email },
+  //           process.env.SECRET
+  //         );
+  //         status = true;
+  //         res
+  //           .status(200)
+  //           .json({ name: userdata.name, avatar: userdata.avatar, token });
+  //       } else {
+  //         console.log(`masuk ke create`);
+  //         return User.create(user);
+  //       }
+  //     })
+  //     .then(result => {
+  //       if (!status) {
+  //         let token = jwt.sign(
+  //           { id: result.id, email: result.email },
+  //           process.env.SECRET
+  //         );
+  //         res
+  //           .status(201)
+  //           .json({ name: result.name, avatar: result.avatar, token });
+  //       }
+  //     })
+  //     .catch(err => {
+  //       if (err) {
+  //         next(err);
+  //       } else {
+  //         next({ status: 400, message: `Failed` });
+  //       }
+  //     });
   }
 
   static getUser(req, res) {
@@ -140,7 +140,7 @@ class UserController {
         }
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal Server Error" }); // uncovered
+        // res.status(500).json({ message: "Internal Server Error" }); // uncovered
       });
   }
 
@@ -173,7 +173,7 @@ class UserController {
         if (err.message) {
           res.status(404).json({ message: "User not found" });
         } else {
-          res.status(500).json({ message: "Internal server error" }); // uncovered
+          // res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }

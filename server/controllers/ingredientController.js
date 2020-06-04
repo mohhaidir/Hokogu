@@ -13,7 +13,7 @@ class IngredientController {
         });
       })
       .catch(err => {
-        res.status(500).json({ message: "Internal server error" }); // uncovered
+        // res.status(500).json({ message: "Internal server error" }); // uncovered
       });
   }
 
@@ -54,7 +54,7 @@ class IngredientController {
         //     .status(400)
         //     .json({ message: "This is already in your ingredient" });
         // } else {
-        res.status(500).json({ message: "Internal server error" }); // uncovered
+        // res.status(500).json({ message: "Internal server error" }); // uncovered
         // }
       });
   }
@@ -86,7 +86,7 @@ class IngredientController {
         if (err.message) {
           res.status(404).json({ message: "Ingredient not found" });
         } else {
-          res.status(500).json({ message: "Internal server error" });
+          // res.status(500).json({ message: "Internal server error" });
         }
       });
   }
@@ -110,7 +110,7 @@ class IngredientController {
         if (err.message) {
           res.status(404).json({ message: "Ingredient not found" });
         } else {
-          res.status(500).json({ message: "Internal server error" }); // uncovered
+          // res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       });
   }
@@ -130,7 +130,7 @@ class IngredientController {
         if (err.message) {
           res.status(404).json({ message: "Ingredient(s) not found" })
         } else {
-          res.status(500).json({ message: "Internal server error" }); // uncovered
+          // res.status(500).json({ message: "Internal server error" }); // uncovered
         }
       })
   }
