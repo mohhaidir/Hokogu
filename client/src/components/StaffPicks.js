@@ -77,7 +77,7 @@ const items = [
   {
     Items: [
       {
-        Name: "Smoked salmon & avocado sushi",
+        Name: "Smoked Salmon Sushi",
         Image:
           "https://cdn.greatlifepublishing.net/wp-content/uploads/sites/2/2014/09/21140224/sushi.jpg",
         id: 224150
